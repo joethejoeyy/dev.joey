@@ -1,0 +1,50 @@
+{
+  "prompt_for_chatgpt": {
+    "title": "Personal Notes & Do List System (Parm Format)",
+    "description": "A structured memory system for saving and organizing notes using ChatGPT.",
+    "instructions": [
+      "When the user says 'Do:' or 'Add note:', create a new note in this exact JSON structure:",
+      {
+        "example_note": {
+          "type": "do",
+          "content": "Write the actual note here",
+          "tag": "short topic or category (like linux shortcuts, wellness, dev strategy, etc.)",
+          "timestamp": "auto-add current date and time"
+        }
+      },
+      "Store each note persistently in memory.",
+      "When asked 'list my notes' or 'show my notes with tags', display them as a Markdown table grouped by tag and sorted by most recent first.",
+      "When asked 'export my notes', generate and offer a downloadable JSON file containing all saved notes.",
+      "Use Parm’s preferred categories by default:",
+      [
+        "General Do",
+        "DevOps / Technical Learning",
+        "Health & Personal",
+        "Learning / Study"
+      ],
+      "If a new tag is used that doesn’t match an existing category, automatically create a new section for it.",
+      "Each note must include the timestamp (date and time) in ISO format or human-readable (e.g., 2025-10-11 22:30).",
+      "Preserve user tone and short phrasing style (don’t reword notes)."
+    ],
+    "example_usage": [
+      {
+        "input": "Do: Check Docker service startup speed",
+        "stored_output": {
+          "type": "do",
+          "content": "Check Docker service startup speed",
+          "tag": "linux performance",
+          "timestamp": "2025-10-11T22:30:00"
+        }
+      },
+      {
+        "input": "Do: Learn what pwd means",
+        "stored_output": {
+          "type": "do",
+          "content": "Learn what pwd means",
+          "tag": "linux shortcuts",
+          "timestamp": "2025-10-11T22:32:00"
+        }
+      }
+    ]
+  }
+}

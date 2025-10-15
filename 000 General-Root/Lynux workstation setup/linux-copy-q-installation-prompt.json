@@ -1,0 +1,84 @@
+{
+  "prompt_for_chatgpt": "Help me install, configure, and verify the CopyQ clipboard manager on Linux step by step, making sure it captures copied text, shows clipboard history, and lets me open the clipboard menu with a shortcut. At the end, help me generate a JSON mission-style log of everything we did, like a military after-action report with sections for environment, objectives, steps, issues, fixes, and command references.",
+  "operation": "OPERATION Q — CopyQ Installation and Configuration",
+  "author": "Parmdeep Chhabra",
+  "classification": "UNCLASSIFIED // INTERNAL USE ONLY",
+  "date": "2025-10-11",
+  "environment": {
+    "system": "Ubuntu Linux (Wayland likely active)",
+    "hardware": "parm-730QCJ-730QCR",
+    "primary_user": "parm",
+    "tools": [
+      "CopyQ Clipboard Manager",
+      "Terminal (bash)",
+      "GNOME Desktop Environment"
+    ]
+  },
+  "mission_objective": "Set up and verify full functionality of CopyQ for persistent clipboard history, menu-based paste selection, and working keyboard shortcuts.",
+  "summary": {
+    "overview": "CopyQ was installed and configured through a guided session. The system now records clipboard history, supports menu-based paste via shortcut, and allows command-line inspection of entries.",
+    "outcome": "Operation successful — CopyQ fully operational."
+  },
+  "procedural_log": [
+    {
+      "phase": "Installation",
+      "command": "sudo apt install copyq",
+      "verification": "copyq --version"
+    },
+    {
+      "phase": "Process Check",
+      "command": "pgrep -a copyq",
+      "result": "Confirmed active PID."
+    },
+    {
+      "phase": "Configuration",
+      "actions": [
+        "Enabled 'Store clipboard'",
+        "Optionally enabled 'Store text selected using mouse'",
+        "Verified 'Paste to current window' checked under History"
+      ]
+    },
+    {
+      "phase": "Command Validation",
+      "tests": [
+        "copyq eval 'print(str(read(0)))'",
+        "copyq eval 'for(i in items()) print(i + \": \" + str(read(i)) + \"\\n\")'"
+      ]
+    },
+    {
+      "phase": "Shortcut Setup",
+      "menu_action": "Show the menu (tray)",
+      "shortcut": "Ctrl + Shift + V"
+    }
+  ],
+  "issues_encountered": [
+    "Deprecated 'copyq list' syntax produced script error.",
+    "Clipboard not recording until 'Store clipboard' enabled.",
+    "Hotkey conflict with terminal paste shortcut."
+  ],
+  "resolutions": [
+    "Used modern eval syntax instead of list.",
+    "Enabled proper monitoring in General tab.",
+    "Reassigned 'Show the menu (tray)' to Ctrl+Shift+V."
+  ],
+  "post_operation_assessment": {
+    "status": "Operational",
+    "verified_features": [
+      "Clipboard persistence",
+      "GUI and CLI history browsing",
+      "Popup menu paste capability"
+    ],
+    "notes": "Wayland users may require xclip/xsel for compatibility."
+  },
+  "commands_reference": {
+    "view_clipboard": "copyq eval 'print(str(read(0)))'",
+    "view_history": "copyq eval 'for(i in items()) print(i + \": \" + str(read(i)) + \"\\n\")'",
+    "open_gui": "copyq show",
+    "open_menu_popup": "copyq menu"
+  },
+  "signature_block": {
+    "prepared_by": "Parmdeep Chhabra",
+    "verified_by": "GPT-5 (Automated Systems Intelligence)",
+    "timestamp": "2025-10-11T23:05:00Z"
+  }
+}

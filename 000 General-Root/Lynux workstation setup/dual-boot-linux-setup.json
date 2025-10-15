@@ -1,0 +1,86 @@
+{
+  "title": "Dual-Boot System Deployment",
+  "author": "Parmdeep Chhabra",
+  "date": "2025-10-11",
+  "summary": "Log of partitioning a Windows drive and creating a Linux boot device with Rufus. Completed without data loss. Includes Linux installation and GRUB boot issue resolution from Grok AI voice consultation.",
+  "environment": {
+    "primary_os": "Windows 11 Pro",
+    "tools": ["Disk Management", "Rufus", "Ubuntu ISO", "BIOS/UEFI", "GParted", "Terminal (chroot)"],
+    "hardware_status": "Operational"
+  },
+  "objectives": [
+    "Partition system drive for Linux.",
+    "Create bootable USB with Rufus.",
+    "Keep Windows bootable.",
+    "Install Ubuntu and configure GRUB for dual-boot."
+  ],
+  "execution_log": [
+    {
+      "id": "step-001",
+      "action": "Opened Disk Management (diskmgmt.msc) with admin rights.",
+      "details": "Shrunk C: drive by 120GB for unallocated space.",
+      "result": "Partition space created."
+    },
+    {
+      "id": "step-002",
+      "action": "Ran Rufus.",
+      "details": "Used Ubuntu ISO, GPT partition, UEFI target.",
+      "result": "USB labeled 'LINUX-DEPLOYMENT-USB-01' created."
+    },
+    {
+      "id": "step-003",
+      "action": "Changed BIOS boot order.",
+      "details": "Set USB as priority; checked Secure Boot.",
+      "result": "System set to boot from USB."
+    },
+    {
+      "id": "step-004",
+      "action": "Tested live-boot.",
+      "details": "Booted Ubuntu installer, verified Windows partition.",
+      "result": "Drives detected; installation ready."
+    },
+    {
+      "id": "step-005",
+      "action": "Started Ubuntu installation.",
+      "details": "Manual partitioning: /dev/sda8 (ext4, 100GB root), /dev/sda9 (swap, 16GB), /dev/sda10 (ext4, 4GB /home). Mounted EFI (/dev/sda1) at /boot/efi.",
+      "result": "Partitions set. GRUB missed Windows; fixed with os-prober."
+    },
+    {
+      "id": "step-006",
+      "action": "Installed GRUB.",
+      "details": "Target: /dev/sda (UEFI). Ran `sudo update-grub`.",
+      "result": "GRUB installed. Only Ubuntu booted; no dual-boot menu. Secure Boot issue suspected."
+    },
+    {
+      "id": "step-007",
+      "action": "Fixed boot issue via live USB (Grok guidance).",
+      "details": "Mounted partitions: `sudo mount /dev/sda8 /mnt`, `sudo mount /dev/sda1 /mnt/boot/efi`, `sudo mount --bind /dev /mnt/dev`. Chroot: `sudo chroot /mnt`, ran `sudo update-grub`, `sudo grub-install /dev/sda`.",
+      "result": "GRUB fixed; Windows EFI restored. Dual-boot menu appeared."
+    },
+    {
+      "id": "step-008",
+      "action": "Verified dual-boot.",
+      "details": "Tested Windows (12s boot) and Ubuntu (18s boot).",
+      "result": "Dual-boot working."
+    }
+  ],
+  "outcome": {
+    "status": "Success",
+    "data_integrity": "No corruption",
+    "system_state": "Dual-boot stable"
+  },
+  "lessons_learned": [
+    "Check GPT/MBR compatibility before USB creation.",
+    "Run Rufus as admin.",
+    "Backup partition table.",
+    "Mount EFI partition in UEFI setups for GRUB.",
+    "Fix missing dual-boot menu with live USB chroot: mount root/EFI, bind /dev/proc/sys, chroot, run `update-grub`, `grub-install`.",
+    "Disable Secure Boot during GRUB fixes; re-enable after."
+  ],
+  "remarks": "Completed in 125 minutes due to GRUB issues. Grok voice consultation resolved problems in under 10 minutes. Operator confident in Linux setup.",
+  "signed_by": {
+    "operator": "Parmdeep Chhabra",
+    "verified_by": "GPT-5, Grok (xAI)",
+    "timestamp": "2025-10-11T20:15:00Z"
+  }
+}

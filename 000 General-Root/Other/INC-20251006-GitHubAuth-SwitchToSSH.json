@@ -1,0 +1,65 @@
+{
+  "incident_report": {
+    "id": "INC-20251006-GIT-AUTH-SSH",
+    "title": "GitHub Authentication Failure \u2014 Migrated from HTTPS (Credential Manager) to SSH",
+    "owner": "Parmdeep Chhabra",
+    "date": "2025-10-06",
+    "environment": "Windows PowerShell + Blink SSH (iOS)",
+    "summary": "Git pushes to GitHub repeatedly failed due to expired or inaccessible Windows Credential Manager entries when using HTTPS authentication from PowerShell and Blink SSH sessions. The issue was resolved by switching the repository to SSH-based authentication using the GitHub CLI (gh).",
+    "timeline": [
+      {
+        "time": "14:05",
+        "event": "Initial push failed with 'Unable to persist credentials with wincredman' and 'non-fast-forward' errors."
+      },
+      {
+        "time": "14:15",
+        "event": "Attempted credential-manager erase and reconfig using manager-core; Windows Credential Manager not accessible through Blink SSH."
+      },
+      {
+        "time": "14:25",
+        "event": "Installed and configured GitHub CLI (gh)."
+      },
+      {
+        "time": "14:35",
+        "event": "Authenticated via 'gh auth login' using SSH with web-browser code B91B-C2C0."
+      },
+      {
+        "time": "14:45",
+        "event": "Updated remote URL from HTTPS to SSH ('git@github.com:BlueberryCloud/ShareWithFriends.git')."
+      },
+      {
+        "time": "14:46",
+        "event": "SSH fingerprint prompt accepted ('yes'). Push succeeded. Authentication persisted without Credential Manager."
+      }
+    ],
+    "root_cause": "HTTPS-based credential caching (wincredman) was unavailable in the remote SSH environment used by Blink. GitHub now requires tokens or SSH keys; cached tokens in Windows are not visible from SSH sessions.",
+    "resolution_steps": [
+      "Installed GitHub CLI (gh).",
+      "Ran 'gh auth login' and selected SSH protocol.",
+      "Uploaded SSH public key to GitHub automatically via gh CLI.",
+      "Set repository remote to SSH URL with 'git remote set-url origin git@github.com:BlueberryCloud/ShareWithFriends.git'.",
+      "Tested authentication via 'ssh -T git@github.com'.",
+      "Confirmed push works via SSH without token prompts."
+    ],
+    "lessons_learned": [
+      "Blink SSH sessions do not have access to Windows credential stores.",
+      "Prefer SSH authentication for consistent DevOps workflows across environments.",
+      "GitHub CLI (gh) simplifies multi-environment authentication setup.",
+      "Always verify 'git remote -v' after changing authentication methods."
+    ],
+    "status": "Resolved",
+    "tags": [
+      "git",
+      "github",
+      "ssh",
+      "auth",
+      "devops",
+      "blink",
+      "incident-resolution"
+    ]
+  },
+  "ideal_assistant_prompt": {
+    "summary": "Prompt that could have solved the incident earlier",
+    "prompt": "I'm pushing to GitHub from PowerShell and getting 'unable to persist credentials with wincredman'. I'm also using Blink on iOS to SSH into this environment. Please detect that I'm using HTTPS authentication, explain why Credential Manager fails in an SSH session, and guide me to switch to SSH using GitHub CLI (gh auth login) \u2014 including updating my remote URL and verifying with ssh -T git@github.com."
+  }
+}

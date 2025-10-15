@@ -1,0 +1,64 @@
+{
+  "title": "Linux DevOps Environment Setup (with Docker + kind)",
+  "goal": "Set up a complete DevOps environment on Ubuntu with Kubernetes support and common tooling, excluding Azure CLI.",
+  "tools": [
+    {
+      "name": "Docker",
+      "description": "Install the latest stable Docker Engine, CLI, and Compose plugin. Configure on-demand startup using docker.socket instead of docker.service."
+    },
+    {
+      "name": "kind",
+      "description": "Install kind (Kubernetes in Docker) to run lightweight Kubernetes clusters locally."
+    },
+    {
+      "name": "kubectl",
+      "description": "Install the Kubernetes CLI for managing clusters."
+    },
+    {
+      "name": "Helm",
+      "description": "Install Helm, the Kubernetes package manager, for managing charts and releases."
+    },
+    {
+      "name": "Terraform",
+      "description": "Install Terraform for Infrastructure-as-Code automation."
+    },
+    {
+      "name": "Tailscale",
+      "description": "Install Tailscale to enable remote SSH and VPN-like secure networking."
+    },
+    {
+      "name": "VS Code",
+      "description": "Install Visual Studio Code via the official Microsoft repository (.deb or apt)."
+    },
+    {
+      "name": "Slack",
+      "description": "Install Slack desktop client via the official .deb package."
+    }
+  ],
+  "requirements": {
+    "minimize_bloat": true,
+    "include_verification": [
+      "docker --version",
+      "docker compose version",
+      "kubectl version --client",
+      "helm version",
+      "terraform -v",
+      "tailscale version",
+      "code --version",
+      "slack --version"
+    ],
+    "post_install_steps": [
+      "Add user to docker group (`sudo usermod -aG docker $USER`)",
+      "Reload systemd and enable docker.socket (`sudo systemctl daemon-reload && sudo systemctl enable docker.socket`)"
+    ],
+    "kind_test": [
+      "kind create cluster",
+      "kubectl get nodes"
+    ],
+    "optimizations": [
+      "Disable auto-start for heavy services (docker.service, containerd)",
+      "Clean APT cache after installation"
+    ]
+  },
+  "output_format": "bash code blocks with clear section headers and comments"
+}

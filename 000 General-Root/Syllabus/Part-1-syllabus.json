@@ -1,0 +1,357 @@
+{
+  "syllabus": [
+    {
+      "phase": "Phase 1 — Docker Fundamentals",
+      "status": "complete",
+      "tasks": [
+        "Install Docker Desktop",
+        "Run containers with port binding",
+        "Inspect containers, view logs",
+        "Use volumes and environment variables",
+        "Compose basics",
+        "Create a simple static site (HTML page + image)",
+        "Serve the site via NGINX container"
+      ],
+      "commands": [
+        "docker --version",
+        "docker run -d -p 8080:80 nginx",
+        "docker ps",
+        "docker inspect <container>",
+        "docker logs <container>",
+        "docker run -v %CD%/site:/usr/share/nginx/html:ro -p 8080:80 nginx (Windows PowerShell)",
+        "docker run -v $(pwd)/site:/usr/share/nginx/html:ro -p 8080:80 nginx (macOS/Linux)",
+        "mkdir site",
+        "echo \"<h1>Hello</h1><img src='cat.png' />\" > site/index.html",
+        "printf \"FROM nginx:alpine\\nCOPY site /usr/share/nginx/html\" > Dockerfile",
+        "docker build -t mysite .",
+        "docker run -d -p 8080:80 mysite",
+        "docker-compose up -d"
+      ]
+    },
+    {
+      "phase": "Phase 2 — Kubernetes Basics (Docker Desktop)",
+      "status": "complete",
+      "tasks": [
+        "Enable Kubernetes in Docker Desktop",
+        "Verify cluster and nodes",
+        "Create Deployments and Services",
+        "Access services via kubectl port-forward or NodePort"
+      ],
+      "commands": [
+        "kubectl version --client",
+        "kubectl cluster-info",
+        "kubectl get nodes",
+        "kubectl create deployment web --image=nginx",
+        "kubectl get pods",
+        "kubectl expose deployment web --port=80 --type=NodePort",
+        "kubectl get svc",
+        "kubectl port-forward svc/web 8080:80",
+        "kubectl delete svc/web",
+        "kubectl delete deploy/web"
+      ]
+    },
+    {
+      "phase": "Phase 3 — Helm + K8s App Configuration",
+      "status": "pending",
+      "tasks": [
+        "Understand Helm chart structure",
+        "Install Helm; add and update repos",
+        "Install charts (e.g., Redis)",
+        "Create and deploy your own chart",
+        "Override values via values.yaml and CLI"
+      ],
+      "commands": [
+        "helm version",
+        "helm repo add bitnami https://charts.bitnami.com/bitnami",
+        "helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx",
+        "helm repo update",
+        "helm install my-redis bitnami/redis",
+        "helm list",
+        "helm uninstall my-redis",
+        "helm create mychart",
+        "helm install myapp ./mychart -f values.yaml"
+      ]
+    },
+    {
+      "phase": "Phase 4 — Terraform Fundamentals",
+      "status": "pending",
+      "tasks": [
+        "Install Terraform CLI",
+        "Understand .tf structure",
+        "Init/plan/apply/destroy cycle",
+        "Remote state (optional)"
+      ],
+      "commands": [
+        "terraform -version",
+        "terraform init",
+        "terraform plan",
+        "terraform apply",
+        "terraform destroy"
+      ]
+    },
+    {
+      "phase": "Phase 5 — Terraform + K8s + Helm",
+      "status": "pending",
+      "tasks": [
+        "Use Terraform to manage K8s resources",
+        "Use Terraform Helm provider for releases",
+        "Pass Helm values via Terraform",
+        "Create reusable modules (dev/stage/prod)"
+      ],
+      "commands": [
+        "terraform init",
+        "terraform plan -out=tfplan",
+        "terraform apply tfplan"
+      ]
+    },
+    {
+      "phase": "Phase 6 — Ingress & DNS Simulation (kubectl + YAML)",
+      "status": "pending",
+      "tasks": [
+        "Install NGINX Ingress Controller (YAML)",
+        "Define Ingress resources for routing",
+        "Simulate DNS with /etc/hosts (Docker Desktop networking)"
+      ],
+      "commands": [
+        "kubectl apply -f ingress-nginx.yaml",
+        "kubectl get pods -n ingress-nginx",
+        "kubectl get svc -n ingress-nginx",
+        "kubectl apply -f ingress.yaml",
+        "Edit /etc/hosts (Windows: C:\\Windows\\System32\\drivers\\etc\\hosts)"
+      ]
+    },
+    {
+      "phase": "Phase 6.25 — Ingress & DNS via Helm",
+      "status": "pending",
+      "tasks": [
+        "Manage ingress-nginx with Helm",
+        "Package diner app into a Helm chart",
+        "Configure ingress rules in values.yaml",
+        "Test DNS routing with sslip.io"
+      ],
+      "commands": [
+        "helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx",
+        "helm repo update",
+        "helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace",
+        "helm create diner-app",
+        "helm install diner ./diner-app -f values.yaml",
+        "kubectl get ingress -n diner-lab",
+        "curl http://diner.127.0.0.1.sslip.io:30080/"
+      ]
+    },
+    {
+      "phase": "Phase 6.5 — Terraform DNS + Ingress (via Helm)",
+      "status": "pending",
+      "tasks": [
+        "Manage Ingress Controller with Terraform Helm provider",
+        "Deploy diner app via Terraform",
+        "Expose app with Terraform-managed Ingress",
+        "Use sslip.io for zero-DNS hostnames"
+      ],
+      "commands": [
+        "terraform init",
+        "terraform apply",
+        "kubectl get ingress -n diner-lab",
+        "curl http://diner.127.0.0.1.sslip.io:30080/"
+      ]
+    },
+    {
+      "phase": "Phase 6.99 — TLS Termination at Ingress",
+      "status": "pending",
+      "tasks": [
+        "Generate a self-signed certificate (or use mkcert for local dev)",
+        "Create a Kubernetes TLS Secret with cert + key",
+        "Update ingress.yaml to include tls block referencing the Secret",
+        "Test HTTPS access to diner app with curl or browser",
+        "Optional: Install cert-manager and simulate Let’s Encrypt flow"
+      ],
+      "commands": [
+        "openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj \"/CN=diner.local\"",
+        "kubectl create secret tls diner-cert --key tls.key --cert tls.crt -n diner-lab",
+        "kubectl apply -f ingress-tls.yaml",
+        "curl -k https://diner.local:30080/",
+        "helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace"
+      ]
+    },
+    {
+      "phase": "Phase 7 — Blue-Green Deployment (kubectl)",
+      "status": "pending",
+      "tasks": [
+        "Use kubectl rollout for versioned releases",
+        "Implement rolling and blue-green strategies",
+        "Track deployment health"
+      ],
+      "commands": [
+        "kubectl rollout status deployment/myapp",
+        "kubectl set image deployment/myapp myapp=nginx:1.25",
+        "kubectl rollout history deployment/myapp",
+        "kubectl rollout undo deployment/myapp",
+        "kubectl get pods --show-labels"
+      ]
+    },
+    {
+      "phase": "Phase 7.25 — Blue-Green Deployment via Helm",
+      "status": "pending",
+      "tasks": [
+        "Package blue and green versions into Helm charts",
+        "Control active color using Helm values",
+        "Upgrade release to flip traffic between blue and green"
+      ],
+      "commands": [
+        "helm create diner-blue",
+        "helm create diner-green",
+        "helm install diner-blue ./diner-blue",
+        "helm upgrade diner ./diner-green -f values.yaml",
+        "kubectl get pods --show-labels"
+      ]
+    },
+    {
+      "phase": "Phase 7.5 — Terraform Blue-Green Switch",
+      "status": "pending",
+      "tasks": [
+        "Run diner-a (blue) and diner-b (green) simultaneously",
+        "Select active color via Terraform variable",
+        "Flip between blue and green with terraform apply"
+      ],
+      "commands": [
+        "terraform apply -auto-approve",
+        "terraform apply -var='active_color=green' -auto-approve",
+        "kubectl get pods -n diner-lab --show-labels",
+        "kubectl describe ingress diner-ingress -n diner-lab"
+      ]
+    },
+    {
+      "phase": "Phase 8 — Canary Deployment (K8s Native)",
+      "status": "pending",
+      "tasks": [
+        "Deploy a canary version of diner app",
+        "Route a small percentage of traffic to canary",
+        "Gradually increase traffic as stability is proven"
+      ],
+      "commands": [
+        "kubectl apply -f canary-deployment.yaml",
+        "kubectl get pods --show-labels",
+        "kubectl describe ingress diner-canary -n diner-lab"
+      ]
+    },
+    {
+      "phase": "Phase 8.25 — Canary Deployment via Helm",
+      "status": "pending",
+      "tasks": [
+        "Manage stable and canary as separate Helm releases",
+        "Use values.yaml to control traffic weights",
+        "Upgrade release to shift percentage gradually"
+      ],
+      "commands": [
+        "helm create diner-stable",
+        "helm create diner-canary",
+        "helm install diner-stable ./diner-stable",
+        "helm install diner-canary ./diner-canary -f values.yaml",
+        "helm upgrade diner-canary ./diner-canary -f values.yaml"
+      ]
+    },
+    {
+      "phase": "Phase 8.5 — Terraform Canary Deployment",
+      "status": "pending",
+      "tasks": [
+        "Manage stable and canary deployments with Terraform",
+        "Use variables to control canary traffic percentage",
+        "Apply changes with terraform to shift traffic gradually"
+      ],
+      "commands": [
+        "terraform apply -var='canary_weight=10' -auto-approve",
+        "terraform apply -var='canary_weight=50' -auto-approve",
+        "kubectl get pods -n diner-lab --show-labels",
+        "kubectl describe ingress diner-canary -n diner-lab"
+      ]
+    },
+    {
+      "phase": "Phase 9.0 — Core Dev Ops Scripting Languages Overview",
+      "status": "pending",
+      "abstract": {
+        "who": "Joe and Parm",
+        "why": "To explore what scripting languages DevOps engineers rely on before writing any automation.",
+        "what": "A discussion lab introducing Bash, Python, Go, YAML/JSON/HCL, and legacy tools (Perl/Awk/Sed, Ruby). Each entry shows its purpose, when it's used, and a small readable code sample with explanation.",
+        "where": "Placed at the start of Phase 2, before infrastructure automation begins."
+      },
+      "languages": [
+        {
+          "language": "Bash (Shell scripting)",
+          "typical_use": "Startup scripts, provisioning, Docker entrypoints, CI/CD jobs",
+          "why_common": "Every Linux server ships with Bash — it’s the universal automation glue.",
+          "description": "This Bash script loops through all Kubernetes pods and prints their names.",
+          "sample_lines": [
+            "#!/bin/bash",
+            "for pod in $(kubectl get pods -o name); do",
+            "  echo \"Pod: $pod\"",
+            "done"
+          ]
+        },
+        {
+          "language": "Python",
+          "typical_use": "Infrastructure tools (Ansible, AWS CLI, custom utilities), API automation, testing",
+          "why_common": "Readable, cross-platform, and has huge library support.",
+          "description": "This Python script prints the home directory and checks GitHub API status.",
+          "sample_lines": [
+            "import os, requests",
+            "print('Home directory:', os.getenv('HOME'))",
+            "r = requests.get('https://api.github.com')",
+            "print('Status:', r.status_code)"
+          ]
+        },
+        {
+          "language": "Go (Golang)",
+          "typical_use": "Cloud-native tools like Kubernetes, Terraform, Prometheus",
+          "why_common": "Compiled, fast, strongly typed — the language behind modern infra tools.",
+          "description": "This Go program prints a message about infrastructure tools.",
+          "sample_lines": [
+            "package main",
+            "import \"fmt\"",
+            "func main() {",
+            "  fmt.Println(\"Hello from Go – the language behind K8s & Terraform\")",
+            "}"
+          ]
+        },
+        {
+          "language": "YAML / JSON / HCL",
+          "typical_use": "Config files for Kubernetes, Terraform, GitHub Actions",
+          "why_common": "Declarative formats that tools parse and apply.",
+          "description": "YAML snippet defining Helm chart config.",
+          "sample_lines": [
+            "app:",
+            "  name: diner",
+            "  replicas: 3",
+            "  image: diner:v2"
+          ]
+        },
+        {
+          "language": "Perl / Awk / Sed (legacy)",
+          "typical_use": "Log parsing, quick text transforms in old Unix systems",
+          "why_common": "Pre-Bash era scripting still in older infra scripts.",
+          "description": "Awk example filtering ERROR lines in logs.",
+          "sample_lines": [
+            "awk '/ERROR/ {print $5}' /var/log/syslog"
+          ]
+        },
+        {
+          "language": "Ruby (legacy DevOps tools)",
+          "typical_use": "Chef recipes, older automation frameworks",
+          "why_common": "Used by Chef and older Jenkins plugins.",
+          "description": "Ruby snippet mimicking Chef resource to install Nginx.",
+          "sample_lines": [
+            "package 'nginx' do",
+            "  action :install",
+            "end"
+          ]
+        }
+      ],
+      "discussion_questions": [
+        "Which of these scripts looks easiest to follow and why?",
+        "How does Bash differ from PowerShell in handling output?",
+        "Why might Python be better for API or cloud logic?",
+        "What stands out about YAML compared to code languages?",
+        "Which languages will you write most vs. mostly read?"
+      ]
+    }
+  ]
+}

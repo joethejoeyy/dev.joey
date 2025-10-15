@@ -1,0 +1,64 @@
+{
+  "title": "DevOps Lab Prerequisites",
+  "purpose": "Defines the required mindset, tools, and setup for participating in the DevOps labs.",
+  "metadata": {
+    "createdBy": "Parm",
+    "date": "2025-10-12",
+    "tags": [
+      "prerequisites",
+      "devops",
+      "setup",
+      "linux",
+      "vscode",
+      "tailscale",
+      "communication"
+    ]
+  },
+  "sections": [
+    {
+      "title": "Mindset (Required)",
+      "points": [
+        "Curiosity before comfort: break things locally, fix them, and understand why.",
+        "Every log or error is a learning signal \u2014 translate it into a prompt and insight.",
+        "Keep your environment transparent \u2014 minimal GUIs, maximum comprehension.",
+        "Learning is an exercise, not consumption. Treat each lab like a physical workout.",
+        "Speak your thoughts out loud or to AI \u2014 articulation builds understanding."
+      ]
+    },
+    {
+      "title": "System (Required)",
+      "points": [
+        "Linux environment: Ubuntu 22.04 LTS recommended.",
+        "Windows 11 + WSL 2 + Ubuntu distro acceptable.",
+        "macOS with Docker Desktop and bash/zsh shell acceptable.",
+        "Visual Studio Code with Remote SSH or WSL extension installed.",
+        "You will open folders, run integrated terminals, and edit .json, .yaml, .sh, and .ps1 files inside VS Code.",
+        "Core CLI tools: curl, wget, git, jq, nano or vim, docker, docker compose, and kind for local Kubernetes."
+      ]
+    },
+    {
+      "title": "Networking / Connectivity (Required)",
+      "points": [
+        "Tailscale account configured on phone, laptop, and Linux box.",
+        "Ability to SSH between connected devices.",
+        "Stable internet for package installs and AI interactions."
+      ]
+    },
+    {
+      "title": "Communication / Collaboration (Required)",
+      "points": [
+        "Slack or Discord workspace for group chat and log sharing.",
+        "Second device (phone or tablet) used for real-time AI conversation while the terminal stays open.",
+        "Second device enables multi-voice or simulated team discussions during labs.",
+        "Second device useful for recording or screen-sharing the learning process."
+      ]
+    },
+    {
+      "title": "Accounts / Access (Required)",
+      "points": [
+        "GitHub account for storing and versioning lab files.",
+        "Cloud provider account (Azure Free Tier, AWS Free Tier, or GCP trial) for advanced phases."
+      ]
+    }
+  ]
+}

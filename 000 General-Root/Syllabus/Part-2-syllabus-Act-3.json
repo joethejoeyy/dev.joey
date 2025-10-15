@@ -1,0 +1,72 @@
+{
+  "syllabus": [
+    {
+      "lab": "Lab 9 — Monitoring & Observability",
+      "why": "Production systems need visibility. Metrics and dashboards let us see cluster health and application behavior.",
+      "steps": [
+        "Install Prometheus in the cluster (Helm or manifests).",
+        "Install Grafana and connect it to Prometheus.",
+        "Create a dashboard showing pod CPU, memory, and HTTP request rates.",
+        "Compare kubectl top vs Prometheus metrics."
+      ],
+      "result": "We can view live dashboards of diner-lab workloads."
+    },
+    {
+      "lab": "Lab 10 — CI/CD & GitOps",
+      "why": "Manual kubectl apply doesn’t scale. Automation makes deployments repeatable and reliable.",
+      "steps": [
+        "Create a GitHub Actions pipeline that builds Docker images and pushes to Docker Hub.",
+        "Deploy updated images automatically with kubectl.",
+        "Introduce Helm or Kustomize for templating manifests.",
+        "Optional: Install Argo CD for GitOps-style continuous delivery."
+      ],
+      "result": "Cluster updates come from pipelines, not manual commands."
+    },
+    {
+      "lab": "Lab 11 — Security & Access Control",
+      "why": "RBAC and secrets protect the cluster. Least privilege is a production requirement.",
+      "steps": [
+        "Create a ServiceAccount for diner app pods.",
+        "Define a Role and RoleBinding to restrict permissions.",
+        "Store a database password in a Secret and mount it into pods.",
+        "Apply a NetworkPolicy that blocks pod-to-pod traffic except allowed paths."
+      ],
+      "result": "Applications use proper identities, secrets, and controlled networking."
+    },
+    {
+      "lab": "Lab 12 — Scaling & Resilience",
+      "why": "Applications must survive failure and adapt to load.",
+      "steps": [
+        "Add livenessProbe and readinessProbe to diner-a and diner-b.",
+        "Define CPU/memory resource requests and limits.",
+        "Install metrics-server and configure a Horizontal Pod Autoscaler (HPA).",
+        "Add a PodDisruptionBudget to protect availability during node drains."
+      ],
+      "result": "The diner app self-heals, scales up under load, and maintains availability."
+    },
+    {
+      "lab": "Lab 13 — Stateful Workloads & Storage (Optional)",
+      "why": "Not all workloads are stateless. Databases and queues require persistence and stable identities.",
+      "steps": [
+        "Deploy MySQL or Redis as a StatefulSet.",
+        "Use a PersistentVolumeClaim with the default StorageClass.",
+        "Verify stable pod identities and persistence after restart."
+      ],
+      "result": "We can run stateful apps with storage in Kubernetes."
+    },
+    {
+      "lab": "Lab 14 — Deploy and Break a Real App (Capstone Project)",
+      "why": "To gain production confidence, we must operate a realistic app and handle real failures.",
+      "steps": [
+        "Pick an open-source business app (insurance, micro-lending, or banking).",
+        "Fork and rebrand it (logos, text, fake users).",
+        "Containerize services if needed (frontend, backend, DB).",
+        "Deploy app into prod-lab namespace with Ingress, Services, and DB StatefulSet.",
+        "Enable CI/CD pipeline and monitoring dashboards.",
+        "Induce failures: delete pods, push broken images, overload traffic, cut DB PVC, misconfigure readiness probe.",
+        "Observe and recover using probes, HPA, Grafana dashboards, and kubectl debugging."
+      ],
+      "result": "We operated a realistic multi-service workload in Kubernetes, tested resilience, and practiced production troubleshooting."
+    }
+  ]
+}
