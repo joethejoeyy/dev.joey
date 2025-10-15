@@ -1,0 +1,5 @@
+ServiceMonitor Concept
+┌──────────────┐
+│ Service      │
+│ selector     │──> Prometheus scrape config
+└──────────────┘

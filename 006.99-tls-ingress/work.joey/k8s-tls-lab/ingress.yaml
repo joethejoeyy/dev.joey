@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: diner-ingress
+  namespace: diner-lab
+  annotations:
+    # 👇 this tells NGINX to send all HTTP traffic to HTTPS
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - diner.127.0.0.1.sslip.io
+      secretName: diner-tls
+  rules:
+    - host: diner.127.0.0.1.sslip.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: diner-a-svc
+                port:
+                  number: 80

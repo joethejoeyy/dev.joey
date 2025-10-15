@@ -1,0 +1,10 @@
+Helm Commands
+─────────────
+$ helm install diner-stable ./diner-stable
+$ helm install diner-canary ./diner-canary -f values.yaml
+
+Cluster after install:
+┌──────────────────────────────┐
+│ stable pods: diner-stable-*  │
+│ canary pods: diner-canary-*  │
+└──────────────────────────────┘

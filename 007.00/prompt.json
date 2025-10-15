@@ -1,0 +1,48 @@
+{
+  "lab": "Phase 7.00 — Blue-Green Deployment (kubectl, Custom HTML)",
+  "abstract": {
+    "who": "This lab is for you and Joe as DevOps learners practicing safe blue-green releases with visual verification.",
+    "why": "Understanding blue-green deployment helps avoid downtime and gives immediate rollback ability. Using custom HTML makes it visually obvious which version is live.",
+    "what": "You will deploy blue and green versions of an NGINX app with custom HTML banners, switch live traffic between them via the Service selector, and verify endpoints through kubectl and your browser.",
+    "where": "Run locally on Docker Desktop, Minikube, Kind, or any test cluster."
+  },
+  "tasks": [
+    {
+      "name": "Create Blue and Green Deployments",
+      "prompt": "Apply a YAML file defining two Deployments (myapp and myapp-green). Each writes its own HTML page to index.html at startup using the same nginx:1.25 image. Blue pods display '💙 BLUE version' on a lightblue background; Green pods display '💚 GREEN version' on lightgreen."
+    },
+    {
+      "name": "Create Service",
+      "prompt": "Define myapp-svc as a ClusterIP Service on port 80/targetPort 80. Set selector app=myapp and color=blue to route traffic only to blue pods initially."
+    },
+    {
+      "name": "Verify pods and Service mapping",
+      "prompt": "Run `kubectl get pods -o wide --show-labels` and `kubectl get endpoints myapp-svc -o wide` to confirm Service targets blue pods only."
+    },
+    {
+      "name": "Test traffic through port-forward",
+      "prompt": "Run `kubectl port-forward svc/myapp-svc 8080:80` and open http://localhost:8080 to confirm that you see the BLUE version page."
+    },
+    {
+      "name": "Switch traffic to Green",
+      "prompt": "Edit the Service selector color to 'green' and re-apply. Refresh the browser to verify it now serves the GREEN version page."
+    },
+    {
+      "name": "Observe endpoint change",
+      "prompt": "Run `kubectl get endpoints myapp-svc -o wide` again and see that IPs now point to the green pods instead of blue."
+    },
+    {
+      "name": "Optional: Expose via NodePort",
+      "prompt": "Change the Service type to NodePort and access it from http://<node-ip>:30080 without port-forwarding."
+    },
+    {
+      "name": "Rollback demo",
+      "prompt": "Switch the Service selector back to color=blue, re-apply, and confirm you instantly return to BLUE version—no redeployment needed."
+    },
+    {
+      "name": "Cleanup",
+      "prompt": "Run `kubectl delete deployment myapp myapp-green` and `kubectl delete svc myapp-svc` when finished."
+    }
+  ]
+}
+https://chatgpt.com/c/68e2caf4-e7b0-832b-9207-dd83d21e9e52

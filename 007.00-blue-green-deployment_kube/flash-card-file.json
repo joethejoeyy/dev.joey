@@ -1,0 +1,82 @@
+{
+  "title": "007.00 - Blue-Green Deployment (kubectl)",
+  "topic": "Kubernetes, Blue-Green Deployment, Rollouts",
+  "abstract": {
+    "who": "This flashcard set is for you and Joe, focusing on Blue-Green and rolling updates in Kubernetes.",
+    "why": "Blue-Green provides safer upgrades by keeping the old version alive until the new one is verified.",
+    "what": "Covers rollout status, image updates, history, undo, label selectors, and differences from rolling updates.",
+    "where": "Useful in both dev and prod clusters when zero-downtime or safe rollback is required."
+  },
+  "cards": [
+    {
+      "question": "What is a Blue-Green deployment?",
+      "answer_textbook": "Running two environments (blue=current, green=new) and switching traffic to green when ready.",
+      "answer_metaphor": "Like having two restaurants side by side and moving customers to the new one when it's open.",
+      "answer_realworld": "You run v1 (blue) and v2 (green) in parallel; switch ingress/service from blue to green.",
+      "guid": "14de727f-f07a-4dc5-b945-321b92595903"
+    },
+    {
+      "question": "How does a rolling update differ from Blue-Green?",
+      "answer_textbook": "Rolling updates gradually replace pods, Blue-Green swaps whole environments.",
+      "answer_metaphor": "Rolling = changing tires while driving; Blue-Green = switching cars entirely.",
+      "answer_realworld": "kubectl rollout updates pods incrementally by default; Blue-Green requires traffic switching.",
+      "guid": "5d353814-1fad-43b3-9edc-e7f35629fd0f"
+    },
+    {
+      "question": "How do you check rollout status in Kubernetes?",
+      "answer_textbook": "Use kubectl rollout status to monitor Deployment updates.",
+      "answer_metaphor": "Like refreshing your package tracker while it's out for delivery.",
+      "answer_realworld": "kubectl rollout status deployment/myapp shows when pods are updated.",
+      "guid": "83555d2d-b8a8-4e2e-b58e-74f2a71c5654"
+    },
+    {
+      "question": "How do you trigger a new version rollout?",
+      "answer_textbook": "Update the image in the Deployment spec or use kubectl set image.",
+      "answer_metaphor": "Like telling a chef to use a new recipe in the kitchen.",
+      "answer_realworld": "kubectl set image deployment/myapp myapp=nginx:1.25 starts rollout.",
+      "guid": "0c79f0de-2c8c-46a0-aee2-43d9aa94857f"
+    },
+    {
+      "question": "How do you check rollout history?",
+      "answer_textbook": "kubectl rollout history shows previous versions of a Deployment.",
+      "answer_metaphor": "Like flipping through your order history in a shopping app.",
+      "answer_realworld": "kubectl rollout history deployment/myapp shows revision numbers and images.",
+      "guid": "50429a5f-b4a0-4fb1-beb5-631c6e5f19c8"
+    },
+    {
+      "question": "How can you undo a bad rollout?",
+      "answer_textbook": "Use kubectl rollout undo to revert to the previous revision.",
+      "answer_metaphor": "Like hitting the undo button after a wrong edit.",
+      "answer_realworld": "kubectl rollout undo deployment/myapp restores last working version.",
+      "guid": "29720e7e-fd4f-4129-9fc7-9c432071a62c"
+    },
+    {
+      "question": "How do labels help in Blue-Green?",
+      "answer_textbook": "Services use labels to select pods, so swapping versions means changing labels.",
+      "answer_metaphor": "Like assigning table numbers in a restaurant to different waiters.",
+      "answer_realworld": "Blue pods have label version=1, green pods version=2; switch Service selector.",
+      "guid": "b6a7515e-73fd-4488-8578-16d2e06a0d65"
+    },
+    {
+      "question": "Why is Blue-Green safer than direct replace?",
+      "answer_textbook": "Because old version stays running until new one is proven safe.",
+      "answer_metaphor": "Like keeping your old car until you've test-driven the new one.",
+      "answer_realworld": "Traffic can be routed back to blue instantly if green fails.",
+      "guid": "f43bc80b-bf15-4632-a149-8950e32baa73"
+    },
+    {
+      "question": "How do you inspect pod versions?",
+      "answer_textbook": "Use kubectl get pods --show-labels to see which pods belong to which version.",
+      "answer_metaphor": "Like reading name tags at a party.",
+      "answer_realworld": "kubectl get pods --show-labels -n myapp shows version labels.",
+      "guid": "5f62acdf-32cb-4278-8060-1765deec5e82"
+    },
+    {
+      "question": "What's a risk of Blue-Green?",
+      "answer_textbook": "It requires double the resources while both versions run.",
+      "answer_metaphor": "Like paying rent on two apartments at once until you move out.",
+      "answer_realworld": "Running v1 and v2 in parallel means more CPU/RAM during the switch.",
+      "guid": "4aec28cd-cb17-45e9-a625-10e0f601df0d"
+    }
+  ]
+}

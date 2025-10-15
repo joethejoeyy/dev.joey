@@ -1,0 +1,17 @@
+Zero-Downtime Update
+--------------------
+Step 1: Old Pods Running
+   +---------+ +---------+ +---------+
+   | Pod v1  | | Pod v1  | | Pod v1  |
+   +---------+ +---------+ +---------+
+
+Step 2: Rolling Update
+   +---------+ +---------+ +---------+
+   | Pod v2  | | Pod v1  | | Pod v1  |
+   +---------+ +---------+ +---------+
+   (new pods start before old ones stop)
+
+Step 3: All Upgraded
+   +---------+ +---------+ +---------+
+   | Pod v2  | | Pod v2  | | Pod v2  |
+   +---------+ +---------+ +---------+

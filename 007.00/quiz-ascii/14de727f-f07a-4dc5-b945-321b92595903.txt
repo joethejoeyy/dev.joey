@@ -1,0 +1,15 @@
+     [ Blue-Green Deployment Overview ]
+
+              +-------------------+
+Traffic ----> |     Service       |
+              +-------------------+
+                     |
+         -------------------------
+         |                       |
+         v                       v
+  +-------------+         +-------------+
+  | Blue Pods   |         | Green Pods  |
+  | version=1   |         | version=2   |
+  +-------------+         +-------------+
+
+ Service selector flips from Blue -> Green

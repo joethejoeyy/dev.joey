@@ -1,0 +1,11 @@
+[ Blue-Green Safety ]
+
++-------------+     +-------------+
+| Blue Pods   |     | Green Pods  |
+| version=1   |     | version=2   |
++-------------+     +-------------+
+
+Both running in parallel
+
+If Green fails -> Stay on Blue
+If Green passes -> Flip Service to Green

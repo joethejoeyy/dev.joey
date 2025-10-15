@@ -1,0 +1,5 @@
+$ kubectl describe ingress diner-ingress
+Backends:
+  Stable → 90%
+  Canary → 10%
+Confirm which version receives live requests.

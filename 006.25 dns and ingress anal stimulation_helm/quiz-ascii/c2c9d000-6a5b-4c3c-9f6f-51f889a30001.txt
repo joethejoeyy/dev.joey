@@ -1,0 +1,4 @@
+Helm Chart (ingress-nginx)
+   |
+   v
+Ingress Controller Pods ---> Services ---> Pods

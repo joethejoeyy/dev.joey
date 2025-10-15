@@ -1,0 +1,9 @@
+CI/CD Integration
+──────────────────
+pipeline.yaml
+──────────────
+steps:
+  - terraform init
+  - terraform apply -var='canary_weight=10'
+  - terraform apply -var='canary_weight=50'
+(env vars set per environment)

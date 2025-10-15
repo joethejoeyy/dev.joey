@@ -1,0 +1,96 @@
+{
+  "lab": "Phase 8.25 — Canary Deployment via Helm (Fixed)",
+  "abstract": {
+    "who": "Parm and Joe — DevOps learners reinforcing Helm-based canary concepts.",
+    "why": "To master how Helm manages multiple releases (stable + canary) cleanly without ownership conflicts, while confirming how NGINX Ingress merges routes based on annotations.",
+    "what": "You will deploy stable and canary Helm charts for the Diner app, verify weighted routing through NGINX, learn when shared ingress names break Helm ownership, and practice safe rollback and cleanup.",
+    "where": "Docker Desktop or Minikube cluster with NGINX ingress controller enabled."
+  },
+  "tasks": [
+    {
+      "name": "Create namespace",
+      "prompt": "kubectl create namespace diner-lab"
+    },
+    {
+      "name": "Scaffold stable and canary charts",
+      "prompt": "helm create diner-stable && helm create diner-canary"
+    },
+    {
+      "name": "Edit image and replicas",
+      "prompt": "Set both charts to image: nginx:1.27. Stable uses replicas: 3; Canary uses replicas: 1."
+    },
+    {
+      "name": "Add HTML ConfigMaps",
+      "prompt": "Each chart has templates/configmap.yaml with a distinct index.html (blue for stable, green for canary)."
+    },
+    {
+      "name": "Mount ConfigMaps via values.yaml",
+      "prompt": "Append volumes and volumeMounts blocks so HTML replaces /usr/share/nginx/html."
+    },
+    {
+      "name": "Ingress definitions",
+      "details": {
+        "stable": {
+          "metadata.name": "diner-stable",
+          "annotations": {
+            "nginx.ingress.kubernetes.io/rewrite-target": "/"
+          }
+        },
+        "canary": {
+          "metadata.name": "diner-canary",
+          "annotations": {
+            "nginx.ingress.kubernetes.io/rewrite-target": "/",
+            "nginx.ingress.kubernetes.io/canary": "true",
+            "nginx.ingress.kubernetes.io/canary-weight": "20"
+          }
+        },
+        "shared": {
+          "ingressClassName": "nginx",
+          "rules.host": "diner.local",
+          "paths.path": "/",
+          "backend.service.name": "diner-stable / diner-canary",
+          "backend.service.port.number": 80
+        },
+        "note": "Unique metadata.name values prevent Helm ownership conflicts. Same host/class enables NGINX merge."
+      }
+    },
+    {
+      "name": "Install releases",
+      "prompt": "helm install diner-stable ./diner-stable -n diner-lab && helm install diner-canary ./diner-canary -n diner-lab"
+    },
+    {
+      "name": "Verify routing",
+      "prompt": "Add 127.0.0.1 diner.local to hosts file; run curl loop to confirm ~20% green responses."
+    },
+    {
+      "name": "Troubleshooting guide",
+      "list": [
+        "If always stable → check canary-weight > 0 and ingressClassName identical.",
+        "If always canary → ensure stable ingress exists; if canary: false, stable missing.",
+        "If 404 → NGINX not reloaded or wrong host mapping (restart ingress-nginx pod)."
+      ]
+    },
+    {
+      "name": "Rollback and cleanup",
+      "prompt": "helm rollback diner-canary 0 or helm uninstall diner-canary && helm uninstall diner-stable"
+    }
+  ],
+  "commands": [
+    "kubectl create namespace diner-lab",
+    "helm create diner-stable",
+    "helm create diner-canary",
+    "helm install diner-stable ./diner-stable -n diner-lab",
+    "helm install diner-canary ./diner-canary -n diner-lab",
+    "helm upgrade diner-canary ./diner-canary -n diner-lab",
+    "kubectl get ingress -n diner-lab -o wide",
+    "kubectl logs -n ingress-nginx -l app.kubernetes.io/name=ingress-nginx --tail=20",
+    "kubectl describe ingress diner-canary -n diner-lab",
+    "helm uninstall diner-stable diner-canary -n diner-lab"
+  ],
+  "lessons_learned": [
+    "Helm charts cannot share identical metadata.name for the same object type without ownership conflicts.",
+    "NGINX merges canary and stable ingresses only when host and class match.",
+    "Setting canary=false does NOT disable routing if stable ingress is missing — NGINX uses the remaining backend.",
+    "Restarting ingress-nginx refreshes config after rapid helm upgrades."
+  ]
+}

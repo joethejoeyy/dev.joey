@@ -1,0 +1,7 @@
+Ingress Rule:
++---------------------------+
+| Host: diner.local         |
+| Backends:                 |
+|  - Stable → weight: 90    |
+|  - Canary → weight: 10    |
++---------------------------+

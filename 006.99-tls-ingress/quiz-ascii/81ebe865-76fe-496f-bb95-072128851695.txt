@@ -1,0 +1,7 @@
+[ WHY ENABLE TLS AT INGRESS ]
+
+[ Client Browser ] ==(HTTPS)==> [ Ingress Controller ]
+                                      ||
+                                      ||  decrypts TLS
+                                      \/
+                               [ Service / Pod (HTTP) ]

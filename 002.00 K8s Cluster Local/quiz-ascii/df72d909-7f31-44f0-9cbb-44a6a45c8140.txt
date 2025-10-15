@@ -1,0 +1,9 @@
+kubectl delete all --all
+
+Namespace
++------------------------------+
+|  Deployments  --> deleted    |
+|  Pods         --> deleted    |
+|  Services     --> deleted    |
+|  ReplicaSets  --> deleted    |
++------------------------------+

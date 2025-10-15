@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diner-canary
+  namespace: diner-lab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: diner
+      version: canary
+  template:
+    metadata:
+      labels:
+        app: diner
+        version: canary
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.25
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: html
+          mountPath: /usr/share/nginx/html/index.html
+          subPath: index.html
+      volumes:
+      - name: html
+        configMap:
+          name: diner-canary-html

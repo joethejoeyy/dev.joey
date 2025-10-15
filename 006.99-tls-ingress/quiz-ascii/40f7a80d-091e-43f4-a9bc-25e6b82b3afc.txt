@@ -1,0 +1,9 @@
+[ SELF-SIGNED vs CA-SIGNED ]
+
+Self-signed:
+  + Issue cert yourself
+  + Not trusted by browsers
+
+CA-signed:
+  + Issued by trusted CA
+  + Shows valid padlock icon

@@ -1,0 +1,23 @@
+HOW DO YOU ROLLBACK
+
+Command:
+terraform apply -var='active_color=blue'
+
+Rollback resets routing from green to blue safely.
+
+Before rollback:
+Ingress → diner-green Service → diner-b Pods
+After rollback:
+Ingress → diner-blue Service → diner-a Pods
+
+ASCII:
++-----------+      +------------------+
+| Ingress   | ---> | diner-blue Svc   |
++-----------+      +------------------+
+                         |
+                         v
+                    +----------+
+                    | Pods A   |
+                    +----------+
+
+Like putting the “Blue Diner” sign back up after testing the green one.

@@ -1,0 +1,17 @@
+Why use Helm for blue/green?
+---------------------------------
+          ┌────────────┐
+          │  Helm Chart│
+          └─────┬──────┘
+                │
+        ┌───────┴────────┐
+        │   values-blue  │   →  diner-blue
+        │   values-green │   →  diner-green
+        └────────────────┘
+                │
+        helm upgrade switch
+                │
+     ┌──────────┴──────────┐
+     │     Active → Green  │
+     │ Inactive ← Blue     │
+     └─────────────────────┘

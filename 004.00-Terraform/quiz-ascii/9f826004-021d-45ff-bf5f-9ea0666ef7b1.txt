@@ -1,0 +1,20 @@
+Why do we attach a VM with a web server in this lab?
+
+Diagram:
+VM Endpoint in Network
+────────────────────────────
+        +------------------+
+        |  Virtual Network |
+        +------------------+
+                 |
+        +------------------+
+        |      Subnet      |
+        +------------------+
+                 |
+        +------------------+
+        |   Tiny VM (nginx)|
+        |   Public IP: X.X |
+        +------------------+
+                 |
+                 v
+             [ Browser ]

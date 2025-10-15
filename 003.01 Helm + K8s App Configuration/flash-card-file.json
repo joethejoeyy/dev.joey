@@ -1,0 +1,76 @@
+{
+  "title": "Phase 3 \u2014 Helm + K8s App Configuration",
+  "topic": "Helm",
+  "cards": [
+    {
+      "question": "What is the structure of a Helm chart and what files does it typically include?",
+      "answer_textbook": "A Helm chart has a defined structure including: Chart.yaml (chart metadata), values.yaml (default values), templates/ (Kubernetes manifests), charts/ (dependencies), and README or NOTES files.",
+      "answer_metaphor": "Think of the pimp\u2019s hotel ledger \u2014 Chart.yaml is his main roster list, values.yaml is his ground rules, templates are the rooms, and charts/ are side hustles he calls in when needed.",
+      "answer_realworld": "Charts organize Kubernetes manifests so you can reuse, share, and customize application deployments cleanly.",
+      "guid": "4b66ed0b-174f-4629-8a06-74073ab40029"
+    },
+    {
+      "question": "How do I install Helm, then add and update repositories?",
+      "answer_textbook": "Install Helm, then run: `helm version`, `helm repo add <name> <url>`, `helm repo update`.",
+      "answer_metaphor": "It\u2019s like a pimp adding new blocks of hoes under his control. He checks his own status (helm version), then adds new territories (repos), and updates his roster (repo update).",
+      "answer_realworld": "You install Helm locally, then point it to chart repositories so you can pull and deploy apps quickly.",
+      "guid": "d90326f5-10a6-4e86-a85b-120fac0fe3b8"
+    },
+    {
+      "question": "How can I install a chart like Redis with Helm?",
+      "answer_textbook": "Run: `helm install my-redis bitnami/redis`. Use `helm list` to see releases, and `helm uninstall my-redis` to remove it.",
+      "answer_metaphor": "Like a pimp booking a hoe into a hotel room (install), checking the lineup of who\u2019s working (list), and kicking one out when business is done (uninstall).",
+      "answer_realworld": "You use `helm install` to deploy charts, `helm list` to see what\u2019s running, and `helm uninstall` to clean them up.",
+      "guid": "a7b25140-4162-4d0b-a9fc-46a37a528282"
+    },
+    {
+      "question": "How do I create a Helm chart and deploy it to my cluster?",
+      "answer_textbook": "Run: `helm create mychart`, then `helm install myapp ./mychart -f values.yaml`.",
+      "answer_metaphor": "That\u2019s like a pimp setting up his own custom hotel suite (create chart) and then moving in hoes with custom rules (install using values.yaml).",
+      "answer_realworld": "You can scaffold a chart with `helm create`, edit it, then install it into Kubernetes with your configuration values.",
+      "guid": "dd557424-6ecb-449e-be43-e7e2f8f80b79"
+    },
+    {
+      "question": "How can I override Helm chart defaults using values.yaml or CLI flags?",
+      "answer_textbook": "You can set overrides by editing values.yaml or passing flags with `--set key=value` during install/upgrade.",
+      "answer_metaphor": "It\u2019s like the pimp changing the hotel rules for one specific hoe \u2014 either updating the rulebook (values.yaml) or whispering last-minute orders (CLI flags).",
+      "answer_realworld": "Overrides let you customize each Helm release without modifying the original chart.",
+      "guid": "31254259-34c8-4f07-8c66-56c2be9cd988"
+    },
+    {
+      "question": "How do you upgrade a Helm release?",
+      "answer_textbook": "Use `helm upgrade <release> <chart>` to upgrade to a new version or apply new values.",
+      "answer_metaphor": "Like a pimp upgrading a hoe\u2019s wardrobe or changing the hotel suite \u2014 keeping the same worker but refreshing her setup.",
+      "answer_realworld": "`helm upgrade` updates an existing release with new config or chart versions without reinstalling from scratch.",
+      "guid": "d4d97620-52b6-48d9-868f-9b33474acdb2"
+    },
+    {
+      "question": "How do you roll back a Helm release to a previous version?",
+      "answer_textbook": "Use `helm rollback <release> <revision>`.",
+      "answer_metaphor": "When the pimp realizes the new outfit isn\u2019t working, he rolls her back to a previous look that pulled more clients.",
+      "answer_realworld": "Rollback lets you revert to a stable version if an upgrade introduces problems.",
+      "guid": "068361c4-c2bb-46ea-a78f-414dd8530175"
+    },
+    {
+      "question": "What does `helm template` do?",
+      "answer_textbook": "It renders Kubernetes manifests locally without installing them.",
+      "answer_metaphor": "Like the pimp sketching out a floor plan of rooms and hoes before actually opening the hotel for business.",
+      "answer_realworld": "Useful for debugging and previewing manifests before deploying.",
+      "guid": "1e6ecb8d-6212-446c-8ed7-dee25834a10e"
+    },
+    {
+      "question": "What does `helm lint` do?",
+      "answer_textbook": "Validates a chart for issues in its structure or templates.",
+      "answer_metaphor": "Like the pimp doing a dress check before sending hoes out on the street.",
+      "answer_realworld": "Ensures charts follow best practices and contain no errors before installation.",
+      "guid": "db650614-f99b-416f-b8a3-07252979b7fa"
+    },
+    {
+      "question": "What is the order of precedence for Helm values?",
+      "answer_textbook": "CLI `--set` > values file passed with `-f` > chart\u2019s default values.yaml.",
+      "answer_metaphor": "A pimp\u2019s whispered orders (CLI flags) override the hotel rulebook (values.yaml), which override the default house rules.",
+      "answer_realworld": "Lets you layer configurations flexibly depending on context.",
+      "guid": "14abd2ad-7703-4b87-afad-e57a6f13c873"
+    }
+  ]
+}

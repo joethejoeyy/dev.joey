@@ -1,0 +1,11 @@
+Rollback Flow
+──────────────
+        ┌──────────────────────┐
+        │ helm rollback diner-canary 0 │
+        └──────────────┬───────────────┘
+                       │
+             restore previous chart
+                       │
+          ┌────────────┴────────────┐
+          │ all traffic → stable    │
+          └─────────────────────────┘

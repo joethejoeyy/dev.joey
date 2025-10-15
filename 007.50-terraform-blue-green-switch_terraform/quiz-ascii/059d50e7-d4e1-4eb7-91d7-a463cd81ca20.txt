@@ -1,0 +1,23 @@
+WHY USE TERRAFORM FOR BLUE/GREEN
+
+Terraform centralizes the switch logic and records which color (blue/green)
+is active inside its state. This eliminates human error and ensures rollbacks
+are repeatable.
+
+      +-----------------------------+
+      | Terraform State File (.tf)  |
+      +-----------------------------+
+                 |
+                 v
+      +-----------------------------+
+      | variable.active_color=blue  |
+      +-----------------------------+
+                 |
+                 v
+      +------------------------------------+
+      | Ingress → Service blue → Pods A     |
+      | Service green (standby)             |
+      +------------------------------------+
+
+Like a traffic light controller — Terraform is the signal system managing
+which diner serves customers.

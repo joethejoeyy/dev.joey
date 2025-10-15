@@ -1,0 +1,51 @@
+{
+  "lab": "Phase 5 — Terraform + Kubernetes + Helm",
+  "abstract": {
+    "who": "This lab is for you and Joe as DevOps learners leveling up from basic Terraform infra into Kubernetes-native workloads.",
+    "why": "In the real world, apps don’t just live on a single VM. They’re packaged as containers, deployed on Kubernetes, and often released using Helm charts. Terraform gives you one control plane to manage both the infra and the cluster apps. This creates consistent, repeatable deployments across dev, stage, and prod.",
+    "what": "You will use Terraform to manage Kubernetes resources directly, deploy Helm charts via the Helm provider, and pass values dynamically through Terraform. Finally, you will organize everything into reusable modules so the same pattern can power dev, staging, and production environments.",
+    "where": "Legacy world: single servers you configured manually. New world: Kubernetes as your orchestration layer, with Helm managing app lifecycles. Terraform becomes the ‘architect’ that wires them all together, ensuring each environment looks the same but scales independently."
+  },
+  "tasks": [
+    {
+      "name": "Initialize Terraform",
+      "prompt": "Run `terraform init` to pull down the Kubernetes and Helm providers."
+    },
+    {
+      "name": "Configure Kubernetes provider",
+      "prompt": "Point Terraform at your cluster (using kubeconfig or a cloud provider). This lets Terraform talk to Kubernetes like any other infra provider."
+    },
+    {
+      "name": "Deploy a basic Kubernetes resource",
+      "prompt": "Write a Terraform manifest to create a Namespace. This confirms Terraform can manage raw Kubernetes objects."
+    },
+    {
+      "name": "Add Helm provider",
+      "prompt": "Configure the Helm provider so Terraform can deploy Helm charts into the cluster."
+    },
+    {
+      "name": "Release an application via Helm",
+      "prompt": "Use the Helm provider to install a chart (for example, `nginx`). Define release name, namespace, and version."
+    },
+    {
+      "name": "Pass Helm values via Terraform",
+      "prompt": "Override the chart’s default values by providing custom values (replica count, service type, image tag) from Terraform."
+    },
+    {
+      "name": "Create reusable modules",
+      "prompt": "Refactor the Terraform code into a module so you can pass in environment-specific variables (dev/stage/prod). Each environment can call the same module with different inputs."
+    },
+    {
+      "name": "Plan and apply",
+      "prompt": "Run `terraform plan -out=tfplan` and `terraform apply tfplan` to create resources. Observe how both Kubernetes objects and Helm releases are applied."
+    },
+    {
+      "name": "Verify deployment",
+      "prompt": "Check the cluster: run `kubectl get ns`, `kubectl get pods -n <namespace>`, and confirm the Helm release is running."
+    },
+    {
+      "name": "Clean up",
+      "prompt": "Run `terraform destroy` to remove the namespace and Helm release, proving Terraform fully controls lifecycle management."
+    }
+  ]
+}

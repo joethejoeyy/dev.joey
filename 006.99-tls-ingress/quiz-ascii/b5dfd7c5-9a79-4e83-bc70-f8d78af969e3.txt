@@ -1,0 +1,13 @@
+[ LET'S ENCRYPT + CERT-MANAGER ]
+
++----------------+
+| cert-manager   |
++----------------+
+          |
+issues ACME challenge
+          v
++----------------+
+| Let's Encrypt  |
++----------------+
+          |
+delivers trusted cert

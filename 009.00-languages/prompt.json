@@ -1,0 +1,97 @@
+{
+  "lab": "Phase 9.0  — Core Dev Ops Scripting Languages Overview",
+  "abstract": {
+    "who": "Joe and Parm",
+    "why": "To explore what scripting languages DevOps engineers rely on before writing any automation.",
+    "what": "A discussion lab introducing Bash, Python, Go, YAML/JSON/HCL, and legacy tools (Perl/Awk/Sed, Ruby). Each entry shows its purpose, when it's used, and a small readable code sample with explanation.",
+    "where": "Placed at the start of Phase 2, before infrastructure automation begins."
+  },
+  "languages": [
+    {
+      "language": "Bash (Shell scripting)",
+      "typical_use": "Startup scripts, provisioning, Docker entrypoints, CI/CD jobs",
+      "why_common": "Every Linux server ships with Bash — it’s the universal automation glue.",
+      "description": "This Bash script loops through all Kubernetes pods and prints their names. It demonstrates how Bash can chain commands, use loops, and handle text output — a core skill for DevOps troubleshooting or scripting small automation tasks.",
+      "sample_lines": [
+        "#!/bin/bash",
+        "",
+        "# Loop through all running pods and print names",
+        "for pod in $(kubectl get pods -o name); do",
+        "  echo \"Pod: $pod\"",
+        "done"
+      ]
+    },
+    {
+      "language": "Python",
+      "typical_use": "Infrastructure tools (Ansible, AWS CLI, custom utilities), API automation, testing",
+      "why_common": "Readable, cross-platform, and has huge library support.",
+      "description": "This Python script prints the current home directory and checks the status of the GitHub API endpoint. It shows how Python can easily combine system commands with HTTP calls — great for API testing, automation, or validation in pipelines.",
+      "sample_lines": [
+        "import os",
+        "print(\"Home directory:\", os.getenv('HOME'))",
+        "",
+        "# Check web endpoint health",
+        "import requests",
+        "r = requests.get('https://api.github.com')",
+        "print('Status:', r.status_code)"
+      ]
+    },
+    {
+      "language": "Go (Golang)",
+      "typical_use": "Cloud-native tools like Kubernetes, Terraform, Prometheus",
+      "why_common": "Compiled, fast, strongly typed — the language behind modern infrastructure tools.",
+      "description": "This Go program simply prints a message. It represents how most core DevOps tools (like Kubernetes and Terraform) are written — small, fast compiled binaries with strong type safety and concurrency built in.",
+      "sample_lines": [
+        "package main",
+        "",
+        "import \"fmt\"",
+        "",
+        "func main() {",
+        "  fmt.Println(\"Hello from Go – the language behind K8s & Terraform\")",
+        "}"
+      ]
+    },
+    {
+      "language": "YAML / JSON / HCL",
+      "typical_use": "Config files for Kubernetes, Terraform, GitHub Actions",
+      "why_common": "Declarative data formats that tools parse and apply.",
+      "description": "This YAML snippet defines a Helm chart configuration, specifying the app name, replica count, and image tag. It demonstrates how declarative syntax replaces code in DevOps — describing desired state rather than imperative actions.",
+      "sample_lines": [
+        "# values.yaml – Helm chart config",
+        "app:",
+        "  name: diner",
+        "  replicas: 3",
+        "  image: diner:v2"
+      ]
+    },
+    {
+      "language": "Perl / Awk / Sed (legacy)",
+      "typical_use": "Log parsing, quick text transforms in old Unix systems",
+      "why_common": "Pre-Bash era scripting still found in older infrastructure scripts.",
+      "description": "This Awk example searches for lines containing 'ERROR' in a system log and prints the 5th field. It shows how older tools handled text processing quickly — still useful when analyzing raw logs in shell environments.",
+      "sample_lines": [
+        "# Extract lines with ERROR and print the 5th field",
+        "awk '/ERROR/ {print $5}' /var/log/syslog"
+      ]
+    },
+    {
+      "language": "Ruby (legacy DevOps tools)",
+      "typical_use": "Chef recipes, older automation frameworks",
+      "why_common": "Used by Chef and some Jenkins plugins — fading but readable.",
+      "description": "This Ruby snippet mimics a Chef configuration that installs Nginx. It’s declarative in style and shows how DevOps automation tools used to express infrastructure as code before YAML-based systems like Ansible or Terraform became dominant.",
+      "sample_lines": [
+        "puts \"Chef style resource example:\"",
+        "package 'nginx' do",
+        "  action :install",
+        "end"
+      ]
+    }
+  ],
+  "discussion_questions": [
+    "Which of these scripts looks easiest to follow and why?",
+    "How does Bash differ from PowerShell in handling output?",
+    "Why might Python be better for API or cloud logic?",
+    "What stands out about YAML compared to the code languages?",
+    "Which languages do you think you’ll write most vs. mostly read?"
+  ]
+}

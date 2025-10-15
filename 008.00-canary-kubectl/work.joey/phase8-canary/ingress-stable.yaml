@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: diner-ingress
+  namespace: diner-lab
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: diner.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: diner-stable-svc
+            port:
+              number: 80

@@ -1,0 +1,4 @@
+helm create diner-app
+   |
+   v
+Generates diner-app/Chart.yaml + templates/

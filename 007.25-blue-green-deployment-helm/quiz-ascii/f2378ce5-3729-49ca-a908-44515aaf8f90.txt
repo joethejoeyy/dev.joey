@@ -1,0 +1,12 @@
+What if green fails?
+--------------------------
+$ helm rollback diner 1
+
+Rollback flow:
+   [v3 Green ❌] → [v2 Blue ✅]
+
+History:
+ REV  STATUS   CHART
+ 1    DEPLOYED diner-blue
+ 2    FAILED   diner-green
+Instantly reopen the Blue café.

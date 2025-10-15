@@ -1,0 +1,71 @@
+{
+  "lab": "Phase 2 — Lab 9 — Monitoring & Observability",
+  "abstract": {
+    "who": "For Joey and Joe as DevOps learners continuing from canary automation into cluster-level insight and metrics awareness.",
+    "why": "Production systems need visibility. Observability helps teams detect, diagnose, and understand behavior before failures happen.",
+    "what": "You will install Prometheus and Grafana using Helm, connect Prometheus to scrape metrics from diner-lab workloads, explore PromQL queries, and visualize CPU/memory usage—even if workloads are mostly idle.",
+    "where": "Applies to any Kubernetes environment where DevOps teams require dashboards, metrics, and historical context for workloads, ingresses, and pods."
+  },
+  "tasks": [
+    {
+      "name": "Add Helm Repositories",
+      "prompt": "Run `helm repo add prometheus-community https://prometheus-community.github.io/helm-charts` and `helm repo add grafana https://grafana.github.io/helm-charts`. Then execute `helm repo update`."
+    },
+    {
+      "name": "Create Monitoring Namespace",
+      "prompt": "Use `kubectl create namespace monitoring` to isolate Prometheus and Grafana resources from diner-lab workloads."
+    },
+    {
+      "name": "Install Prometheus",
+      "prompt": "Deploy via Helm: `helm install prometheus prometheus-community/prometheus -n monitoring`. Verify pods and services with `kubectl get pods -n monitoring` and `kubectl get svc -n monitoring`."
+    },
+    {
+      "name": "Install Grafana and Connect",
+      "prompt": "Install Grafana: `helm install grafana grafana/grafana -n monitoring --set service.type=NodePort --set persistence.enabled=false --set adminPassword='admin'`. Retrieve password and port-forward with `kubectl port-forward svc/grafana 3000:80 -n monitoring`."
+    },
+    {
+      "name": "Add Prometheus Data Source",
+      "prompt": "Inside Grafana UI, add data source type `Prometheus` with URL `http://prometheus-server.monitoring.svc.cluster.local`. Save & test the connection."
+    },
+    {
+      "name": "Import Dashboards",
+      "prompt": "Import dashboard IDs `315` (Kubernetes Pods Resources) and `6417` (NGINX Ingress). Confirm charts render for diner-lab namespace."
+    },
+    {
+      "name": "Explore Metrics and PromQL",
+      "prompt": "Run sample queries: `container_memory_usage_bytes`, `rate(container_cpu_usage_seconds_total[5m])`, and `kube_pod_container_status_restarts_total`. Observe labels and filtering by namespace."
+    },
+    {
+      "name": "Compare With Metrics Server",
+      "prompt": "Execute `kubectl top pods -n diner-lab` and compare values with Grafana dashboards to understand data sources difference (Metrics-Server vs Prometheus)."
+    },
+    {
+      "name": "Optional: Simulate Load",
+      "prompt": "Generate synthetic activity using `kubectl run loadgen --image=busybox --restart=Never -- sh -c \"while true; do wget -q -O- http://diner-lab >/dev/null; done\"` to watch live metric spikes."
+    },
+    {
+      "name": "Cleanup",
+      "prompt": "Remove monitoring stack when done: `helm uninstall grafana -n monitoring`, `helm uninstall prometheus -n monitoring`, and `kubectl delete ns monitoring`."
+    }
+  ],
+  "commands": [
+    "helm repo add prometheus-community https://prometheus-community.github.io/helm-charts",
+    "helm repo add grafana https://grafana.github.io/helm-charts",
+    "helm repo update",
+    "kubectl create namespace monitoring",
+    "helm install prometheus prometheus-community/prometheus -n monitoring",
+    "helm install grafana grafana/grafana -n monitoring --set service.type=NodePort --set adminPassword='admin'",
+    "kubectl port-forward svc/grafana 3000:80 -n monitoring",
+    "kubectl top pods -n diner-lab",
+    "kubectl delete ns monitoring"
+  ],
+  "lessons": [
+    "Observability ≠ Monitoring — it’s about understanding *why* things happen, not just *that* they happened.",
+    "Prometheus scrapes metrics directly from targets exposing /metrics endpoints; Grafana visualizes those metrics with queries.",
+    "The Metrics Server powers `kubectl top`, while Prometheus provides historical and multi-dimensional data.",
+    "Namespaces keep monitoring components isolated from application workloads.",
+    "Even without real load, dashboards help you understand structure, labels, and metric lifecycles.",
+    "Simulated load generation demonstrates how dashboards react in near real-time.",
+    "PromQL fundamentals (rate, sum, avg, by, grouping) are core to DevOps diagnostic work."
+  ]
+}

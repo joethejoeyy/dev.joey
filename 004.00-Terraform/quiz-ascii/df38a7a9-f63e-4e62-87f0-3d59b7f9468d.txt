@@ -1,0 +1,12 @@
+What is the difference between legacy infra and containerized infra?
+
+Diagram:
+Legacy vs Containerized World
+────────────────────────────
+ Legacy Infra              New World
+ ┌───────────────┐       ┌───────────────┐
+ │ Big Coffee    │       │ Mobile Coffee │
+ │ Shop Building │       │ Carts         │
+ └───────────────┘       └───────────────┘
+
+Terraform = builds the roads so both coexist.

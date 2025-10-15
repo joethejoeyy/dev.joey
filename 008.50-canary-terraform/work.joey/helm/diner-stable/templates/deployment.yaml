@@ -1,0 +1,22 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diner-stable
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: diner-stable
+  template:
+    metadata:
+      labels:
+        app: diner-stable
+    spec:
+      containers:
+        - name: diner-stable
+          image: nginx:stable
+          command: ["/bin/sh","-c"]
+          args:
+          - echo '<h1>Stable diner 🍔</h1>' > /usr/share/nginx/html/index.html && nginx -g 'daemon off;'
+          ports:
+            - containerPort: 80

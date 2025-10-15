@@ -1,0 +1,11 @@
+# templates/cm-green.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "diner.fullname" . }}-green-index
+data:
+  index.html: |
+    <html><body style="font-family:Arial; text-align:center;">
+      <h1>DINER — GREEN</h1>
+      <p>Served by GREEN deployment</p>
+    </body></html>

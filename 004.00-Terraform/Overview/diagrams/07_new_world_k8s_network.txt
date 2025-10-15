@@ -1,0 +1,26 @@
+
+New World — Kubernetes Networking
+────────────────────────────
+          [ Internet ]
+               |
+        +------v-------+
+        | Ingress Ctrl |
+        +--------------+
+               |
+        +--------------+
+        | Service (LB) |
+        +--------------+
+           |        |
+    +------+--+  +--+------+
+    |  Pod A  |  |  Pod B  |
+    |  (nginx)|  |  (app)  |
+    +---------+  +---------+
+
+(Flannel/Calico handles pod-to-pod networking)
+
+Coffee shop metaphor:
+- Ingress = the mall entrance sign
+- Service = the directory pointing to which shop is open
+- Pods    = small coffee carts inside the mall
+- CNI     = hallways connecting the carts
+    

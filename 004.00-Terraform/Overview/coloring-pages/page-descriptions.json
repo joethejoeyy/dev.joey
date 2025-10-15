@@ -1,0 +1,52 @@
+[
+  {
+    "guid": "8b7a5f10-3a9b-4d2e-9c19-terraform-001",
+    "step": "Install and Verify Terraform",
+    "prompt": "Black and white coloring book page. A cute little girl happily creating a universe. She is opening a magical toolbox labeled “Terraform” and holding a large hammer shaped like a flower, also labeled “Terraform.” From the toolbox, stars, planets, and cosmic shapes are flowing out. Above the scene, write “Install and Verify Terraform.” Minimal shading, clear outlines, simple line art style."
+  },
+  {
+    "guid": "c3e2d580-b48f-4b92-9e34-terraform-002",
+    "step": "Initialize a Provider",
+    "prompt": "Black and white coloring book page. A gardener labeled “Terraform” shaking hands with a landowner labeled “Cloud Provider.” The gardener carries tools, ready to start work. Above the scene, write “Initialize a Provider.” Clear outlines, minimal shading, simple line art style."
+  },
+  {
+    "guid": "07e4f410-6f12-47de-86cc-terraform-003",
+    "step": "Create a Virtual Network",
+    "prompt": "Black and white coloring book page. A cartoon construction worker labeled “Terraform” drawing the first long road in a brand-new neighborhood. The road has dotted plots on each side where houses could go later. Above the scene, write “Create a Virtual Network.” Clear outlines, minimal shading, simple line art style."
+  },
+  {
+    "guid": "f4290c18-63d0-44c1-9444-terraform-004",
+    "step": "Add a Subnet",
+    "prompt": "Black and white coloring book page. A cartoon construction worker labeled “Terraform” drawing smaller side-streets branching off a main road in a neighborhood. Above the scene, write “Add a Subnet.” Clear outlines, minimal shading, simple line art style."
+  },
+  {
+    "guid": "53cf3290-7d68-4905-bb8a-terraform-005",
+    "step": "Add a Gateway",
+    "prompt": "Black and white coloring book page. A decorative entrance gate being built at the edge of a neighborhood. The archway is labeled “Gateway → Internet.” Above the scene, write “Add a Gateway.” Clear outlines, minimal shading, simple line art style."
+  },
+  {
+    "guid": "8db87e10-91d5-4f1f-8fb2-terraform-006",
+    "step": "Provision a Tiny VM with Public IP",
+    "prompt": "Black and white coloring book page. A small, simple house sitting on the street with a mailbox labeled “Public IP.” Above the scene, write “Provision a Tiny VM with Public IP.” Clear outlines, minimal shading, simple line art style."
+  },
+  {
+    "guid": "1f3d0972-bfc5-4a44-a9f2-terraform-007",
+    "step": "Install a Web Server",
+    "prompt": "Black and white coloring book page. A child running a lemonade stand in front of a little house, with a sign that says “Hello World.” Above the scene, write “Install a Web Server.” Clear outlines, minimal shading, simple line art style."
+  },
+  {
+    "guid": "a55f25cc-8b2a-4dbd-8f58-terraform-008",
+    "step": "Output the Public IP",
+    "prompt": "Black and white coloring book page. A wooden signpost planted in the ground with the words “Public IP → 192.0.2.1.” Above the scene, write “Output the Public IP.” Clear outlines, minimal shading, simple line art style."
+  },
+  {
+    "guid": "d91f6eab-67ac-4a3d-82a2-terraform-009",
+    "step": "Test External Connectivity",
+    "prompt": "Black and white coloring book page. A happy visitor walking up to the lemonade stand and drinking lemonade, smiling. Above the scene, write “Test External Connectivity.” Clear outlines, minimal shading, simple line art style."
+  },
+  {
+    "guid": "f8d07f1b-0f25-4f02-9711-terraform-010",
+    "step": "Clean Up",
+    "prompt": "Black and white coloring book page. A cartoon bulldozer labeled “terraform destroy” clearing away a house, gate, and road. Above the scene, write “Clean Up.” Clear outlines, minimal shading, simple line art style."
+  }
+]

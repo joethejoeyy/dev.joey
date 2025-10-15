@@ -1,0 +1,7 @@
+If failure detected:
+  ↓
+Set routing 100% → stable
+  ↓
+Delete canary deployment
+  ↓
+System returns to previous steady state

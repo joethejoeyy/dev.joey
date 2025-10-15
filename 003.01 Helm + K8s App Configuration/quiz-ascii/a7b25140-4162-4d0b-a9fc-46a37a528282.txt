@@ -1,0 +1,14 @@
+helm install my-redis
+            |
+            v
+        [Redis running]
+
+            |
+            v
+       helm list
+     (lineup check)
+
+            |
+            v
+   helm uninstall my-redis
+       (kick out hoe)

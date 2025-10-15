@@ -1,0 +1,82 @@
+{
+  "title": "Phase 6.5 — Terraform DNS + Ingress (via Helm)",
+  "topic": "Terraform, Helm, Kubernetes, Ingress",
+  "abstract": {
+    "who": "This flashcard set is for you and Joe, focusing on managing ingress and DNS entirely via Terraform.",
+    "why": "Terraform as the single control plane avoids manual Helm commands and ensures ingress rules are reproducible across environments.",
+    "what": "Cards cover Terraform Helm provider, helm_release resources, ingress configuration in Terraform, sslip.io DNS, workflow, and cleanup.",
+    "where": "Applies to clusters in dev, staging, or prod where Terraform automates both infra and app ingress lifecycles."
+  },
+  "cards": [
+    {
+      "question": "What does the Terraform Helm provider do?",
+      "answer_textbook": "It lets Terraform manage Helm releases declaratively.",
+      "answer_metaphor": "It’s like having your architect order prefab kits instead of each tenant calling suppliers.",
+      "answer_realworld": "You define helm_release resources and Terraform installs charts like ingress-nginx or diner.",
+      "guid": "7a0fc2c5-6f71-4f84-9437-5c00d5010001"
+    },
+    {
+      "question": "Why install ingress-nginx with Terraform Helm instead of CLI?",
+      "answer_textbook": "Terraform tracks the release in state and integrates with other resources.",
+      "answer_metaphor": "It’s like recording which restaurant franchise kit was ordered in the master ledger.",
+      "answer_realworld": "Terraform knows ingress-nginx is installed and can destroy or upgrade it consistently.",
+      "guid": "8d4b3d02-38c1-4215-a0a5-d1a46f020002"
+    },
+    {
+      "question": "How do you deploy the diner app via Terraform?",
+      "answer_textbook": "By defining a helm_release pointing to the diner-app chart.",
+      "answer_metaphor": "Like franchising your own diner using the same recipe blueprint.",
+      "answer_realworld": "Terraform applies the diner Helm chart with values for replicas, service type, ingress.",
+      "guid": "e0c90f11-9bfb-4db0-81f0-326aaac00003"
+    },
+    {
+      "question": "How does Terraform configure ingress rules?",
+      "answer_textbook": "Ingress hosts and paths are passed into helm_release values.",
+      "answer_metaphor": "Like writing directions in the franchise playbook for each store entrance.",
+      "answer_realworld": "values = [{ ingress.hosts = [\"diner.127.0.0.1.sslip.io\"] }] in Terraform code.",
+      "guid": "fa2f8702-b6df-43b4-835b-d0a153e90004"
+    },
+    {
+      "question": "What is sslip.io and why use it?",
+      "answer_textbook": "sslip.io resolves hostnames with embedded IPs to that IP.",
+      "answer_metaphor": "Like a directory that always turns names into correct street numbers.",
+      "answer_realworld": "diner.127.0.0.1.sslip.io resolves to localhost without editing /etc/hosts.",
+      "guid": "89a7023a-06a8-46b6-9d2f-11af21580005"
+    },
+    {
+      "question": "What is the workflow for Terraform ingress automation?",
+      "answer_textbook": "Init → apply → verify ingress → curl test → update values → destroy.",
+      "answer_metaphor": "Like setting up, opening, testing, adjusting, then closing a pop-up diner.",
+      "answer_realworld": "`terraform init`, `terraform apply`, verify with `kubectl get ingress`, test with curl, later destroy.",
+      "guid": "3287a6c9-96cd-40d3-bc48-7d7300a50006"
+    },
+    {
+      "question": "How do you verify Terraform-created ingress?",
+      "answer_textbook": "Run `kubectl get ingress -n diner-lab`.",
+      "answer_metaphor": "Like checking the mall directory to confirm your diner has a listing.",
+      "answer_realworld": "After terraform apply, ingress shows up in the diner-lab namespace.",
+      "guid": "0533520a-07cc-4f06-891c-9a220f740007"
+    },
+    {
+      "question": "How do you test routing with curl?",
+      "answer_textbook": "Curl the sslip.io domain pointing to your service.",
+      "answer_metaphor": "Like calling the diner phone to confirm it’s open.",
+      "answer_realworld": "`curl http://diner.127.0.0.1.sslip.io:30080/` returns diner app HTML.",
+      "guid": "4ffed16c-f401-4b2e-9a33-5c26c54f0008"
+    },
+    {
+      "question": "What’s the benefit of Terraform managing both infra and ingress?",
+      "answer_textbook": "It ensures consistency across environments and automates lifecycle.",
+      "answer_metaphor": "Like having HQ manage both the building lease and the diner franchise.",
+      "answer_realworld": "Terraform deploys infra, Helm releases, and ingress with one apply.",
+      "guid": "37ee2df5-b0b1-43c5-8245-48ee76db0009"
+    },
+    {
+      "question": "Why destroy with Terraform instead of Helm delete?",
+      "answer_textbook": "Terraform removes everything in state, preventing drift.",
+      "answer_metaphor": "Like HQ closing the franchise and repossessing the building, not just locking the diner.",
+      "answer_realworld": "`terraform destroy` removes ingress-nginx, diner release, and ingress rules.",
+      "guid": "f8c71adf-124c-4a95-8c66-0096c1710010"
+    }
+  ]
+}

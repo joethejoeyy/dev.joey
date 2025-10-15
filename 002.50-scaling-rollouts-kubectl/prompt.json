@@ -1,0 +1,55 @@
+{
+  "lab": "Phase 2.5 — Scaling & Rollouts (Kubernetes Intermediate)",
+  "prompt_style": "Fuck Me Into Understanding — Evolved Edition (Structured Chaos)",
+  "abstract": {
+    "who": "Parm & Joe — learners who just deployed their first web app with Kubernetes.",
+    "why": "Because running one lonely pod isn’t production. Scaling, updating, and rolling back are how real clusters breathe.",
+    "what": "You’ll scale your Deployment, trigger a rollout, verify progress, and undo mistakes — seeing Kubernetes do what Docker never could.",
+    "where": "Inside your existing kind cluster or Docker Desktop cluster from Phase 2."
+  },
+  "tasks": [
+    {
+      "name": "Check the current Deployment",
+      "prompt": "How do I check what’s running before scaling anything?",
+      "command": "kubectl get deploy web",
+      "expected": "Shows replicas=1 (only one pod active)."
+    },
+    {
+      "name": "Scale the Deployment",
+      "prompt": "How do I increase replicas to 3?",
+      "command": "kubectl scale deployment web --replicas=3",
+      "expected": "Three pods appear when you run `kubectl get pods`."
+    },
+    {
+      "name": "Trigger a rollout",
+      "prompt": "How can I update to a new NGINX version (1.25)?",
+      "command": "kubectl set image deployment web nginx=nginx:1.25",
+      "expected": "Rollout starts and new pods begin replacing old ones."
+    },
+    {
+      "name": "Watch rollout progress",
+      "prompt": "How do I monitor the rollout status?",
+      "command": "kubectl rollout status deployment/web",
+      "expected": "Outputs status until 'successfully rolled out'."
+    },
+    {
+      "name": "Verify pod versions",
+      "prompt": "How do I confirm all pods run the new version?",
+      "command": "kubectl describe pods | grep Image",
+      "expected": "All pods report nginx:1.25."
+    },
+    {
+      "name": "Undo a rollout",
+      "prompt": "How can I roll back to the previous version?",
+      "command": "kubectl rollout undo deployment/web",
+      "expected": "Pods revert to the previous image."
+    },
+    {
+      "name": "Cleanup",
+      "prompt": "How can I reduce replicas back to one?",
+      "command": "kubectl scale deployment web --replicas=1",
+      "expected": "Deployment returns to one replica."
+    }
+  ],
+  "next_step_preview": "Next, you’ll learn Namespaces & Resource Quotas — so your scaled apps don’t trample each other’s space."
+}

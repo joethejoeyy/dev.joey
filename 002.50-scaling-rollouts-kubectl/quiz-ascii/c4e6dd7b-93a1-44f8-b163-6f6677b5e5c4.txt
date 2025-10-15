@@ -1,0 +1,12 @@
+ReplicaSet in Kubernetes
+-------------------------
+Deployment
+   |
+   +--> ReplicaSet (manages replicas)
+          |
+          +--> Pod #1
+          +--> Pod #2
+          +--> Pod #3
+
+If a Pod dies:
+   ReplicaSet notices and starts a new Pod automatically.

@@ -1,0 +1,37 @@
+{
+  "lab": "Phase 2 — Kubernetes Basics (Docker Desktop)",
+  "tasks": [
+    {
+      "name": "Enable Kubernetes in Docker Desktop",
+      "prompt": "How do I enable Kubernetes support inside Docker Desktop?"
+    },
+    {
+      "name": "Verify cluster and nodes",
+      "prompt": "How can I check Kubernetes cluster info and confirm nodes are available?"
+    },
+    {
+      "name": "Create a Deployment",
+      "prompt": "How do I create a Deployment named 'web' using an nginx image?"
+    },
+    {
+      "name": "View Pods",
+      "prompt": "How do I list the pods running in my cluster to confirm the Deployment is working?"
+    },
+    {
+      "name": "Expose Deployment as a Service",
+      "prompt": "How can I expose the 'web' Deployment on port 80 using a Service?"
+    },
+    {
+      "name": "View Services",
+      "prompt": "How do I list all Services to verify my 'web' service is created?"
+    },
+    {
+      "name": "Access Service via Port Forwarding",
+      "prompt": "How do I access my 'web' service locally using kubectl port-forward to map port 8080 to 80?"
+    },
+    {
+      "name": "Clean Up Resources",
+      "prompt": "How can I delete the 'web' service and deployment after testing?"
+    }
+  ]
+}

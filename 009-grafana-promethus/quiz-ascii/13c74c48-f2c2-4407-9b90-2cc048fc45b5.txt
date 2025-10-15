@@ -1,0 +1,5 @@
+Observability Flow
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│ Application  │ --> │ Prometheus   │ --> │ Grafana UI   │
+│ (diner-lab)  │     │ (scrapes)    │     │ (dashboards) │
+└──────────────┘     └──────────────┘     └──────────────┘

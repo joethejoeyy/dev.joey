@@ -1,0 +1,7 @@
+Traffic Shift Timeline
+──────────────────────
+time → →
+ ┌────────────┬────────────┬────────────┬────────────┐
+ │ 10% canary │ 25% canary │ 50% canary │ 100% canary│
+ └────────────┴────────────┴────────────┴────────────┘
+         ↑ helm upgrade diner-canary -f values.yaml

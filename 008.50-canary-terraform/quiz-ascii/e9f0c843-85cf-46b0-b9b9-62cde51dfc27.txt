@@ -1,0 +1,8 @@
+Cleanup Flow
+─────────────
+┌──────────────────────────────────┐
+│ terraform destroy -target=helm_release.diner_canary │
+└──────────────────────────────────┘
+       │
+       ▼
+Removes canary Helm release, frees cluster capacity

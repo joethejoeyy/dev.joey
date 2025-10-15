@@ -1,0 +1,12 @@
+ResourceQuota Overview
+----------------------
+Namespace: sandbox
++-----------------------------------------+
+| ResourceQuota: team-limit               |
++-----------------------------------------+
+| Limit CPU: 2 cores                      |
+| Limit Memory: 2Gi                       |
+| Max Pods: 5                             |
++-----------------------------------------+
+
+Quota keeps sandbox from consuming entire cluster resources.

@@ -1,0 +1,12 @@
+[ Rollout Status ]
+
+kubectl rollout status deployment/myapp
+
++-----------------------------+
+| Deployment: myapp           |
+|-----------------------------|
+| Pod-1: Updating             |
+| Pod-2: Ready                |
+| Pod-3: Ready                |
++-----------------------------+
+Status: Successfully Rolled Out

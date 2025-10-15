@@ -1,0 +1,12 @@
+[ Labels in Blue-Green ]
+
++-------------------+
+|    Service        |
++-------------------+
+     selector: app=myapp
+
+Blue Pods:  app=myapp, version=1
+Green Pods: app=myapp, version=2
+
+Switch Service selector:
+  version=1 ---> version=2

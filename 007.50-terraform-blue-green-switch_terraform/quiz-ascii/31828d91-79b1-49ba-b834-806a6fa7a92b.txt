@@ -1,0 +1,21 @@
+HOW DO YOU PREVIEW SWITCH
+
+Command:
+terraform plan -var='active_color=green'
+
+Example Output:
+~ kubernetes_ingress.main.backend_service_name:
+    "diner-blue" -> "diner-green"
+
+Plan Summary:
+- 1 change (Ingress backend)
+- 0 additions, 0 deletions
+
+ASCII:
+  [Terraform PLAN Stage]
+
+  +-------------+
+  |  Ingress    |   backend: blue → green
+  +-------------+
+
+Like rehearsing before opening night — you see the change but don’t deploy yet.

@@ -1,0 +1,76 @@
+{
+  "title": "Phase 2 — Lab 9 — Monitoring & Observability",
+  "topic": "Prometheus, Grafana, Kubernetes Metrics, Observability Concepts",
+  "cards": [
+    {
+      "question": "What is the main goal of observability in DevOps?",
+      "answer_textbook": "To gain actionable visibility into system behavior through metrics, logs, and traces.",
+      "answer_metaphor": "Like installing sensors and gauges across a spaceship so you can detect issues before they explode.",
+      "answer_realworld": "Observability lets teams monitor diner-lab pods and ingresses for CPU, memory, and request patterns.",
+      "guid": "13c74c48-f2c2-4407-9b90-2cc048fc45b5"
+    },
+    {
+      "question": "How does Prometheus collect data?",
+      "answer_textbook": "By scraping metrics endpoints exposed by Kubernetes components and workloads on a defined interval.",
+      "answer_metaphor": "Like a weather balloon taking snapshots of temperature and pressure every few seconds.",
+      "answer_realworld": "Prometheus polls /metrics endpoints of diner-lab pods to record CPU, memory, and HTTP request counts.",
+      "guid": "6e621d65-926c-4ff8-b72f-9e513a4739d4"
+    },
+    {
+      "question": "What role does Grafana play?",
+      "answer_textbook": "Grafana visualizes Prometheus metrics through customizable dashboards and queries.",
+      "answer_metaphor": "Like a control-room display translating raw sensor numbers into readable dials and graphs.",
+      "answer_realworld": "Grafana shows live diner-lab CPU and memory usage panels linked to Prometheus data.",
+      "guid": "7b1d4fd7-41ac-4044-b62d-53731e5a5581"
+    },
+    {
+      "question": "Why do Prometheus and Metrics Server sometimes disagree?",
+      "answer_textbook": "They collect data differently: Metrics Server reports near real-time node summaries, Prometheus stores time-series samples.",
+      "answer_metaphor": "Like two thermometers taking readings at different times—one live, one logging history.",
+      "answer_realworld": "`kubectl top` shows live CPU snapshots; Grafana charts show Prometheus’s averaged time windows.",
+      "guid": "4e04b69a-71ee-4f87-a7f1-6878c70170a8"
+    },
+    {
+      "question": "What is a ServiceMonitor in Prometheus Operator?",
+      "answer_textbook": "A CRD defining which Kubernetes services Prometheus should scrape and how.",
+      "answer_metaphor": "Like giving a delivery driver a map of which houses to visit and what schedule to follow.",
+      "answer_realworld": "You can create a ServiceMonitor for diner-lab pods to ensure Prometheus gathers their metrics automatically.",
+      "guid": "a9017891-c65c-4f1b-a30c-37a09dfdc5c8"
+    },
+    {
+      "question": "What is PromQL and why is it important?",
+      "answer_textbook": "PromQL is Prometheus Query Language used to aggregate, filter, and analyze metrics.",
+      "answer_metaphor": "Like SQL for your telemetry — turning raw measurements into meaningful insights.",
+      "answer_realworld": "Using PromQL, you can compute average CPU across diner-lab pods or track rate of HTTP requests.",
+      "guid": "02a22f8b-f81c-4e04-bf12-0c57e841d22b"
+    },
+    {
+      "question": "Why isolate monitoring in its own namespace?",
+      "answer_textbook": "To separate observability tooling from workloads for security, resource control, and clarity.",
+      "answer_metaphor": "Like keeping the security cameras in a locked control room instead of on the shop floor.",
+      "answer_realworld": "Prometheus and Grafana run in `monitoring` namespace while diner apps stay in `diner-lab`.",
+      "guid": "c7986e41-79e0-4b02-9183-52cfb0b63ef0"
+    },
+    {
+      "question": "How can you simulate load for learning purposes?",
+      "answer_textbook": "By generating artificial traffic using tools like busybox or curl loops.",
+      "answer_metaphor": "Like revving a parked car’s engine to see if the gauges respond.",
+      "answer_realworld": "Run a busybox pod that repeatedly curls diner-lab endpoint to trigger visible metric activity.",
+      "guid": "fc891f85-32ee-4e50-9cfa-0d51ff1a5471"
+    },
+    {
+      "question": "What are key PromQL aggregation functions?",
+      "answer_textbook": "`sum()`, `avg()`, `rate()`, and `count()` summarize metrics over labels or time windows.",
+      "answer_metaphor": "Like rolling up all restaurant bills to find the total, average, or hourly rate of spending.",
+      "answer_realworld": "Use `sum by (pod)` to see diner-lab CPU usage per pod or `rate(http_requests_total[1m])` for traffic rate.",
+      "guid": "c7997cb7-c7cf-4ab7-a31f-777cf47e1e41"
+    },
+    {
+      "question": "What lesson does observability teach even with zero traffic?",
+      "answer_textbook": "That structure and relationships between metrics matter more than absolute values when learning.",
+      "answer_metaphor": "Like studying the wiring of an engine before starting it.",
+      "answer_realworld": "Understanding Prometheus targets, labels, and Grafana queries builds intuition before real workloads arrive.",
+      "guid": "ed80a912-33d1-4d56-b1e3-592ae83b0174"
+    }
+  ]
+}

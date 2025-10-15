@@ -1,0 +1,104 @@
+{
+  "lab": "Phase 8 — Canary Deployment (K8s Native)",
+  "abstract": {
+    "who": "This lab was completed by Joe and their friend as DevOps learners practicing native Kubernetes canary deployments using NGINX Ingress.",
+    "why": "To learn how production systems safely roll out new versions by routing small slices of traffic to a canary release, catching issues before full rollout.",
+    "what": "We deployed stable (blue) and canary (green) versions of the Diner app, used ConfigMaps for unique HTML visuals, configured NGINX Ingress weights to gradually increase traffic, and learned how Kubernetes merges multiple Ingress objects by host name to manage canary routing.",
+    "where": "Executed locally from VS Code and PowerShell using a local Kubernetes cluster (Docker Desktop). Works identically in cloud clusters like EKS, AKS, and GKE."
+  },
+  "struggles_and_lessons": [
+    "Understanding that two separate Ingress objects (not one) are needed — one stable, one with `canary:true` annotation.",
+    "Realizing the stable ingress has no explicit weight; it’s treated as the default 100% while the canary ingress subtracts from that total.",
+    "Learning that ConfigMaps act like a 'freezer' holding files and the deployment mounts just one file via subPath (the 'scoop' analogy).",
+    "Dealing with the deprecated `kubernetes.io/ingress.class` warning and switching to `spec.ingressClassName: nginx`.",
+    "Confirming YAML files are best built and saved individually in VS Code for clarity rather than dumping them in the terminal.",
+    "Testing using PowerShell loops to visually confirm the percentage split between stable and canary pages.",
+    "Grasping how annotations dynamically change routing weights without redeploying YAMLs — a major production skill.",
+    "Becoming comfortable with reading, editing, and reapplying YAML safely via `kubectl apply -f`.",
+    "Learning the cleanup and namespace isolation pattern (`--dry-run=client -o yaml | kubectl apply -f -`) for idempotent resource creation."
+  ],
+  "tasks": [
+    {
+      "name": "Create namespace and setup folder",
+      "prompt": "Use `mkdir phase8-canary` then `cd phase8-canary`. Create namespace safely: `kubectl create namespace diner-lab --dry-run=client -o yaml | kubectl apply -f -`."
+    },
+    {
+      "name": "Create stable HTML ConfigMap",
+      "prompt": "Make `cm-stable.yaml` with blue-themed HTML and apply it."
+    },
+    {
+      "name": "Create canary HTML ConfigMap",
+      "prompt": "Make `cm-canary.yaml` with green-themed HTML and apply it."
+    },
+    {
+      "name": "Create stable deployment",
+      "prompt": "Define `deploy-stable.yaml` mounting `diner-stable-html`. This runs 3 blue pods."
+    },
+    {
+      "name": "Create canary deployment",
+      "prompt": "Define `deploy-canary.yaml` mounting `diner-canary-html`. This runs 1 green pod."
+    },
+    {
+      "name": "Create services",
+      "prompt": "Define `svc.yaml` for both stable and canary deployments. Each targets its own pods using version labels."
+    },
+    {
+      "name": "Create stable ingress",
+      "prompt": "Define `ingress-stable.yaml` routing 100% of traffic to stable service by default."
+    },
+    {
+      "name": "Create canary ingress",
+      "prompt": "Define `ingress-canary.yaml` with `canary:true` and weight annotations to send 10% traffic to canary."
+    },
+    {
+      "name": "Verify both ingresses",
+      "prompt": "Run `kubectl get ingress -n diner-lab` and ensure both appear — stable and canary."
+    },
+    {
+      "name": "Test traffic distribution",
+      "prompt": "Use PowerShell loop to hit `http://diner.local` multiple times and check which version responds."
+    },
+    {
+      "name": "Adjust traffic gradually",
+      "prompt": "Increase canary weight from 10 → 25 → 50 → 100 using `kubectl annotate ingress ...` commands."
+    },
+    {
+      "name": "Observe logs",
+      "prompt": "Use `kubectl logs -l version=canary` to confirm canary requests are increasing with traffic weights."
+    },
+    {
+      "name": "Roll back if unstable",
+      "prompt": "Reduce canary weight to 0 or delete the canary ingress to restore 100% stable traffic."
+    },
+    {
+      "name": "Cleanup",
+      "prompt": "Delete all diner resources or nuke the namespace with `kubectl delete ns diner-lab`."
+    }
+  ],
+  "commands": [
+    "mkdir phase8-canary",
+    "cd phase8-canary",
+    "kubectl create namespace diner-lab --dry-run=client -o yaml | kubectl apply -f -",
+    "kubectl apply -f cm-stable.yaml",
+    "kubectl apply -f cm-canary.yaml",
+    "kubectl apply -f deploy-stable.yaml",
+    "kubectl apply -f deploy-canary.yaml",
+    "kubectl apply -f svc.yaml",
+    "kubectl apply -f ingress-stable.yaml",
+    "kubectl apply -f ingress-canary.yaml",
+    "kubectl get pods --show-labels -n diner-lab",
+    "kubectl get svc,ingress -n diner-lab",
+    "kubectl annotate ingress diner-ingress-canary -n diner-lab nginx.ingress.kubernetes.io/canary-weight=\"25\" --overwrite",
+    "kubectl annotate ingress diner-ingress-canary -n diner-lab nginx.ingress.kubernetes.io/canary-weight=\"50\" --overwrite",
+    "kubectl annotate ingress diner-ingress-canary -n diner-lab nginx.ingress.kubernetes.io/canary-weight=\"100\" --overwrite",
+    "kubectl logs -l version=canary -n diner-lab --tail=20",
+    "kubectl delete -f ingress-canary.yaml -n diner-lab",
+    "kubectl delete -f ingress-stable.yaml -n diner-lab",
+    "kubectl delete -f svc.yaml -n diner-lab",
+    "kubectl delete -f deploy-canary.yaml -n diner-lab",
+    "kubectl delete -f deploy-stable.yaml -n diner-lab",
+    "kubectl delete -f cm-canary.yaml -n diner-lab",
+    "kubectl delete -f cm-stable.yaml -n diner-lab",
+    "kubectl delete ns diner-lab"
+  ]
+}

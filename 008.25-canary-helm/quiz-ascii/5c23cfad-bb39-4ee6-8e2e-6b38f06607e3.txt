@@ -1,0 +1,5 @@
+Declarative Helm Lifecycle
+──────────────────────────
+git commit → helm upgrade → cluster syncs desired state
+        ↑                        ↓
+      rollback ←── history stored in Helm revisions

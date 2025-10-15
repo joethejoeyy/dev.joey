@@ -1,0 +1,9 @@
+values.yaml knobs
+─────────────────
+replicaCount: 3
+image:
+  tag: v2
+ingress:
+  annotations:
+    nginx.ingress.kubernetes.io/canary-weight: 25
+# tweak → helm upgrade → cluster adjusts automatically

@@ -1,0 +1,82 @@
+{
+  "title": "Phase 6.25 — Ingress & DNS via Helm",
+  "topic": "Kubernetes, Ingress, Helm, DNS",
+  "abstract": {
+    "who": "This flashcard set is for you and Joe, focusing on Helm-managed ingress and DNS.",
+    "why": "Helm makes ingress and app deployment repeatable, values.yaml enables easy configuration, and sslip.io provides DNS without hosts edits.",
+    "what": "Covers installing ingress-nginx, packaging the diner app, configuring ingress rules, using values.yaml, and testing DNS with sslip.io.",
+    "where": "Works for local clusters (Docker Desktop, minikube, kind) and cloud clusters (EKS, AKS, GKE)."
+  },
+  "cards": [
+    {
+      "question": "Why install ingress-nginx with Helm instead of YAML?",
+      "answer_textbook": "Helm simplifies install and upgrades of ingress-nginx.",
+      "answer_metaphor": "It’s like ordering a furniture kit instead of carving wood yourself.",
+      "answer_realworld": "Ops teams use Helm charts for repeatable, versioned ingress installs.",
+      "guid": "c2c9d000-6a5b-4c3c-9f6f-51f889a30001"
+    },
+    {
+      "question": "What does `helm repo add ingress-nginx` do?",
+      "answer_textbook": "It registers the ingress-nginx chart repository with Helm.",
+      "answer_metaphor": "Like bookmarking a menu so you can order later.",
+      "answer_realworld": "You need this step before installing ingress-nginx.",
+      "guid": "8f75bbd9-52b8-44fc-950a-cdf84e5c0002"
+    },
+    {
+      "question": "Why package the diner app as a Helm chart?",
+      "answer_textbook": "Charts template Kubernetes manifests for easy reuse.",
+      "answer_metaphor": "Like writing a recipe you can cook again with different ingredients.",
+      "answer_realworld": "You can deploy diner-app in dev and prod with different values.",
+      "guid": "1a027c54-32a6-4890-a77d-68872d1f0003"
+    },
+    {
+      "question": "How are ingress rules expressed in Helm?",
+      "answer_textbook": "Ingress rules go into values.yaml under ingress.hosts and paths.",
+      "answer_metaphor": "Like a seating chart that maps doors to rooms.",
+      "answer_realworld": "values.yaml defines diner.local/menu and diner.local/drinks routes.",
+      "guid": "e6500e0f-75d7-4055-97dc-13f765e40004"
+    },
+    {
+      "question": "What is sslip.io and why use it?",
+      "answer_textbook": "sslip.io resolves hostnames with embedded IPs to that IP.",
+      "answer_metaphor": "Like a universal directory translating nicknames into addresses.",
+      "answer_realworld": "diner.127.0.0.1.sslip.io resolves to localhost.",
+      "guid": "b81af3de-b5ad-4f82-b19b-bfbd6c950005"
+    },
+    {
+      "question": "What is the advantage of values.yaml?",
+      "answer_textbook": "It lets you override chart defaults without editing templates.",
+      "answer_metaphor": "Like customizing toppings without rewriting the recipe.",
+      "answer_realworld": "You change replicas, image tags, ingress hosts in one file.",
+      "guid": "a8923d6a-37cc-4b30-a6da-d0e8a7e60006"
+    },
+    {
+      "question": "What command verifies ingress?",
+      "answer_textbook": "`kubectl get ingress` lists ingress resources.",
+      "answer_metaphor": "Like checking the building directory for your office name.",
+      "answer_realworld": "Run `kubectl get ingress -n diner-lab`.",
+      "guid": "10a9e0f3-b57e-44c3-8b9f-5c780b9a0007"
+    },
+    {
+      "question": "How do you test routing?",
+      "answer_textbook": "Use curl against the sslip.io hostname.",
+      "answer_metaphor": "Like calling the restaurant’s phone to check it works.",
+      "answer_realworld": "`curl http://diner.127.0.0.1.sslip.io:30080/`.",
+      "guid": "dc29ef2c-2b9e-4c16-8cdb-f5b29e7a0008"
+    },
+    {
+      "question": "Why keep ingress-nginx in its own namespace?",
+      "answer_textbook": "Isolation simplifies management and upgrades.",
+      "answer_metaphor": "Like giving building security its own office.",
+      "answer_realworld": "You run ingress-nginx in ingress-nginx namespace, apps in diner-lab.",
+      "guid": "6f77a8ed-1e22-46f3-9870-557a3b0c0009"
+    },
+    {
+      "question": "What’s the workflow for diner app with Helm?",
+      "answer_textbook": "Add repo → update → install ingress-nginx → create chart → edit values → install diner → verify → curl test.",
+      "answer_metaphor": "Like getting supplies, opening the diner, and inviting guests.",
+      "answer_realworld": "Once sslip.io resolves and curl works, diner is live.",
+      "guid": "d4f7d660-b7f1-4f3c-926f-348e5fcf0010"
+    }
+  ]
+}

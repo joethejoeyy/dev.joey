@@ -1,0 +1,11 @@
+[ Risk of Blue-Green ]
+
+Resources required:
++--------------------------+
+|   Blue Pods: version=1   |
+|   Green Pods: version=2  |
++--------------------------+
+Double CPU / Memory usage
+Double infrastructure cost
+
+Tradeoff: High safety, higher resource use

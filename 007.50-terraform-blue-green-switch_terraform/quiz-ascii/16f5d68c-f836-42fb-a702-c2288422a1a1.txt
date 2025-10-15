@@ -1,0 +1,18 @@
+HOW DO YOU VERIFY PODS
+
+Command:
+kubectl get pods --show-labels
+
+Output Example:
++-------------------+--------------------------------+
+| Pod Name          | Labels                         |
++-------------------+--------------------------------+
+| diner-a-abc123    | app=diner-a,version=blue       |
+| diner-b-def456    | app=diner-b,version=green      |
++-------------------+--------------------------------+
+
+Interpretation:
+- diner-a pods = blue (currently serving)
+- diner-b pods = green (on standby)
+
+Like checking diner uniforms — blue staff are on shift, green staff are resting.

@@ -1,0 +1,9 @@
+[ CERT-MANAGER ]
+
++-----------------+         +------------------+
+| cert-manager    | <-----> | Let's Encrypt CA |
++-----------------+         +------------------+
+          |
+          v
+ [ Kubernetes Ingress ]
+  auto-provisions TLS certs

@@ -1,0 +1,9 @@
+Centralized Control
+───────────────────
+     Terraform Variables
+              │
+              ▼
+┌───────────────────────────┐
+│ diner-canary Helm release │
+└───────────────────────────┘
+(change once → Terraform updates all automatically)

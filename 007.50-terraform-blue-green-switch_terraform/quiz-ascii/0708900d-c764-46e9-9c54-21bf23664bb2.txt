@@ -1,0 +1,18 @@
+WHAT VARIABLE CONTROLS THE SWITCH
+
+The single control is the Terraform variable `active_color`.
+
++--------------------------------------+
+| variable "active_color" {            |
+|   type = string                      |
+|   default = "blue"                   |
+| }                                    |
++--------------------------------------+
+
+Change this variable to switch live traffic.
+
+   active_color = "blue"  --> diner-a serves
+   active_color = "green" --> diner-b serves
+
+Terraform uses this variable to decide which Service and Ingress backend
+receives requests.

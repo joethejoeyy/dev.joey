@@ -1,0 +1,10 @@
+What command installs diner-blue?
+-------------------------------------
+$ helm install diner-blue ./diner-blue
+
+Helm → creates release → Kubernetes
+
+       ┌────────────────────────────┐
+       │ Pods labeled: diner-blue   │
+       │ Service: diner-blue-svc    │
+       └────────────────────────────┘

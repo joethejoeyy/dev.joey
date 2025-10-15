@@ -1,0 +1,15 @@
+Rollback (kubectl rollout undo deployment/web)
+----------------------------------------------
+Current (broken) Version
+   +---------+
+   | Pod v2  |  <-- Buggy image
+   +---------+
+        |
+        |  Undo command triggers rollback
+        v
+Reverts to Previous ReplicaSet
+   +---------+
+   | Pod v1  |  <-- Stable version
+   +---------+
+
+Deployment history keeps track of versions.

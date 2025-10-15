@@ -1,0 +1,24 @@
+                ┌───────────────────────────────┐
+                │       Applications            │
+                │  (Pods, Services, Ingress)    │
+                └───────────────▲───────────────┘
+                                │ Needs cluster
+                                ▼
+                ┌───────────────────────────────┐
+                │       Kubernetes Layer         │
+                │  Control plane + Node pools    │
+                │  Orchestrates workloads        │
+                └───────────────▲───────────────┘
+                                │ Requires infra
+                                ▼
+     ┌──────────────────────────────────────────────────┐
+     │            Terraform Infrastructure Layer        │
+     │                                                  │
+     │  • Networks (VPCs, VNets, Subnets)               │
+     │  • Gateways / Load Balancers                     │
+     │  • Compute (VMs, Node pools)                     │
+     │  • Kubernetes cluster resources (EKS, AKS, GKE)  │
+     └──────────────────────────────────────────────────┘
+
+Terraform builds the **foundation** (infra + clusters).
+Kubernetes manages the **platform** (pods/services) on top.

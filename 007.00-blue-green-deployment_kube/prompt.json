@@ -1,0 +1,76 @@
+{
+  "title": "Phase 7.25 — Blue-Green Deployment via Helm",
+  "topic": "Kubernetes, Helm, Blue-Green",
+  "cards": [
+    {
+      "question": "Why use Helm for blue/green?",
+      "answer_textbook": "Helm makes switching versions simple via upgrades.",
+      "answer_metaphor": "Like a franchise owner flipping the café sign from 'Blue Menu' to 'Green Menu' across all branches instantly.",
+      "answer_realworld": "Teams can swap app versions by adjusting Helm values.",
+      "guid": "dba7610f-4af8-464e-9b14-fbfdac0b1de0"
+    },
+    {
+      "question": "What does `helm create diner-blue` do?",
+      "answer_textbook": "Scaffolds a new chart for blue deployment.",
+      "answer_metaphor": "Like receiving a standard blueprint for setting up the Blue café with consistent tables, menus, and staff stations.",
+      "answer_realworld": "You customize templates for the blue version.",
+      "guid": "a13e8469-836a-4a5c-9214-83dcf89c78d6"
+    },
+    {
+      "question": "Why keep separate blue/green charts?",
+      "answer_textbook": "Separation avoids config collision.",
+      "answer_metaphor": "Like running two kitchens side-by-side in the same restaurant chain, each with its own recipes and staff.",
+      "answer_realworld": "Ops teams manage blue and green with independent values.",
+      "guid": "c8cc9ffd-2097-4f3c-9b21-19f93ee71062"
+    },
+    {
+      "question": "What command installs diner-blue?",
+      "answer_textbook": "`helm install diner-blue ./diner-blue`.",
+      "answer_metaphor": "Like officially opening the Blue café doors to customers after setup is complete.",
+      "answer_realworld": "Pods labeled diner-blue spin up.",
+      "guid": "a3e0dde1-0291-43e1-b2bc-cedd0003dc3e"
+    },
+    {
+      "question": "How do you switch to green?",
+      "answer_textbook": "`helm upgrade diner ./diner-green -f values.yaml`.",
+      "answer_metaphor": "Like redirecting all café customers to the Green branch once its menu is ready.",
+      "answer_realworld": "Traffic starts flowing to diner-green pods.",
+      "guid": "232c17ec-83b7-4fbc-a37e-d136179545b4"
+    },
+    {
+      "question": "How do you verify which is active?",
+      "answer_textbook": "Check pods labels and ingress routing.",
+      "answer_metaphor": "Like checking the sign outside the café to see whether the Blue or Green menu is currently being served.",
+      "answer_realworld": "Run `kubectl get pods --show-labels`.",
+      "guid": "842f04b1-5c3b-4710-ae68-05d46bbe77d8"
+    },
+    {
+      "question": "What if green fails?",
+      "answer_textbook": "`helm rollback diner 1` to revert.",
+      "answer_metaphor": "Like reopening the Blue café immediately if the Green café has a problem with its new menu.",
+      "answer_realworld": "Ops roll back to blue chart release.",
+      "guid": "f2378ce5-3729-49ca-a908-44515aaf8f90"
+    },
+    {
+      "question": "How do you check history?",
+      "answer_textbook": "`helm history diner` shows revisions.",
+      "answer_metaphor": "Like flipping through the franchise logbook to see which menus were active in the past.",
+      "answer_realworld": "It lists version numbers and statuses.",
+      "guid": "ef43ef2f-3ca1-437c-8252-f0462698d250"
+    },
+    {
+      "question": "What is advantage of Helm values?",
+      "answer_textbook": "Centralized overrides for replicas, hosts.",
+      "answer_metaphor": "Like updating the café’s menu card once and having every location reflect the change, without rebuilding the whole kitchen.",
+      "answer_realworld": "Teams toggle configs in values.yaml.",
+      "guid": "3af865e0-2265-401e-99bc-99ffb9c94f6c"
+    },
+    {
+      "question": "How to cleanup?",
+      "answer_textbook": "`helm uninstall diner-blue diner-green`.",
+      "answer_metaphor": "Like closing down both café branches and removing all their equipment from the franchise.",
+      "answer_realworld": "Removes resources from cluster.",
+      "guid": "b5c426b5-3911-4659-a95d-c82bab765e80"
+    }
+  ]
+}

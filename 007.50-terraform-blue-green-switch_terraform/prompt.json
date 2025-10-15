@@ -1,0 +1,77 @@
+{
+  "lab": "Phase 7.5 — Terraform Blue-Green Switch (Full Fixed Lab)",
+  "abstract": {
+    "who": "This lab is for you and Joe, using Terraform to manage blue/green deployments declaratively on a Kubernetes cluster.",
+    "why": "Terraform controls infrastructure state across environments. Using variables, you can declaratively flip traffic between blue and green without touching kubectl or Helm manually.",
+    "what": "You deploy both diner-blue and diner-green, route traffic using a single variable, and use terraform apply to flip the active service. The process includes fixing PATH issues, rewriting ingress logic, verifying endpoints, and confirming live color routing.",
+    "where": "Runs on any Kubernetes cluster where the Terraform Kubernetes provider works — local (Docker Desktop, Minikube, Kind) or cloud (EKS, AKS, GKE)."
+  },
+  "fixes_and_lessons": [
+    "Terraform was missing, so we reinstalled it manually and fixed the PATH variable via PowerShell using setx.",
+    "Validated Terraform installation with terraform -version.",
+    "Rewrote ingress.tf to replace the ternary '? :' operator with a clean service_map lookup to avoid syntax errors.",
+    "Verified that terraform init succeeded after provider setup.",
+    "Validated configuration with terraform validate to ensure all syntax and dependencies were correct.",
+    "Applied configuration using terraform apply -auto-approve to deploy namespace, services, and ingress.",
+    "Checked pods with kubectl get pods -n diner-lab --show-labels to confirm both diner-blue and diner-green were running.",
+    "Verified ingress routing with kubectl describe ingress diner-ingress -n diner-lab.",
+    "Confirmed that the active color (blue first) matched ingress backend diner-blue-svc.",
+    "Set up local URL access via hosts file (127.0.0.1 diner.local) or curl with Host header.",
+    "Verified endpoint using kubectl get ingress diner-ingress -n diner-lab -o wide and kubectl get endpoints -n diner-lab.",
+    "Flipped traffic by changing active_color in variables.tf and reapplying terraform apply -auto-approve.",
+    "Validated that the ingress backend switched to diner-green-svc and confirmed live endpoint with curl."
+  ],
+  "tasks": [
+    {
+      "name": "Fix Terraform installation",
+      "prompt": "Install Terraform, move terraform.exe to C:\\Program Files\\Terraform, then run setx /M PATH \"$($env:PATH);C:\\Program Files\\Terraform\".",
+      "metaphor": "Like finding your missing wrench and putting it back in the right drawer so you can build again."
+    },
+    {
+      "name": "Rebuild ingress.tf",
+      "prompt": "Replace broken '? :' logic with a locals map lookup to dynamically select active service based on active_color.",
+      "metaphor": "Like swapping a jammed switch for a clean toggle that never breaks."
+    },
+    {
+      "name": "Initialize Terraform",
+      "prompt": "Run terraform init to download providers.",
+      "metaphor": "Opening the franchise rulebook so every branch follows the same system."
+    },
+    {
+      "name": "Validate configuration",
+      "prompt": "Run terraform validate to ensure syntax and provider blocks are correct.",
+      "metaphor": "Like checking every ingredient before baking — no missing parts."
+    },
+    {
+      "name": "Apply configuration (Blue active)",
+      "prompt": "Run terraform apply -auto-approve to deploy everything using default=blue in variables.tf.",
+      "metaphor": "Turning on the Blue café’s Open sign for customers."
+    },
+    {
+      "name": "Verify Blue deployment",
+      "prompt": "Run kubectl get pods -n diner-lab --show-labels and kubectl describe ingress diner-ingress -n diner-lab.",
+      "metaphor": "Walking by to see that the Blue café is serving while Green is on standby."
+    },
+    {
+      "name": "Check endpoint",
+      "prompt": "Run kubectl get ingress diner-ingress -n diner-lab -o wide or kubectl get endpoints -n diner-lab.",
+      "metaphor": "Like checking the café’s street sign to see where traffic is flowing."
+    },
+    {
+      "name": "Flip to Green",
+      "prompt": "Change active_color in variables.tf to green and reapply with terraform apply -auto-approve.",
+      "metaphor": "Switching the Open sign from Blue to Green instantly, no downtime."
+    },
+    {
+      "name": "Verify Green routing",
+      "prompt": "Run kubectl describe ingress diner-ingress -n diner-lab | findstr 'Service' and curl -H 'Host: diner.local' http://127.0.0.1:8080/.",
+      "metaphor": "Checking that customers are now being served at the Green branch."
+    },
+    {
+      "name": "Cleanup",
+      "prompt": "Run terraform destroy -auto-approve to remove all resources.",
+      "metaphor": "Closing both cafés and clearing all tables when the day’s done."
+    }
+  ],
+  "checkpoint": "You can resume this lab from any phase by starting at terraform init once Terraform is installed and PATH is fixed."
+}

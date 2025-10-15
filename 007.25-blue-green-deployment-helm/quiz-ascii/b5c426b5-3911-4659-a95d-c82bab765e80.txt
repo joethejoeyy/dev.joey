@@ -1,0 +1,10 @@
+How to cleanup?
+----------------------
+$ helm uninstall diner-blue diner-green
+
+Cluster after cleanup:
+   ❌ Deployments removed
+   ❌ Services removed
+   ❌ Ingress removed
+   ✅ Namespace clean
+Both café branches closed, nothing left behind.

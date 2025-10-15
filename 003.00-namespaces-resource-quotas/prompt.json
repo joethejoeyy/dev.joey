@@ -1,0 +1,61 @@
+{
+  "lab": "Phase 1 \u2014 Lab 3: Namespaces & Resource Quotas",
+  "prompt_style": "Fuck Me Into Understanding \u2014 Evolved Edition (Structured Chaos)",
+  "abstract": {
+    "who": "Parm & Joe \u2014 DevOps learners leveling up from single-namespace toy apps.",
+    "why": "Because 'default' is not a strategy. Namespaces keep order, and quotas keep fairness when many workloads share a cluster.",
+    "what": "You\u2019ll explore how namespaces isolate resources, how contexts switch between them, and how ResourceQuotas enforce boundaries.",
+    "where": "Run this inside your kind or Docker Desktop cluster from earlier labs."
+  },
+  "tasks": [
+    {
+      "name": "List existing namespaces",
+      "prompt": "How do I see what namespaces exist in the cluster?",
+      "command": "kubectl get ns",
+      "expected": "Shows default, kube-system, kube-public, and others."
+    },
+    {
+      "name": "Create a sandbox namespace",
+      "prompt": "How do I make a new isolated space for testing?",
+      "command": "kubectl create namespace sandbox",
+      "expected": "Namespace 'sandbox' created and visible in `kubectl get ns`."
+    },
+    {
+      "name": "Deploy an app inside that namespace",
+      "prompt": "How do I deploy nginx only within sandbox?",
+      "command": "kubectl create deployment web --image=nginx -n sandbox",
+      "expected": "Deployment 'web' created under sandbox namespace."
+    },
+    {
+      "name": "Check pods inside sandbox",
+      "prompt": "How can I verify the pods exist only in sandbox?",
+      "command": "kubectl get pods -n sandbox",
+      "expected": "Lists only pods belonging to sandbox."
+    },
+    {
+      "name": "Switch kubectl context to sandbox",
+      "prompt": "How do I avoid typing -n sandbox every time?",
+      "command": "kubectl config set-context --current --namespace=sandbox",
+      "expected": "Context updated; future kubectl commands default to sandbox."
+    },
+    {
+      "name": "Apply a ResourceQuota",
+      "prompt": "How do I cap CPU and memory usage inside sandbox?",
+      "command": "kubectl apply -f quota.yaml",
+      "expected": "Quota applied \u2014 limits pods, CPU, memory, or object counts."
+    },
+    {
+      "name": "Inspect ResourceQuota",
+      "prompt": "How can I view quota limits and usage?",
+      "command": "kubectl describe quota -n sandbox",
+      "expected": "Displays requested vs. allowed CPU, memory, pods, etc."
+    },
+    {
+      "name": "Cleanup",
+      "prompt": "How can I delete everything and reset context?",
+      "command": "kubectl delete ns sandbox && kubectl config set-context --current --namespace=default",
+      "expected": "Namespace removed; context restored to default."
+    }
+  ],
+  "next_step_preview": "Next you\u2019ll explore Helm \u2014 packaging and versioning Kubernetes deployments like a pro."
+}

@@ -1,0 +1,11 @@
+
+Legacy vs Containerized World
+────────────────────────────
+ Legacy Infra              New World
+ ┌───────────────┐       ┌───────────────┐
+ │ Big Coffee    │       │ Mobile Coffee │
+ │ Shop Building │       │ Carts         │
+ └───────────────┘       └───────────────┘
+
+Terraform = builds the streets and intersections so both can coexist.
+    

@@ -1,0 +1,51 @@
+{
+  "lab": "Phase 7.25 \u2014 Blue-Green Deployment via Helm",
+  "abstract": {
+    "who": "This lab is for you and Joe, focusing on using Helm to manage blue/green deployments for Kubernetes apps.",
+    "why": "Helm lets you template blue and green versions into separate charts or releases, and easily switch traffic by upgrading releases with values.yaml.",
+    "what": "You will package blue and green diner apps, install them, and use Helm upgrade to flip traffic. You'll also verify pods and routing.",
+    "where": "Works for local clusters (Docker Desktop, minikube) and cloud clusters (EKS, AKS, GKE)."
+  },
+  "tasks": [
+    {
+      "name": "Create blue chart",
+      "prompt": "Run `helm create diner-blue` and adjust templates."
+    },
+    {
+      "name": "Create green chart",
+      "prompt": "Run `helm create diner-green` and adjust templates."
+    },
+    {
+      "name": "Install blue release",
+      "prompt": "Run `helm install diner-blue ./diner-blue`."
+    },
+    {
+      "name": "Verify blue pods",
+      "prompt": "Run `kubectl get pods --show-labels` to confirm diner-blue is running."
+    },
+    {
+      "name": "Install green release",
+      "prompt": "Run `helm install diner-green ./diner-green`."
+    },
+    {
+      "name": "Flip traffic to green",
+      "prompt": "Run `helm upgrade diner ./diner-green -f values.yaml`."
+    },
+    {
+      "name": "Verify traffic switch",
+      "prompt": "Check `kubectl get pods --show-labels` and ingress routing."
+    },
+    {
+      "name": "Rollback if needed",
+      "prompt": "Run `helm rollback diner 1` to revert."
+    },
+    {
+      "name": "Check history",
+      "prompt": "Run `helm history diner` to see rollout versions."
+    },
+    {
+      "name": "Cleanup",
+      "prompt": "Run `helm uninstall diner-blue diner-green`."
+    }
+  ]
+}

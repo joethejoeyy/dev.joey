@@ -1,0 +1,51 @@
+{
+  "lab": "Phase 6 — Ingress & DNS Simulation",
+  "abstract": {
+    "who": "This lab is for you and Joe as DevOps learners ready to connect the outside world to your cluster apps.",
+    "why": "In the real world, apps rarely run in isolation. You need a way to route external HTTP/HTTPS traffic to multiple services behind one entry point. Ingress provides that routing, and DNS makes it user-friendly.",
+    "what": "You will install an NGINX Ingress Controller, create Ingress resources with routing rules, and simulate DNS locally by editing your hosts file. This mimics how production clusters use DNS records and ingress controllers to expose apps under real domains.",
+    "where": "Legacy world: every service exposed with separate ports (NodePort or LoadBalancer). New world: a single Ingress Controller handles traffic and routes by host/path, with DNS providing clean hostnames."
+  },
+  "tasks": [
+    {
+      "name": "Install Ingress Controller",
+      "prompt": "Use Helm to install ingress-nginx into its own namespace. This gives you a controller to process Ingress rules."
+    },
+    {
+      "name": "Check Controller status",
+      "prompt": "Run `kubectl get pods -n ingress-nginx` and `kubectl get svc -n ingress-nginx` to verify the controller is running and exposed."
+    },
+    {
+      "name": "Deploy a sample app",
+      "prompt": "Create a simple Deployment and Service (for example, `diner-app`) so you have a backend to expose."
+    },
+    {
+      "name": "Write an Ingress resource",
+      "prompt": "Define an ingress.yaml with rules mapping hostnames and paths (e.g., `diner.local/menu`) to the diner-app service."
+    },
+    {
+      "name": "Apply the Ingress",
+      "prompt": "Run `kubectl apply -f ingress.yaml` to create the Ingress resource. Verify with `kubectl get ingress`."
+    },
+    {
+      "name": "Simulate DNS",
+      "prompt": "Edit your /etc/hosts file (or C:\\Windows\\System32\\drivers\\etc\\hosts on Windows) to map `127.0.0.1 diner.local`."
+    },
+    {
+      "name": "Test routing",
+      "prompt": "Open a browser and go to `http://diner.local/menu`. Confirm that traffic is routed through the Ingress Controller to your app."
+    },
+    {
+      "name": "Add another path",
+      "prompt": "Update ingress.yaml to also route `/drinks` to a second service. Apply again and verify both routes work."
+    },
+    {
+      "name": "Observe the difference from NodePort",
+      "prompt": "Compare using one Ingress domain for multiple services vs. exposing each individually with NodePorts."
+    },
+    {
+      "name": "Clean up",
+      "prompt": "Delete the ingress resource, services, and deployment with `kubectl delete -f ingress.yaml` and verify removal."
+    }
+  ]
+}

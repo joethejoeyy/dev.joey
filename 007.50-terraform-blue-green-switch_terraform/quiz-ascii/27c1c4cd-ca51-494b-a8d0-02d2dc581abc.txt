@@ -1,0 +1,24 @@
+WHAT IS ADVANTAGE OF TERRAFORM
+
+Terraform coordinates everything (infra + app) in one workflow.
+
++------------------------------------------+
+|   Terraform                             |
+|------------------------------------------|
+| • Kubernetes Provider                    |
+| • Helm Provider                          |
+| • Cloud Provider                         |
++------------------------------------------+
+         |           |           |
+         v           v           v
+   Services     Deployments   DNS/Infra
+
+ASCII Metaphor:
+       +---------------------------+
+       | Unified Kitchen Console   |
+       |  - Lights (Helm)          |
+       |  - Gas (K8s)              |
+       |  - Building Power (Infra) |
+       +---------------------------+
+
+One control panel for every diner component.

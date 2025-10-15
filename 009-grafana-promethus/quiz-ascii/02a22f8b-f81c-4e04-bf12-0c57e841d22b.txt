@@ -1,0 +1,5 @@
+PromQL Anatomy
+metric_name{label="value"} [time_range]
+     │
+     ├── filters by labels
+     └── aggregates with sum(), avg(), rate()

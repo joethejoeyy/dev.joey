@@ -1,0 +1,10 @@
+kubectl get svc
+
++------------------+
+| Services Table   |
++------------------+
+| NAME  | TYPE     |
+|-------+----------|
+| kube  | ClusterIP|
+| web   | NodePort |
++------------------+

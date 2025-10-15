@@ -1,0 +1,10 @@
+How do you verify which is active?
+-----------------------------------
+$ kubectl get pods --show-labels
+
+NAME             LABELS
+diner-blue-xx    app=diner-blue
+diner-green-yy   app=diner-green
+
+Ingress points → diner-green
+Check both labels and ingress backend.

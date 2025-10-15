@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-svc
+spec:
+  type: ClusterIP        # keep internal, or change to NodePort if you want browser access
+  selector:
+    app: myapp           # match both color and app if you want to target just one version
+    color: green          # 👈 switch to green when testing the green pods
+  ports:
+  - port: 80             # service port inside cluster
+    targetPort: 80       # pod container port

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diner-a
+  namespace: diner-lab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: diner-a
+  template:
+    metadata:
+      labels:
+        app: diner-a
+    spec:
+      containers:
+      - name: web
+        image: nginx
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: diner-a-svc
+  namespace: diner-lab
+spec:
+  selector:
+    app: diner-a
+  ports:
+  - port: 80
+    targetPort: 80

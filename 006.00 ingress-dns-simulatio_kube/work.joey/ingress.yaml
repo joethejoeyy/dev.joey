@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: diner-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: diner.local
+    http:
+      paths:
+      - path: /menu
+        pathType: Prefix
+        backend:
+          service:
+            name: diner-menu-svc
+            port:
+              number: 80
+      - path: /drinks
+        pathType: Prefix
+        backend:
+          service:
+            name: diner-drinks-svc
+            port:
+              number: 80

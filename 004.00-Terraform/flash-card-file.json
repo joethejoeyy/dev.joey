@@ -1,0 +1,68 @@
+{
+  "title": "Phase 4 — Terraform Fundamentals (Provision a Network + Test Endpoint)",
+  "topic": "Terraform",
+  "abstract": {
+    "who": "This flashcard set is for you and Joe, focusing on Terraform and networking concepts.",
+    "why": "Understanding how Terraform provisions networks and endpoints is crucial because real-world infra involves both legacy servers and modern containerized applications.",
+    "what": "The cards cover Terraform workflow, networks, gateways, VMs, outputs, state, and the difference between legacy and new-world infra. Metaphors tie everything to a coffee shop so it’s easier to picture.",
+    "where": "Applies both to cloud providers (AWS, Azure, GCP) where you explicitly define gateways and VNets, and local setups where your host OS acts as the gateway implicitly."
+  },
+  "cards": [
+    {
+      "question": "What is Terraform’s core workflow?",
+      "answer_textbook": "Terraform follows init → plan → apply → destroy. Init sets up providers, plan previews changes, apply provisions resources, and destroy tears them down.",
+      "answer_metaphor": "Running a coffee shop: init is getting permits, plan is drawing the floor layout, apply is opening the shop, destroy is closing it down.",
+      "answer_realworld": "Terraform’s workflow makes infra changes predictable and reversible — crucial for safe infrastructure automation.",
+      "guid": "f9a216f0-45de-4c5c-8c3c-6db7711c5b51"
+    },
+    {
+      "question": "Why use Terraform to create a network?",
+      "answer_textbook": "We start by using Terraform to build a network, because that shows its job: creating infrastructure itself. In the future, Terraform can also create a whole Kubernetes cluster, but the foundation is always the same — networks, subnets, gateways, compute. That’s why the network lab matters.",
+      "answer_metaphor": "It’s like designing the street grid where all your coffee shops will live, so every branch has consistent roads and addresses.",
+      "answer_realworld": "Declaring networks as code ensures consistent and auditable infra across environments.",
+      "guid": "e283af83-32a7-4a3f-b836-b3adf0662aa3"
+    },
+    {
+      "question": "What is a gateway and why do we need it?",
+      "answer_textbook": "A gateway is the entry and exit point of a network. It connects private subnets to external networks like the internet.",
+      "answer_metaphor": "The gateway is the highway exit that connects your coffee shop’s street to the wider city. Without it, customers can’t reach you from outside.",
+      "answer_realworld": "In cloud, you provision Internet Gateways or NATs; locally your host OS usually acts as the implicit gateway for VMs/containers.",
+      "guid": "e66c64ff-7a29-4e29-b0ff-222c07e0e3b3"
+    },
+    {
+      "question": "Why do we attach a VM with a web server in this lab?",
+      "answer_textbook": "Because a network itself isn’t visible, attaching a VM with nginx provides an endpoint to verify connectivity.",
+      "answer_metaphor": "Streets are just empty until you open a coffee shop — then customers can visit and prove the roads exist.",
+      "answer_realworld": "A VM with a public IP and web server makes the Terraform network visible and testable in a browser.",
+      "guid": "9f826004-021d-45ff-bf5f-9ea0666ef7b1"
+    },
+    {
+      "question": "What role do variables and outputs play?",
+      "answer_textbook": "Variables parameterize configs (like CIDR ranges); outputs expose values (like public IPs) for reuse.",
+      "answer_metaphor": "Variables are like the menu template for your coffee chain, outputs are the receipts with the shop address printed on them.",
+      "answer_realworld": "They make Terraform modules reusable and surface important info (like IPs) for other systems or teammates.",
+      "guid": "2ec8f2e9-bb48-4d2a-9b70-b7a60a85347b"
+    },
+    {
+      "question": "What is Terraform state and why is it important?",
+      "answer_textbook": "State is Terraform’s record of managed resources. It ensures Terraform knows what exists and avoids duplication.",
+      "answer_metaphor": "It’s like your coffee shop manager’s clipboard — without it, workers might build the same counter twice.",
+      "answer_realworld": "State lets Terraform safely reconcile declared config with real infrastructure.",
+      "guid": "c4729fc1-ef50-4f2f-9f9b-70877ffdd324"
+    },
+    {
+      "question": "Why do we clean up with `terraform destroy`?",
+      "answer_textbook": "Destroy removes resources Terraform created, avoiding waste and cost.",
+      "answer_metaphor": "Like closing a temporary coffee stand after the festival so you don’t pay rent forever.",
+      "answer_realworld": "Destroy ensures you don’t leave stray resources running, which could cost money or cause security risk.",
+      "guid": "bd3225b4-2c0b-4e0e-8f32-14794e2bfa4f"
+    },
+    {
+      "question": "What is the difference between legacy infra and containerized infra?",
+      "answer_textbook": "Legacy infra usually means VMs or bare-metal servers; containerized infra means lightweight isolated environments managed by tools like Docker or Kubernetes.",
+      "answer_metaphor": "Legacy infra is a big permanent coffee shop building, containerized infra is mobile coffee carts you can move and scale easily.",
+      "answer_realworld": "In real setups you often need both: Terraform might create a VNet for a legacy VM and a Kubernetes cluster for containers, all connected by the same network.",
+      "guid": "df38a7a9-f63e-4e62-87f0-3d59b7f9468d"
+    }
+  ]
+}

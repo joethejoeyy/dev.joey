@@ -1,0 +1,11 @@
+What is Terraform state and why is it important?
+
+Diagram:
+Terraform State
+────────────────────────────
+ [ Config ]  <-->  [ State File ]  <-->  [ Real Infra ]
+
+Coffee shop metaphor:
+- Config = blueprint
+- State  = manager's clipboard
+- Infra  = actual coffee shop + streets

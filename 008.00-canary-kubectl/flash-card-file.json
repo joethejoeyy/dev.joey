@@ -1,0 +1,76 @@
+{
+  "title": "Phase 8 — Canary Deployment (K8s Native)",
+  "topic": "Kubernetes, Canary Deployment, Traffic Management",
+  "cards": [
+    {
+      "question": "What is a canary deployment?",
+      "answer_textbook": "A release strategy that sends a small portion of traffic to a new version before full rollout.",
+      "answer_metaphor": "Like letting one small bird fly first to test if the weather is safe.",
+      "answer_realworld": "You run a few canary pods alongside stable ones and monitor how users respond.",
+      "guid": "5ac04c31-b278-4cb2-84b1-9811bb53ef5c"
+    },
+    {
+      "question": "Why use a canary deployment?",
+      "answer_textbook": "To minimize risk by exposing only a small percentage of users to new code initially.",
+      "answer_metaphor": "Like tasting a spoon of soup before serving the whole bowl.",
+      "answer_realworld": "Teams detect errors early without impacting all production traffic.",
+      "guid": "f4b59717-ff10-4ff4-a09a-9f0d933523d5"
+    },
+    {
+      "question": "How does a canary differ from blue-green?",
+      "answer_textbook": "Blue-green swaps entire environments; canary shifts traffic gradually.",
+      "answer_metaphor": "Blue-green flips a light switch, canary turns a dimmer knob.",
+      "answer_realworld": "Blue-green switches all users instantly, canary slowly increases new-version exposure.",
+      "guid": "c6d93730-05da-4bb4-8a6e-cb3d4b6c5723"
+    },
+    {
+      "question": "How is the canary visually identified in this lab?",
+      "answer_textbook": "Each version serves a distinct HTML via ConfigMap — blue for stable, green for canary.",
+      "answer_metaphor": "Like giving each restaurant a different paint color so customers know which one they’re in.",
+      "answer_realworld": "Accessing the service shows color-coded pages from each deployment.",
+      "guid": "d81806b2-5c3b-40d4-815c-5b7fc2c58bb6"
+    },
+    {
+      "question": "What labels help distinguish stable and canary pods?",
+      "answer_textbook": "`version=stable` and `version=canary` labels identify deployments.",
+      "answer_metaphor": "Like name tags showing which team each chef belongs to.",
+      "answer_realworld": "You can filter pods with `kubectl get pods --show-labels` to see both versions running.",
+      "guid": "c2b2b3e2-8b03-4f53-9006-19b7c61e8cf7"
+    },
+    {
+      "question": "How is traffic routed between stable and canary?",
+      "answer_textbook": "By weighting backend services or ingress rules (e.g., 90% stable, 10% canary).",
+      "answer_metaphor": "Like sending 9 out of 10 guests to the main diner and 1 to the test kitchen.",
+      "answer_realworld": "Ingress annotations or service weights control request distribution.",
+      "guid": "e40cb5e0-258d-4bc4-8c43-43bde156a7f2"
+    },
+    {
+      "question": "How do you monitor a canary rollout?",
+      "answer_textbook": "By checking logs, metrics, and error rates for canary pods.",
+      "answer_metaphor": "Like watching how early customers react to the new menu.",
+      "answer_realworld": "Use `kubectl logs -l version=canary` and app metrics dashboards.",
+      "guid": "1ad9e3ea-8ff8-404d-8a2a-cb82a788dc2a"
+    },
+    {
+      "question": "What indicates it's safe to increase canary traffic?",
+      "answer_textbook": "Stable performance metrics and no significant errors.",
+      "answer_metaphor": "When the first tasters finish their meal happily, invite more guests.",
+      "answer_realworld": "You gradually change weights to 25%, 50%, and eventually 100% traffic.",
+      "guid": "a290383b-bb7a-43b2-bd56-d7e36b3c98e2"
+    },
+    {
+      "question": "How do you rollback a bad canary?",
+      "answer_textbook": "Reset routing to 100% stable or delete the canary deployment.",
+      "answer_metaphor": "Like closing the test kitchen and returning everyone to the main diner.",
+      "answer_realworld": "Run `kubectl delete -f canary-deployment.yaml` or restore ingress weights.",
+      "guid": "d8ee2f4e-d377-4b4c-85b2-9ac4fd403be8"
+    },
+    {
+      "question": "What command shows current routing and backends?",
+      "answer_textbook": "`kubectl describe ingress diner-ingress` displays traffic targets.",
+      "answer_metaphor": "Like reading the road signs that guide customers to each restaurant.",
+      "answer_realworld": "Use it to confirm which version currently receives requests.",
+      "guid": "52a0548a-1041-4b2e-a21d-9f2994dd9f54"
+    }
+  ]
+}

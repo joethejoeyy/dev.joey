@@ -1,0 +1,6 @@
+[ MISSING TLS SECRET ]
+
+Client ----HTTPS----> Ingress
+                           X  (no cert found)
+                           |
+                       TLS handshake error

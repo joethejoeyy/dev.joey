@@ -1,0 +1,5 @@
+Metrics Comparison
+┌────────────┐       ┌───────────────┐
+│ MetricsSrv │  vs   │ Prometheus    │
+│ snapshot   │       │ time-series   │
+└────────────┘       └───────────────┘

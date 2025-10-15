@@ -1,0 +1,12 @@
+What is advantage of Helm values?
+-----------------------------------
+values.yaml
+------------
+replicaCount: 3
+image:
+  tag: "v2.1"
+ingress:
+  host: diner.127.0.0.1.sslip.io
+
+Helm → renders → manifests → cluster
+Single source of truth for config overrides.

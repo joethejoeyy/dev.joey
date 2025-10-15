@@ -1,0 +1,13 @@
+Viewing Quota Usage
+-------------------
+Command:
+   kubectl describe quota -n sandbox
+
+Example Output:
+   Resource   Used   Hard
+   --------   ----   ----
+   cpu        1      2
+   memory     1Gi    2Gi
+   pods       2      5
+
+Helps track how much of your budget (CPU/memory) is consumed.

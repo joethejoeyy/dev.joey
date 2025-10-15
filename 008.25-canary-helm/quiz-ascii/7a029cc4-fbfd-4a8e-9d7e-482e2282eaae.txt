@@ -1,0 +1,11 @@
+             ┌────────────────────────┐
+             │        Helm CLI        │
+             │  (versioned recipes)   │
+             └──────────┬─────────────┘
+                        │
+                helm install / upgrade
+                        │
+        ┌───────────────┴───────────────┐
+        │                               │
+  diner-stable chart              diner-canary chart
+ (v1 image, 3 replicas)         (v2 image, 1 replica)

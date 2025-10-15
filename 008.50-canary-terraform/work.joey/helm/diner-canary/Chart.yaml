@@ -1,0 +1,5 @@
+﻿apiVersion: v2
+name: diner-canary
+description: Canary release of the diner app
+version: 0.1.0
+appVersion: "1.0"

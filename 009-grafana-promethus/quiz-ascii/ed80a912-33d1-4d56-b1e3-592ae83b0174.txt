@@ -1,0 +1,7 @@
+Learning Without Load
+Understand:
+  • metric names
+  • labels
+  • scrape targets
+  • query structure
+before chasing numbers

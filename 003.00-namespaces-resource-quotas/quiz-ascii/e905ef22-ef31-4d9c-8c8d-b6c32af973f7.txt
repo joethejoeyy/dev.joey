@@ -1,0 +1,19 @@
+Deleting a Namespace
+--------------------
+Before:
+   +-----------------+
+   | sandbox         |
+   | - pods          |
+   | - services      |
+   | - quotas        |
+   +-----------------+
+
+Command:
+   kubectl delete ns sandbox
+
+After:
+   +-----------------+
+   | default only    |
+   +-----------------+
+
+Deleting a namespace removes everything inside — total cleanup.

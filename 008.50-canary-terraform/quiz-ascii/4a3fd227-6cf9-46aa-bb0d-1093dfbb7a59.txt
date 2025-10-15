@@ -1,0 +1,5 @@
+Terraform Plan Cycle
+─────────────────────
+terraform plan  →  shows desired vs current state
+terraform apply →  syncs Helm releases + ingress weights
+terraform destroy →  removes resources

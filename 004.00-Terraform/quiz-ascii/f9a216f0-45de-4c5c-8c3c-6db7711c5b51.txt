@@ -1,0 +1,33 @@
+          ┌──────────────────────────────────┐
+          │   Terraform Core Workflow        │
+          └──────────────────────────────────┘
+                          │
+                          ▼
+             ┌────────────────────────┐
+             │   terraform init        │
+             │ - Download providers    │
+             │ - Prepare backend/state │
+             └────────────────────────┘
+                          │
+                          ▼
+             ┌────────────────────────┐
+             │   terraform plan        │
+             │ - Compare config vs.    │
+             │   current state         │
+             │ - Show execution plan   │
+             └────────────────────────┘
+                          │
+                          ▼
+             ┌────────────────────────┐
+             │   terraform apply       │
+             │ - Provision/update      │
+             │   infrastructure        │
+             │ - Update state file     │
+             └────────────────────────┘
+                          │
+                          ▼
+             ┌────────────────────────┐
+             │   terraform destroy     │
+             │ - Tear down resources   │
+             │ - Update state file     │
+             └────────────────────────┘

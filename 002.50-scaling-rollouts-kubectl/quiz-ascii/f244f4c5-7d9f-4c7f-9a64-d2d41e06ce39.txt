@@ -1,0 +1,9 @@
+Rollout Management Commands
+---------------------------
++-----------------------------------------------------------+
+| kubectl rollout status deployment/web  -> Watch progress  |
+| kubectl rollout undo deployment/web    -> Revert changes  |
+| kubectl rollout history deployment/web -> Show revisions  |
++-----------------------------------------------------------+
+
+These three commands let you control Deployment versions safely.

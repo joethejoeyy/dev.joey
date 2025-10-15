@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: diner-stable-html
+  namespace: diner-lab
+data:
+  index.html: |
+    <html><body style='background:#002b5b;color:white'>
+    <h1>Diner Stable 🍽️</h1><p>Serving main traffic</p>
+    </body></html>

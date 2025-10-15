@@ -1,0 +1,13 @@
+Drift Detection
++---------------------+
+| Terraform State     |
++---------------------+
+           |
+           v
++----------------------+
+| Compare with cluster |
++----------------------+
+           |
+   Drift? yes/no
+           |
+   terraform plan/apply

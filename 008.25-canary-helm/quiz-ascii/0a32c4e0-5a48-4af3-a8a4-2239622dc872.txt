@@ -1,0 +1,9 @@
+               ┌─────────────────────────────────────┐
+               │        Kubernetes Cluster           │
+               └────────────────┬────────────────────┘
+                                │
+             ┌──────────────────┴──────────────────┐
+             │                                     │
+       Release: diner-stable                Release: diner-canary
+       ├─ chart values → v1                ├─ chart values → v2
+       └─ replicas = 3                     └─ replicas = 1

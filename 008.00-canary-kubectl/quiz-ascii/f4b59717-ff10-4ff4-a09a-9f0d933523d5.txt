@@ -1,0 +1,4 @@
+Users ---> LoadBalancer ---> Canary (few pods)
+                       \
+                        ---> Stable (most pods)
+Goal: Detect problems early without affecting all users

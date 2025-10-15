@@ -1,0 +1,10 @@
+Destroy / Cleanup
++------------------+
+| terraform destroy|
++------------------+
+          |
+   -------------------
+   |                 |
+Deletes:        Deletes:
+- helm_release  - namespaces
+- services      - deployments

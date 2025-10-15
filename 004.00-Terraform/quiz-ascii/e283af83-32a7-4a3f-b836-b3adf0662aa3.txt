@@ -1,0 +1,15 @@
+Why use Terraform to create a network?
+
+Diagram:
+Terraform Network (VNet/VPC)
+────────────────────────────
+        +------------------+
+        |  Virtual Network |
+        |   (10.0.0.0/16)  |
+        +------------------+
+                 |
+                 v
+        +------------------+
+        |      Subnet      |
+        |   (10.0.1.0/24)  |
+        +------------------+

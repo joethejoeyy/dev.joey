@@ -1,0 +1,9 @@
+How do you check history?
+---------------------------
+$ helm history diner
+
+REV  UPDATED        STATUS     CHART
+1    10-01 14:22    DEPLOYED   diner-blue
+2    10-02 10:05    SUPERSEDED diner-green
+3    10-02 10:20    ROLLBACK   diner-blue
+Chronological release logbook.

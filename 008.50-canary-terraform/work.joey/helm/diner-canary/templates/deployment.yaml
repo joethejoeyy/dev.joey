@@ -1,0 +1,19 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diner-canary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: diner-canary
+  template:
+    metadata:
+      labels:
+        app: diner-canary
+    spec:
+      containers:
+        - name: diner-canary
+          image: nginx:alpine
+          ports:
+            - containerPort: 80

@@ -1,0 +1,2 @@
+Simulated Load
+BusyBox Pod → HTTP Requests → diner-lab Service → Prometheus sees traffic

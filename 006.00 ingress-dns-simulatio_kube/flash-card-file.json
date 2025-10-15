@@ -1,0 +1,82 @@
+{
+  "title": "Phase 6 — Ingress & DNS Simulation",
+  "topic": "Kubernetes, Ingress, DNS",
+  "abstract": {
+    "who": "This flashcard set is for you and Joe, focusing on how Ingress connects external traffic into Kubernetes workloads.",
+    "why": "In real-world clusters, you don’t want to expose every service separately. Ingress provides a unified entry point and DNS makes it accessible under friendly names.",
+    "what": "These cards cover Ingress controllers vs resources, routing rules, services, DNS simulation, and differences from NodePort. Metaphors tie it back to buildings, menus, and doormen directing traffic.",
+    "where": "Applies to any Kubernetes cluster — local (Docker Desktop, minikube, kind) or cloud-managed (EKS, AKS, GKE)."
+  },
+  "cards": [
+    {
+      "question": "What is the role of an Ingress Controller in Kubernetes?",
+      "answer_textbook": "An Ingress Controller manages external access to services in a Kubernetes cluster, typically HTTP/HTTPS routing.",
+      "answer_metaphor": "It’s like the receptionist at a big office building — they decide which visitor goes to which office inside.",
+      "answer_realworld": "Without Ingress, you’d need to expose every service manually with NodePort or LoadBalancer. Ingress provides a single entry point with routing rules.",
+      "guid": "3c2f2a40-43c1-41d8-9a6c-b6e44c7aa001"
+    },
+    {
+      "question": "How does an Ingress resource define routing?",
+      "answer_textbook": "Ingress resources define rules that map hostnames and paths to backend Kubernetes services.",
+      "answer_metaphor": "It’s like a menu at a food court: orders with '/pizza' go to the pizza stall, '/sushi' goes to the sushi stall.",
+      "answer_realworld": "An Ingress might route requests for 'app.local/pizza' to the pizza service and 'app.local/sushi' to the sushi service.",
+      "guid": "9d6cbfc0-47e5-4f24-b0c7-d3fd78e4c002"
+    },
+    {
+      "question": "Why do we edit the /etc/hosts file in a DNS simulation lab?",
+      "answer_textbook": "The hosts file provides local hostname-to-IP mapping, simulating DNS resolution without needing a DNS server.",
+      "answer_metaphor": "It’s like writing your friends’ phone numbers in your personal notebook — you don’t need to call the phone company directory.",
+      "answer_realworld": "Adding '127.0.0.1 diner.local' to /etc/hosts makes 'http://diner.local' resolve to your local Kubernetes Ingress.",
+      "guid": "f8f6e85d-f226-4985-8f52-3d19fbe0a003"
+    },
+    {
+      "question": "What problem does Ingress solve compared to NodePort?",
+      "answer_textbook": "Ingress avoids exposing every service individually by providing a single entry point with routing rules.",
+      "answer_metaphor": "Instead of giving each friend a different house key (NodePort), you give them one key to a shared building entrance (Ingress).",
+      "answer_realworld": "With multiple apps (frontend, backend, admin), you don’t want 3 different NodePort URLs. Ingress allows them all behind one domain.",
+      "guid": "63b9bc85-3b93-4e5a-83af-6b4c65dfc004"
+    },
+    {
+      "question": "What is the difference between an Ingress Controller and an Ingress resource?",
+      "answer_textbook": "The Ingress Controller is the component that actually processes requests, while Ingress resources are the rules it follows.",
+      "answer_metaphor": "Think of the controller as the traffic cop, and the resource as the traffic signs telling the cop where to send cars.",
+      "answer_realworld": "You install ingress-nginx (controller) via Helm. Then you apply ingress.yaml (resource) that defines hostname/path rules.",
+      "guid": "7a5dbf62-4463-4261-9f38-60d96a73e005"
+    },
+    {
+      "question": "Why do we install ingress-nginx into its own namespace?",
+      "answer_textbook": "Separating the Ingress Controller into its own namespace isolates it from application workloads and simplifies management.",
+      "answer_metaphor": "It’s like putting security guards in their own office so they don’t get mixed up with the tenants.",
+      "answer_realworld": "Helm usually installs ingress-nginx into the 'ingress-nginx' namespace. This avoids confusion with app namespaces like 'diner-lab'.",
+      "guid": "d2f69f61-32a8-437f-9c91-68b8c84e6006"
+    },
+    {
+      "question": "What does 'kubectl port-forward' do compared to Ingress?",
+      "answer_textbook": "Port-forward temporarily maps a local port to a pod or service. Ingress provides permanent, managed HTTP routing.",
+      "answer_metaphor": "Port-forward is like sneaking in through the back door just for yourself, while Ingress is the official front entrance with signs.",
+      "answer_realworld": "You use 'kubectl port-forward svc/web 8080:80' during testing. Ingress is for shared, long-term external access.",
+      "guid": "b41cf8c5-86d7-4950-9223-9f20ccfcb007"
+    },
+    {
+      "question": "How do Services and Ingress complement each other?",
+      "answer_textbook": "Services provide stable networking inside the cluster, while Ingress routes external HTTP/S requests to those Services.",
+      "answer_metaphor": "Think of Services as the apartment numbers inside a building, and Ingress as the doorman directing visitors to the right apartment.",
+      "answer_realworld": "Ingress rules route 'diner.local/menu' to the 'menu-service'. That service balances traffic across multiple pods.",
+      "guid": "f05d8a23-0666-44a6-bc34-b69efc11e008"
+    },
+    {
+      "question": "What’s the purpose of Helm in installing the Ingress Controller?",
+      "answer_textbook": "Helm simplifies deployment of ingress-nginx by packaging all required manifests into a chart.",
+      "answer_metaphor": "Instead of building furniture piece by piece, Helm is like buying a flat-pack kit with all screws and instructions included.",
+      "answer_realworld": "You install ingress-nginx with 'helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx'.",
+      "guid": "0f6d7a54-2b70-4cc1-b6e0-53c54c89c009"
+    },
+    {
+      "question": "How does DNS simulation help in local Kubernetes labs?",
+      "answer_textbook": "DNS simulation lets you use friendly domain names that resolve to local cluster IPs, mimicking real-world scenarios.",
+      "answer_metaphor": "It’s like labeling the doors in a practice building so you learn directions before entering the real skyscraper.",
+      "answer_realworld": "Mapping '127.0.0.1 diner.local' in hosts lets you test 'http://diner.local' instead of remembering ports and IPs.",
+      "guid": "3fa71a13-9a87-4e1d-8f3d-7325b509c010"
+    }
+  ]
+}

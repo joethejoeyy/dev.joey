@@ -1,0 +1,6 @@
+Blue-Green:
+[BLUE] <== full switch ==> [GREEN]
+
+Canary:
+[STABLE] ==90%==> [NEW]
+         ==10%==> gradual rollout

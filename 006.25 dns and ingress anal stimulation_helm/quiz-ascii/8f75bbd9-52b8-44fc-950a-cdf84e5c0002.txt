@@ -1,0 +1,4 @@
+helm repo add ingress-nginx
+   |
+   v
+Repository available for install

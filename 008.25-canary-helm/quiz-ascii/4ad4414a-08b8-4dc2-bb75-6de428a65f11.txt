@@ -1,0 +1,9 @@
+             ┌────────────────────────────┐
+             │ Ingress Controller (NGINX) │
+             └──────────────┬─────────────┘
+                            │
+        ┌──────────────┬──────────────┬──────────────┐
+        │              │              │              │
+   diner-stable (90%)  diner-canary (10%)  ← adjustable
+        │              │
+   serves v1 HTML   serves v2 HTML

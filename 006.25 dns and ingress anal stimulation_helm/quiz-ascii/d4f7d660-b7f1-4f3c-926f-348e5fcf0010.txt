@@ -1,0 +1,2 @@
+Workflow:
+ helm repo add → helm repo update → helm install ingress-nginx → helm create diner-app → helm install diner → verify ingress → curl test

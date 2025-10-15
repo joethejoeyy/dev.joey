@@ -1,0 +1,5 @@
+kubectl logs -l version=canary
+kubectl top pods
+kubectl get events
+
+Compare error rate and latency between stable & canary.

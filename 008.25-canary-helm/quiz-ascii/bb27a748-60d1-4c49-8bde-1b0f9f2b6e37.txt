@@ -1,0 +1,9 @@
+┌───────────────────────────┐
+│   helm status diner-canary│
+├───────────────────────────┤
+│ REVISION: 3              │
+│ WEIGHT: 50%              │
+│ CHART: diner-canary-1.2.0│
+└───────────────────────────┘
+
+kubectl describe ingress → confirms routing targets

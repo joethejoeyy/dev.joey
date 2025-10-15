@@ -1,0 +1,8 @@
+Chart Separation
+────────────────
+repo/
+ ├── diner-stable/
+ │    └── values.yaml (v1)
+ └── diner-canary/
+      └── values.yaml (v2)
+Each release → isolated upgrades, distinct versioning

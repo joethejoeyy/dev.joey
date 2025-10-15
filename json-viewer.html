@@ -1,0 +1,168 @@
+<!doctype html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>JSON Viewer</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+<style>
+  body{margin:0;font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#0f1020;color:#e9e9ff}
+  main{max-width:1100px;margin:40px auto;padding:24px;background:#17182b;border-radius:16px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top}
+  th{text-align:left;position:sticky;top:0;background:rgba(23,24,43,.96)}
+  tr:hover td{background:rgba(255,255,255,.02)}
+  code,pre{background:rgba(255,255,255,.06);border-radius:6px;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+  pre{padding:12px;overflow:auto}
+  input,button{font:inherit}
+  .row{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+  .muted{color:#a5a7d4;font-size:13px}
+  .drop{border:1px dashed #44445f;border-radius:10px;padding:14px;text-align:center;margin-top:6px}
+  td table{margin:6px 0;border:1px solid rgba(255,255,255,.1)} /* nested tables */
+  #rawJson {
+    white-space: pre-wrap;
+    background: rgba(255,255,255,.06);
+    padding: 12px;
+    border-radius: 6px;
+    display: none;
+    font-family: ui-monospace, monospace;
+    font-size: 14px;
+    color: #e9e9ff;
+  }
+</style>
+<main>
+  <h1>JSON Viewer</h1>
+  <button id="toggleView" style="margin-bottom:10px;">Switch to Raw JSON</button>
+  <div class="row">
+    <form id="f" class="row" onsubmit="return false;">
+      <input id="src" placeholder="Paste JSON URL (same-origin) …" style="flex:1;padding:8px 10px;border-radius:8px;border:1px solid #3e3f7a;background:#0f1020;color:#e9e9ff">
+      <button id="loadBtn">Load</button>
+    </form>
+    <span class="muted">or</span>
+    <input type="file" id="file" accept=".json,application/json">
+  </div>
+  <div class="drop" id="drop">Drop a .json file here</div>
+  <div id="out" style="margin-top:16px"></div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script>
+const $=s=>document.querySelector(s), out=$("#out"), qp=new URLSearchParams(location.search);
+const DEFAULT_FILE = "001_Docker/flashcards.json"; // 👈 set your default here
+
+$("#loadBtn").addEventListener("click", ()=>{ 
+  const u=$("#src").value.trim(); 
+  if(u){ 
+    history.replaceState(null,"","?src="+encodeURIComponent(u)); 
+    loadUrl(u); 
+  }
+});
+$("#file").addEventListener("change", e=>{ const f=e.target.files[0]; if(f) loadFile(f); });
+const drop=$("#drop"); 
+drop.addEventListener("dragover", e=>{e.preventDefault();}); 
+drop.addEventListener("drop", e=>{e.preventDefault(); if(e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);});
+
+let src = qp.get("src") || DEFAULT_FILE;
+let initialView = qp.get("view") || "table"; // 👈 added
+$("#src").value = src;
+loadUrl(src);
+
+async function loadUrl(url){
+  out.innerHTML="<p>Loading…</p>";
+  try{
+    if (!/^https?:/.test(url)) url = "/" + url.replace(/^\/+/, ""); 
+    const res=await fetch(url);
+    if(!res.ok) throw new Error(res.status+" "+res.statusText);
+    const data=await res.json();
+    render(data);
+  }catch(e){
+    out.innerHTML=`<p>Failed to load: <code>${esc(String(e))}</code></p>`;
+  }
+}
+function loadFile(file){
+  out.innerHTML="<p>Reading file…</p>";
+  const reader = new FileReader();
+  reader.onload = () => {
+    try { const data = JSON.parse(reader.result); render(data); Prism.highlightAll(); }
+    catch(e){ out.innerHTML=`<p>Could not parse JSON: <code>${esc(String(e))}</code></p>`; }
+  };
+  reader.onerror = () => out.innerHTML=`<p>Read failed: <code>${esc(String(reader.error))}</code></p>`;
+  reader.readAsText(file);
+}
+
+let currentData = null;
+const toggleBtn = document.getElementById("toggleView");
+
+function render(data){ 
+  currentData = data;
+  out.innerHTML = `
+    <div id="tableView">${nestedTable(data)}</div>
+    <pre id="rawJson">${esc(JSON.stringify(data, null, 2))}</pre>
+  `;
+  Prism.highlightAll();
+  applyInitialView(); // 👈 added
+}
+
+function applyInitialView(){
+  const tableView = document.getElementById("tableView");
+  const rawJson = document.getElementById("rawJson");
+  if(initialView === "json"){
+    rawJson.style.display = "block";
+    tableView.style.display = "none";
+    toggleBtn.textContent = "Switch to Table View";
+  } else {
+    rawJson.style.display = "none";
+    tableView.style.display = "block";
+    toggleBtn.textContent = "Switch to Raw JSON";
+  }
+}
+
+toggleBtn.addEventListener("click", ()=>{
+  const tableView = document.getElementById("tableView");
+  const rawJson = document.getElementById("rawJson");
+  const showingJson = rawJson.style.display !== "none";
+
+  if(showingJson){
+    rawJson.style.display = "none";
+    tableView.style.display = "block";
+    toggleBtn.textContent = "Switch to Raw JSON";
+    initialView = "table";
+  } else {
+    rawJson.style.display = "block";
+    tableView.style.display = "none";
+    toggleBtn.textContent = "Switch to Table View";
+    initialView = "json";
+  }
+
+  // update URL so links are shareable
+  const params = new URLSearchParams(location.search);
+  params.set("view", initialView);
+  history.replaceState(null, "", "?" + params.toString());
+});
+
+function esc(s){ return String(s).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;"); }
+
+function nestedTable(obj) {
+  if (Array.isArray(obj)) {
+    if (obj.length && typeof obj[0] === "object") {
+      const cols = keysOf(obj);
+      const head = cols.map(k=>`<th>${esc(k)}</th>`).join("");
+      const body = obj.map(r=>`<tr>${cols.map(k=>`<td>${formatVal(r?.[k])}</td>`).join("")}</tr>`).join("");
+      return `<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+    } else {
+      return "<ul>" + obj.map(item=>`<li>${esc(item)}</li>`).join("") + "</ul>";
+    }
+  } else if (typeof obj === "object" && obj !== null) {
+    const rows = Object.entries(obj).map(([k,v])=>`<tr><td>${esc(k)}</td><td>${formatVal(v)}</td></tr>`).join("");
+    return `<table><thead><tr><th>key</th><th>value</th></tr></thead><tbody>${rows}</tbody></table>`;
+  }
+  return esc(String(obj));
+}
+
+function formatVal(v) {
+  if (Array.isArray(v) || (typeof v === "object" && v !== null)) {
+    return nestedTable(v);
+  }
+  return esc(String(v));
+}
+
+function keysOf(rows){ const s=new Set(); rows.forEach(r=>Object.keys(r).forEach(k=>s.add(k))); return [...s]; }
+</script>

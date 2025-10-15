@@ -1,0 +1,61 @@
+{
+  "title": "Phase 4 — Terraform Networking Overview",
+  "topic": "Terraform Fundamentals",
+  "abstract": {
+    "who": "This overview is for you and Joe, to connect the Terraform Lab 4 tasks with the bigger networking concepts.",
+    "why": "ASCII diagrams help bridge abstract IaC ideas with concrete mental models. This overview links each concept to a diagram so you can visually compare the old approach with the Kubernetes approach.",
+    "what": "The lab shows how Terraform provisions networks, gateways, VMs, and state, and compares legacy infra (VMs) with containerized infra (K8s pods with CNIs like Flannel/Calico).",
+    "where": "Applies across both local setups (where the host acts as a gateway) and cloud environments (where explicit gateways, VNets, and subnets are provisioned).",
+    "note": "Kubernetes is already created locally by Docker Desktop in this environment, so this lab focuses on building a classic network and VM with Terraform. This avoids confusion between Terraform and Kubernetes responsibilities. In real enterprises, there is almost always some legacy infrastructure, and Terraform is valuable for provisioning and managing those components alongside modern platforms."
+  },
+  "keypoints": [
+    "Terraform provisions infrastructure: networks, gateways, VMs, clusters.",
+    "Terraform can create Kubernetes clusters, but here we focus on classic infra (network + VM).",
+    "Terraform follows a repeatable workflow: init → plan → apply → destroy.",
+    "Terraform maintains a state file as the source of truth between config and real-world infra.",
+    "Terraform is cloud-agnostic: same configs can deploy to AWS, Azure, GCP, or local providers.",
+    "Enterprises often run hybrid setups — legacy VMs plus modern K8s — and Terraform bridges both."
+  ],
+  "diagrams": [
+    {
+      "name": "Terraform Network",
+      "description": "A virtual network with a subnet, showing the foundation of IaC networking.",
+      "file": "01_network.txt"
+    },
+    {
+      "name": "Gateway Concept",
+      "description": "How private networks connect to the internet, comparing cloud gateways vs implicit local host gateways.",
+      "file": "02_gateway.txt"
+    },
+    {
+      "name": "VM Endpoint",
+      "description": "A tiny VM with nginx that makes the Terraform-provisioned network visible to the outside world.",
+      "file": "03_vm_endpoint.txt"
+    },
+    {
+      "name": "Terraform State",
+      "description": "How Terraform tracks resources with its state file, acting as the 'clipboard' between config and reality.",
+      "file": "04_state.txt"
+    },
+    {
+      "name": "Legacy vs New World",
+      "description": "Comparison between VM-based infra (legacy) and containerized infra (new world).",
+      "file": "05_legacy_vs_newworld.txt"
+    },
+    {
+      "name": "Old World VM Networking",
+      "description": "Classic infra: gateways, subnets, and VMs explicitly wired together.",
+      "file": "06_old_world_vm_network.txt"
+    },
+    {
+      "name": "New World Kubernetes Networking",
+      "description": "Modern infra: ingress, services, and CNIs (Flannel/Calico) handle pod-to-pod and external connectivity.",
+      "file": "07_new_world_k8s_network.txt"
+    },
+    {
+      "name": "Terraform vs Kubernetes Layers",
+      "description": "Illustrates Terraform creating infra (networks, VMs, clusters) and Kubernetes running on top to orchestrate workloads.",
+      "file": "08_terraform_vs_k8s_layers.txt"
+    }
+  ]
+}

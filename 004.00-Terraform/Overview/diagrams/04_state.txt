@@ -1,0 +1,10 @@
+
+Terraform State
+────────────────────────────
+ [ Config ]  <-->  [ State File ]  <-->  [ Real Infra ]
+
+Coffee shop metaphor:
+- Config = your blueprint
+- State = manager's clipboard of what’s been built
+- Real Infra = the actual coffee shop and streets
+    

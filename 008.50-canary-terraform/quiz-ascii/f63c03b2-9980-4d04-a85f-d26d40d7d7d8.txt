@@ -1,0 +1,12 @@
+Terraform + Helm Provider Flow
+───────────────────────────────
+┌──────────────┐
+│ Terraform CLI│
+└─────┬────────┘
+      │ uses Helm provider
+      ▼
+┌───────────────────────────┐
+│ helm_release resources    │
+│ ├─ diner-stable           │
+│ └─ diner-canary           │
+└───────────────────────────┘

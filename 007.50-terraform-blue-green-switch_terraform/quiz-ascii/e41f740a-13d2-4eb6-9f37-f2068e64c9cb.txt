@@ -1,0 +1,17 @@
+HOW TO INSPECT INGRESS ROUTING
+
+Command:
+kubectl describe ingress diner-ingress
+
+ASCII Diagram:
+
+        +-------------+
+Client →|   Ingress   |
+        +-------------+
+             |
+             +--> diner-blue Service (v1)
+             |
+             +--> diner-green Service (v2) (active)
+
+Ingress reveals which Service is currently bound to the host.
+It’s like checking a street sign: “Now Serving → Green Diner”.

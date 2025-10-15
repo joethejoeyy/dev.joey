@@ -1,0 +1,23 @@
+
+Old World — Networks + VMs (Legacy Infra)
+────────────────────────────
+          [ Internet ]
+               |
+        +------v-------+
+        |   Gateway    |
+        +--------------+
+               |
+        +--------------+
+        |   Subnet     |
+        +--------------+
+         |           |
+  +-------+--+   +---+-------+
+  |   VM A   |   |   VM B   |
+  | Web/App  |   | Database |
+  +----------+   +----------+
+
+Coffee shop metaphor:
+- Gateway = highway exit into your city block
+- Subnet  = the side street
+- VMs     = permanent coffee shops on that block
+    

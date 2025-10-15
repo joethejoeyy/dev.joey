@@ -1,0 +1,7 @@
+[Helm Chart]
+        |
+        v
+   helm template
+        |
+        v
+   Rendered YAML (not applied)

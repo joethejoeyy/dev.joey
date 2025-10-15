@@ -1,0 +1,8 @@
+[ Undo Rollout ]
+
+kubectl rollout undo deployment/myapp
+
++-------------------------------+
+| Deployment: myapp             |
+| Rolled back to previous image |
++-------------------------------+

@@ -1,0 +1,12 @@
+Kubernetes Namespace Concept
+----------------------------
+Cluster (shared roof)
++---------------------------------------------------+
+|                    Cluster                        |
+|  +-----------+   +-----------+   +-----------+    |
+|  | Namespace |   | Namespace |   | Namespace |    |
+|  |  dev      |   |  test     |   |  prod     |    |
+|  +-----------+   +-----------+   +-----------+    |
++---------------------------------------------------+
+
+Each namespace isolates workloads like rooms in the same building.

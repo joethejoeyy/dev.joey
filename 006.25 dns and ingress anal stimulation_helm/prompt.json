@@ -1,0 +1,19 @@
+{
+  "lab": "Phase 6.25 — Ingress & DNS via Helm",
+  "abstract": {
+    "who": "This lab is for you and Joe as DevOps learners who already know basic Ingress, now leveling up to manage it declaratively with Helm.",
+    "why": "Instead of hand-writing ingress YAML, production teams use Helm to install ingress controllers, package apps, and configure ingress rules via values.yaml. This ensures consistency and scalability.",
+    "what": "You will add the ingress-nginx repo, install ingress-nginx via Helm, package the diner app into a Helm chart, configure ingress rules in values.yaml, and test DNS routing with sslip.io.",
+    "where": "Legacy world: manually editing manifests. New world: Helm manages controllers and apps, and sslip.io simulates DNS without needing manual host edits."
+  },
+  "tasks": [
+    {"name": "Add ingress-nginx repo", "prompt": "Run `helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx`."},
+    {"name": "Update repos", "prompt": "Run `helm repo update` to sync chart indices."},
+    {"name": "Install ingress-nginx", "prompt": "Run `helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace`."},
+    {"name": "Package diner app", "prompt": "Run `helm create diner-app` and customize its templates."},
+    {"name": "Configure ingress rules", "prompt": "Edit values.yaml to add ingress.hosts and paths using sslip.io domains."},
+    {"name": "Install diner app", "prompt": "Run `helm install diner ./diner-app -f values.yaml`."},
+    {"name": "Verify ingress", "prompt": "Run `kubectl get ingress -n diner-lab`."},
+    {"name": "Test routing", "prompt": "Run `curl http://diner.127.0.0.1.sslip.io:30080/` to confirm routing works."}
+  ]
+}

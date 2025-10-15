@@ -1,0 +1,3 @@
+Namespace Isolation
+[diner-lab] → app pods
+[monitoring] → prometheus + grafana

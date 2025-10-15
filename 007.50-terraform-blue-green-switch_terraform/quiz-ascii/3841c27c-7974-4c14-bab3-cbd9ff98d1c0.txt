@@ -1,0 +1,17 @@
+WHAT COMMAND ACTIVATES BLUE
+
+Command:
+terraform apply -var='active_color=blue'
+
+Blueprint:
++------------------------------------+
+| Ingress → diner-blue Service → Pods A |
++------------------------------------+
+
+Execution flow:
+1. Terraform reads variable active_color=blue
+2. Updates ingress.yaml to point to blue service
+3. Applies Kubernetes manifests
+
+Result:
+Customers are routed to the blue diner again.

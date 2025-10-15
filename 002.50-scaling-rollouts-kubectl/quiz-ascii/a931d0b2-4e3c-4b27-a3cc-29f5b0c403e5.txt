@@ -1,0 +1,20 @@
+Kubernetes Rollout Process
+--------------------------
+Old Version (nginx:1.24)
+   +---------+
+   | Pod v1  |
+   +---------+
+       |
+       |  kubectl set image deployment web nginx=nginx:1.25
+       v
+Rollout Begins:
+   +---------+    +---------+
+   | Pod v1  | -> | Pod v2  |
+   +---------+    +---------+
+       |              |
+       |-- gradually replaces old pods --|
+       v
+All new pods running nginx:1.25
+   +---------+
+   | Pod v2  |
+   +---------+

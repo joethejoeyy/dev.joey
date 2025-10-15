@@ -1,0 +1,10 @@
+[ Trigger Rollout ]
+
+kubectl set image deployment/myapp myapp=nginx:1.25
+
++-----------------------------+
+| Deployment Spec             |
+|  containers:                |
+|   - name: myapp             |
+|     image: nginx:1.25       |
++-----------------------------+

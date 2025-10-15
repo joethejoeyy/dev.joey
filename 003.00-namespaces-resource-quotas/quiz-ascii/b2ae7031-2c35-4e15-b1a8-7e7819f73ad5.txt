@@ -1,0 +1,14 @@
+Switching Context Namespace
+---------------------------
+Before:
+   Current Context: default
+   > kubectl get pods
+   -> lists pods in default
+
+After:
+   kubectl config set-context --current --namespace=sandbox
+   Current Context: sandbox
+   > kubectl get pods
+   -> lists pods in sandbox
+
+Switching namespaces is like changing your mailing address.

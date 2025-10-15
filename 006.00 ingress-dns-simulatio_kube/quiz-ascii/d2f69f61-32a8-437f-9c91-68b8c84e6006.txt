@@ -1,0 +1,2 @@
+Namespace: ingress-nginx ---> Controller pods
+Namespace: diner-lab ---> App pods

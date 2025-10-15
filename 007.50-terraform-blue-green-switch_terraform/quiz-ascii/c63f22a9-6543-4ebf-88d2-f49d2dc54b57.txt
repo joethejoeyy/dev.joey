@@ -1,0 +1,27 @@
+HOW TO CLEANUP
+
+Command:
+terraform destroy
+
+Deletes all associated resources from the cluster.
+
+Removed:
+- Ingress
+- blue & green Services
+- Deployments & Pods
+
+ASCII Diagram:
++--------------------------------+
+| diner-blue  X (deleted)        |
+| diner-green X (deleted)        |
+| Ingress     X (deleted)        |
++--------------------------------+
+
+After cleanup:
++-------------+
+|  Terraform  |
+|   State     |
+|   Cleared   |
++-------------+
+
+Like shutting down both diners and turning off the lights.

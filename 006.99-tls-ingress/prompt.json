@@ -1,0 +1,61 @@
+{
+  "lab": "Phase 6.99 — TLS with Ingress",
+  "abstract": {
+    "who": "This lab is for you and Joe as DevOps learners who already know basic ingress and Helm, now leveling up to secure ingress traffic with TLS.",
+    "why": "TLS is required in production to encrypt client-to-service communication and establish trust. Instead of plain HTTP, ingress controllers should terminate HTTPS using secrets or cert-manager automation.",
+    "what": "You will first enable local HTTPS with a manually created TLS secret, then move to production-grade HTTPS using cert-manager with Let's Encrypt. This shows the difference between local dev setup and fully automated certificate management.",
+    "where": "Legacy world: self-signed or manually rotated certs for local HTTPS. New world: cert-manager automates trusted certificates with ACME/Let's Encrypt, integrated directly into ingress controllers."
+  },
+  "tasks": [
+    {
+      "story": "Local HTTPS (manual secret)",
+      "steps": [
+        {
+          "name": "Generate local certs",
+          "prompt": "Use OpenSSL to generate a dev certificate: `openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout cert.key -out cert.crt -subj \"/CN=diner.127.0.0.1.sslip.io\"`."
+        },
+        {
+          "name": "Create TLS secret",
+          "prompt": "Run `kubectl create secret tls diner-tls --cert=cert.crt --key=cert.key -n diner-lab`."
+        },
+        {
+          "name": "Reference secret in ingress",
+          "prompt": "Edit ingress.yaml to add `spec.tls` section pointing to diner-tls."
+        },
+        {
+          "name": "Deploy updated ingress",
+          "prompt": "Run `kubectl apply -f ingress.yaml -n diner-lab`."
+        },
+        {
+          "name": "Test HTTPS locally",
+          "prompt": "Run `curl -vk https://diner.127.0.0.1.sslip.io` to confirm handshake and HTML response."
+        }
+      ]
+    },
+    {
+      "story": "Production HTTPS (Let's Encrypt via cert-manager)",
+      "steps": [
+        {
+          "name": "Install cert-manager",
+          "prompt": "Run `helm repo add jetstack https://charts.jetstack.io && helm repo update` then `helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --set installCRDs=true`."
+        },
+        {
+          "name": "Create Issuer or ClusterIssuer",
+          "prompt": "Write an ACME ClusterIssuer manifest for Let's Encrypt and apply it. Example uses HTTP-01 solver with ingress."
+        },
+        {
+          "name": "Request certificate",
+          "prompt": "Create a Certificate resource pointing to your ingress host and issuer."
+        },
+        {
+          "name": "Check certificate status",
+          "prompt": "Run `kubectl describe certificate diner-cert -n diner-lab` and confirm it is Ready."
+        },
+        {
+          "name": "Force HTTPS redirect",
+          "prompt": "Add annotation `nginx.ingress.kubernetes.io/force-ssl-redirect: \"true\"` to ingress.yaml and reapply."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+Localhost:8080 ---> Port-Forward Tunnel ---> Pod
+Ingress ---> Public entry ---> Multiple Pods

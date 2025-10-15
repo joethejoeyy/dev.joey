@@ -1,0 +1,13 @@
+Preventing Resource Starvation
+------------------------------
+Without Quotas:
+   Namespace A --> CPU ████████████
+   Namespace B --> CPU ███
+   Namespace C --> CPU █
+
+With Quotas:
+   Namespace A --> █████ (max limit)
+   Namespace B --> █████ (fair share)
+   Namespace C --> █████ (fair share)
+
+Quotas ensure each team gets an equal slice of cluster resources.

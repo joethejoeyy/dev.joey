@@ -1,0 +1,14 @@
+[ CONFIGURE TLS IN INGRESS ]
+
++----------------------+
+| Secret: diner-tls    |
+|  - tls.crt           |
+|  - tls.key           |
++----------------------+
+          |
+          v
+ingress.yaml:
+  spec:
+    tls:
+    - hosts: [diner.local]
+      secretName: diner-tls

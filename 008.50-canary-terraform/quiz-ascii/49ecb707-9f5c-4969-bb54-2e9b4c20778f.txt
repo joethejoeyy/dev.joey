@@ -1,0 +1,11 @@
+Variable Control
+─────────────────
+variables.tf
+────────────
+variable "canary_weight" {
+  type    = number
+  default = 10
+}
+
+apply with:
+terraform apply -var='canary_weight=50'

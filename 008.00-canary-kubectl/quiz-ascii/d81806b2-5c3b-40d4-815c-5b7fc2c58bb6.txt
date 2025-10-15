@@ -1,0 +1,5 @@
+Browser Requests:
+ ├─> /stable → Blue-themed HTML page
+ └─> /canary → Green-themed HTML page
+
+Each served by separate ConfigMap-mounted HTML

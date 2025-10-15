@@ -1,0 +1,2 @@
+hosts file: 127.0.0.1 diner.local
+Browser ---> diner.local ---> Loopback to cluster

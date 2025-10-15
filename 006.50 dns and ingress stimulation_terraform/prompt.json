@@ -1,0 +1,21 @@
+{
+  "lab": "Phase 6.5 — Terraform DNS + Ingress (via Helm)",
+  "abstract": {
+    "who": "This lab is for you and Joe as DevOps learners building on Helm-based Ingress, now automating it with Terraform.",
+    "why": "In production, teams want to manage not just infrastructure but also app ingress rules declaratively with Terraform. The Helm provider lets Terraform install ingress controllers, apps, and ingress resources in a single workflow.",
+    "what": "You will use the Terraform Helm provider to install ingress-nginx, deploy the diner app as a Helm release, expose it with Terraform-managed Ingress, and test DNS routing via sslip.io.",
+    "where": "Legacy world: ops run Helm commands manually. New world: Terraform automates Helm and Kubernetes resources, making environments reproducible and CI/CD friendly."
+  },
+  "tasks": [
+    {"name": "Initialize Terraform", "prompt": "Run `terraform init` to set up providers for Kubernetes and Helm."},
+    {"name": "Install ingress-nginx via Terraform Helm provider", "prompt": "Define a helm_release for ingress-nginx in Terraform and apply it."},
+    {"name": "Deploy diner app via Terraform", "prompt": "Write a helm_release resource for diner-app, pointing to your chart and values.yaml."},
+    {"name": "Configure Terraform-managed Ingress", "prompt": "Pass ingress.hosts and paths to the diner Helm release via Terraform variables."},
+    {"name": "Use sslip.io for DNS", "prompt": "Set ingress.hosts to domains like diner.127.0.0.1.sslip.io for zero-DNS resolution."},
+    {"name": "Apply Terraform plan", "prompt": "Run `terraform apply` to deploy ingress-nginx and diner with ingress routing."},
+    {"name": "Verify ingress", "prompt": "Run `kubectl get ingress -n diner-lab` to confirm resources were created."},
+    {"name": "Test routing", "prompt": "Run `curl http://diner.127.0.0.1.sslip.io:30080/` and check the diner app response."},
+    {"name": "Iterate configuration", "prompt": "Change values in Terraform variables (e.g., replica counts, hosts) and re-apply."},
+    {"name": "Destroy resources", "prompt": "Run `terraform destroy` to cleanly remove ingress-nginx, diner app, and ingress rules."}
+  ]
+}

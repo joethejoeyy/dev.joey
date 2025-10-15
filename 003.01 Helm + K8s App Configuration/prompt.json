@@ -1,0 +1,73 @@
+{
+  "lab": "Phase 3 — Helm + K8s App Configuration",
+  "tasks": [
+    {
+      "name": "Understand Helm chart structure",
+      "prompt": "Explore the contents of a Helm chart. Identify Chart.yaml, values.yaml, templates/, and charts/ and describe their roles."
+    },
+    {
+      "name": "Install Helm; add and update repos",
+      "prompt": "Verify Helm installation and practice adding repositories like Bitnami and ingress-nginx. Then update the repo list to fetch the latest charts.",
+      "commands": [
+        "helm version",
+        "helm repo add bitnami https://charts.bitnami.com/bitnami",
+        "helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx",
+        "helm repo update"
+      ]
+    },
+    {
+      "name": "Install charts (e.g., Redis)",
+      "prompt": "Deploy Redis using Helm, confirm it’s running, and then clean it up by uninstalling. Practice listing active Helm releases.",
+      "commands": [
+        "helm install my-redis bitnami/redis",
+        "helm list",
+        "helm uninstall my-redis"
+      ]
+    },
+    {
+      "name": "Create and deploy your own chart",
+      "prompt": "Scaffold a new Helm chart using 'helm create'. Modify values.yaml if desired and then deploy it to your cluster.",
+      "commands": [
+        "helm create mychart",
+        "helm install myapp ./mychart -f values.yaml"
+      ]
+    },
+    {
+      "name": "Override values via values.yaml and CLI",
+      "prompt": "Practice overriding defaults in a Helm chart using both values.yaml and CLI flags. Compare results of --set vs custom values.yaml."
+    },
+    {
+      "name": "Upgrade a Helm release",
+      "prompt": "Upgrade an existing Helm release to a new version or apply new values. Observe how Helm updates the existing deployment without reinstalling.",
+      "commands": [
+        "helm upgrade my-redis bitnami/redis --set replica.replicaCount=2"
+      ]
+    },
+    {
+      "name": "Rollback a Helm release",
+      "prompt": "Rollback a Helm release to a previous revision after an upgrade. Verify the rollback using 'helm list' and check pod states.",
+      "commands": [
+        "helm rollback my-redis 1",
+        "helm list"
+      ]
+    },
+    {
+      "name": "Render manifests with helm template",
+      "prompt": "Render Kubernetes YAML locally with 'helm template' to preview what will be deployed, without applying it to the cluster.",
+      "commands": [
+        "helm template my-redis bitnami/redis"
+      ]
+    },
+    {
+      "name": "Lint a Helm chart",
+      "prompt": "Validate a Helm chart for errors using 'helm lint'. Use it on a chart you created to detect issues before deployment.",
+      "commands": [
+        "helm lint ./mychart"
+      ]
+    },
+    {
+      "name": "Understand values precedence",
+      "prompt": "Experiment with default values, custom values.yaml, and CLI --set flags. Confirm which settings take precedence when conflicts exist."
+    }
+  ]
+}

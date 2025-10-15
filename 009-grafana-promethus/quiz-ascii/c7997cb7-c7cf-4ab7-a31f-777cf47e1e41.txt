@@ -1,0 +1,5 @@
+PromQL Aggregations
+sum()  → total
+avg()  → mean
+rate() → per-second
+count()→ number of series

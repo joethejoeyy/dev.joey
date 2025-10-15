@@ -1,0 +1,9 @@
++------------------+
+        |   Chart.yaml     |  (pimp's ledger)
+        +------------------+
+        |   values.yaml    |  (house rules)
+        +------------------+
+        |   templates/     |  (rooms setup)
+        +------------------+
+        |   charts/        |  (side hustles)
+        +------------------+

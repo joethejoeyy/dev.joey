@@ -1,0 +1,10 @@
+Why keep separate blue/green charts?
+--------------------------------------
+   ┌────────────┐      ┌────────────┐
+   │ diner-blue │      │ diner-green│
+   └──────┬─────┘      └──────┬─────┘
+          │                   │
+   values-blue.yaml     values-green.yaml
+          │                   │
+     avoids collision ─────────┘
+Independent kitchens, no recipe mix-ups.

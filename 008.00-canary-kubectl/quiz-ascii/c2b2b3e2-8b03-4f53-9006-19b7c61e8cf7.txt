@@ -1,0 +1,4 @@
+$ kubectl get pods --show-labels
+
+diner-stable-abc123  version=stable
+diner-canary-def456  version=canary

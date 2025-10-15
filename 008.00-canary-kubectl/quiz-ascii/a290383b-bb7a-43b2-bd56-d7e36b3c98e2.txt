@@ -1,0 +1,9 @@
+Stepwise rollout:
+┌───────────────┐
+│ 10% Canary OK │
+├───────────────┤
+│ 25% Canary OK │
+├───────────────┤
+│ 50% Canary OK │
+└───────────────┘
+→ Promote to 100%

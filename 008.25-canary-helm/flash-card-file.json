@@ -1,0 +1,76 @@
+{
+  "title": "Phase 8.25 — Canary Deployment via Helm",
+  "topic": "Helm, Kubernetes, Canary Deployment, Progressive Delivery",
+  "cards": [
+    {
+      "question": "What does Helm add to canary deployment?",
+      "answer_textbook": "Helm packages all Kubernetes manifests into versioned charts for reproducible canary rollouts.",
+      "answer_metaphor": "Like using a recipe card so every chef makes the test dish exactly the same way.",
+      "answer_realworld": "Helm lets you define both stable and canary releases as separate, consistent chart versions.",
+      "guid": "7a029cc4-fbfd-4a8e-9d7e-482e2282eaae"
+    },
+    {
+      "question": "How are stable and canary managed in Helm?",
+      "answer_textbook": "As separate Helm releases such as `diner-stable` and `diner-canary`.",
+      "answer_metaphor": "Like two branches of the same restaurant running under different managers.",
+      "answer_realworld": "Each release has its own values.yaml defining replicas, image tags, and weights.",
+      "guid": "0a32c4e0-5a48-4af3-a8a4-2239622dc872"
+    },
+    {
+      "question": "How do you control traffic percentage in Helm?",
+      "answer_textbook": "By setting ingress annotations or service backend weights in values.yaml.",
+      "answer_metaphor": "Like turning a faucet knob to let a trickle or stream of guests into the canary diner.",
+      "answer_realworld": "Update `nginx.ingress.kubernetes.io/canary-weight` and run `helm upgrade` to change flow.",
+      "guid": "4ad4414a-08b8-4dc2-bb75-6de428a65f11"
+    },
+    {
+      "question": "What command deploys both versions?",
+      "answer_textbook": "`helm install diner-stable ./diner-stable` and `helm install diner-canary ./diner-canary -f values.yaml`.",
+      "answer_metaphor": "Like opening both diners on the same street with different menus.",
+      "answer_realworld": "You install each release separately so they can coexist and share routing rules.",
+      "guid": "38cb2ac8-7dc1-4fa7-83b2-e83d9e8ac2d5"
+    },
+    {
+      "question": "How is traffic increased safely?",
+      "answer_textbook": "By gradually raising canary weight and upgrading via Helm until 100% traffic is reached.",
+      "answer_metaphor": "Like inviting 10%, then 50%, then all customers to try the new menu.",
+      "answer_realworld": "Edit `values.yaml` → increase weight → run `helm upgrade diner-canary`.",
+      "guid": "aa4d923f-c176-4b60-890f-8de693c4e8f1"
+    },
+    {
+      "question": "What ensures rollback safety?",
+      "answer_textbook": "Helm keeps revision history allowing instant rollback to a previous chart state.",
+      "answer_metaphor": "Like saving yesterday’s recipe card so you can cook it again if today’s experiment fails.",
+      "answer_realworld": "Run `helm rollback diner-canary 0` to revert immediately to the last stable version.",
+      "guid": "1a78ac49-4e3f-4bc4-a7f1-8f2687abf518"
+    },
+    {
+      "question": "How are Helm values used in this lab?",
+      "answer_textbook": "They define chart configuration like image tag, replica count, and ingress routing weight.",
+      "answer_metaphor": "Like adjusting knobs on a control panel for flavor, speed, and temperature.",
+      "answer_realworld": "You tweak values.yaml for each environment instead of changing YAML manifests directly.",
+      "guid": "c2fdb50e-8854-41ad-b0e7-33e4f3ee4c4a"
+    },
+    {
+      "question": "How can you verify the current canary state?",
+      "answer_textbook": "`helm status diner-canary` or `kubectl describe ingress` show routing and revision info.",
+      "answer_metaphor": "Like checking the restaurant ledger to see how many guests went to each branch.",
+      "answer_realworld": "Use Helm status and ingress details to confirm the rollout phase and weights.",
+      "guid": "bb27a748-60d1-4c49-8bde-1b0f9f2b6e37"
+    },
+    {
+      "question": "Why use separate charts instead of one?",
+      "answer_textbook": "Separate charts isolate configuration and simplify version tracking for each release.",
+      "answer_metaphor": "Like maintaining two distinct menus to avoid mixing old and new recipes.",
+      "answer_realworld": "Teams can manage canary lifecycle independently from stable deployment pipelines.",
+      "guid": "5bb93b19-dce5-4656-93b7-0717c40ad869"
+    },
+    {
+      "question": "What’s the benefit of Helm’s declarative model here?",
+      "answer_textbook": "It provides predictable, repeatable canary rollouts under version control.",
+      "answer_metaphor": "Like following the same checklist every time you open a new test branch.",
+      "answer_realworld": "Each helm upgrade applies the same steps automatically with traceable history.",
+      "guid": "5c23cfad-bb39-4ee6-8e2e-6b38f06607e3"
+    }
+  ]
+}

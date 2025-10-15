@@ -1,0 +1,51 @@
+{
+  "lab": "Phase 4 — Terraform Fundamentals (Provision a Network + Test Endpoint)",
+  "abstract": {
+    "who": "This lab is for you and Joe as DevOps learners bridging your past experience with legacy systems into new cloud-native practices.",
+    "why": "In the real world, infrastructure is hybrid: you have legacy servers and VMs (the old world) alongside containerized applications in Kubernetes or Docker (the new world). Terraform is powerful because it can provision both worlds, ensuring they share consistent networking and infra foundations.",
+    "what": "You will declare a network (like a VNet or VPC), attach a gateway, create a subnet, and place a small VM with a web server inside. This gives you an external endpoint you can test in your browser. Conceptually, the same patterns apply if you were later connecting that network to a Kubernetes cluster or containerized services.",
+    "where": "Legacy world: a big coffee shop building that’s permanent but hard to scale. New world: mobile coffee carts you can place anywhere (containers). Terraform builds the roads, intersections, and gateways so both can coexist. Whether you’re on AWS, Azure, GCP, or just simulating locally, the same IaC principles apply."
+  },
+  "tasks": [
+    {
+      "name": "Install and verify Terraform",
+      "prompt": "Install Terraform and confirm it works."
+    },
+    {
+      "name": "Initialize a provider",
+      "prompt": "Set up Terraform with a provider (local, virtualized, or cloud) so it can create resources."
+    },
+    {
+      "name": "Create a virtual network",
+      "prompt": "Write Terraform config to declare a virtual network (like a VNet/VPC)."
+    },
+    {
+      "name": "Add a subnet",
+      "prompt": "Extend the config with a subnet inside the network to host resources."
+    },
+    {
+      "name": "Add a gateway",
+      "prompt": "Provision a gateway to connect the network to the outside. In cloud this is explicit (Internet Gateway, NAT), locally your host is the implicit gateway."
+    },
+    {
+      "name": "Provision a tiny VM with public IP",
+      "prompt": "Declare a small VM inside the subnet with a public IP to act as a visible endpoint."
+    },
+    {
+      "name": "Install a web server",
+      "prompt": "Use a provisioner or startup script to install nginx so the VM serves a simple hello-world page."
+    },
+    {
+      "name": "Output the public IP",
+      "prompt": "Expose the VM’s public IP as a Terraform output so it can be tested externally."
+    },
+    {
+      "name": "Test external connectivity",
+      "prompt": "Open the public IP in a browser and verify the hello-world page is served."
+    },
+    {
+      "name": "Clean up",
+      "prompt": "Destroy the network, gateway, and VM with Terraform to avoid leaving resources running."
+    }
+  ]
+}

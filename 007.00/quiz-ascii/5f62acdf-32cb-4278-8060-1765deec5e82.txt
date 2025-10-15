@@ -1,0 +1,11 @@
+[ Inspect Pod Versions ]
+
+kubectl get pods --show-labels
+
++----------+-----------+------------------+
+| Pod Name | Status    | Labels           |
+|----------|-----------|------------------|
+| pod-a    | Running   | version=1        |
+| pod-b    | Running   | version=2        |
+| pod-c    | Running   | version=2        |
++----------+-----------+------------------+

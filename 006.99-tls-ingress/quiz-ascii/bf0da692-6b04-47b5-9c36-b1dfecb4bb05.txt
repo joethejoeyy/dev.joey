@@ -1,0 +1,9 @@
+[ VERIFY CERT EXPIRATION ]
+
+openssl x509 -in cert.crt -text -noout
+
+or
+
+kubectl describe secret diner-tls
+
+Output --> "Not After: <date>"

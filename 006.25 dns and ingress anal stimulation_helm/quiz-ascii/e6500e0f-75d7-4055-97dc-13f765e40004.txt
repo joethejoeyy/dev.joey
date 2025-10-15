@@ -1,0 +1,5 @@
+values.yaml
+ ingress:
+   hosts:
+     - host: diner.sslip.io
+       paths: /menu, /drinks

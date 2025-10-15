@@ -1,0 +1,6 @@
+Raw YAML vs Helm
++-------------------+      +-------------------+
+| Raw YAML          |      | Helm Charts       |
+| - verbose         |      | - reusable        |
+| - manual upkeep   |      | - templated       |
++-------------------+      +-------------------+

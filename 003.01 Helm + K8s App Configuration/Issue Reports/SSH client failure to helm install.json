@@ -1,0 +1,24 @@
+{
+  "note": "Something here worked (not sure what exactly!)",
+  "issue": "Helm install worked on desktop but failed over SSH (Credential Manager issues).",
+  "steps": [
+    "Found that Docker Desktop stores creds in Windows Credential Manager, which breaks when logging in over SSH.",
+    "Fixed it by creating a file-based Docker config at C:\\Users\\parm19\\.docker\\config.json.",
+    "Added base64 auth for Docker Hub token manually instead of using credsStore=desktop.",
+    "Config.json now looks like:",
+    "{ \"auths\": { \"https://index.docker.io/v1/\": { \"auth\": \"cGFybWRlZXBjaGhhYnJhOmRja3JfcGF0X3ZJUllJalM4clhiSEl2ejNDbVotRzFrNHZsdw==\" } } }",
+    "After that, `docker run hello-world` and `helm install` with the OCI path both worked.",
+    "The remaining Helm error was only 'cannot re-use a name that is still in use', which was resolved by uninstalling the old release or using a new release name.",
+    "Uninstall/reinstall workflow:",
+    " - Run `helm list` to see existing releases.",
+    " - Run `helm uninstall my-redis` to delete a release that’s blocking reuse of the name.",
+    " - Run `helm install my-redis oci://registry-1.docker.io/bitnamicharts/redis` (OCI path) or `helm install my-redis bitnami/redis` (chart repo path) to redeploy cleanly."
+  ],
+  "resolution": "The real fix was replacing credsStore=desktop with file-based base64 auth in config.json. Both Helm chart repo and Helm OCI installs now work; any 'failed install' errors after that were just due to re-using the same release name.",
+  "sources": [
+    "StackOverflow: helm pull or install: unable to retrieve credentials - https://stackoverflow.com/questions/79334304/helm-pull-or-install-unable-to-retrieve-credentials",
+    "Docker CLI issue on Windows Credential Manager (logon session does not exist) - https://github.com/docker/cli/issues/2682",
+    "Helm docs on registries and --registry-config - https://helm.sh/docs/topics/registries/",
+    "Helm CLI docs (HELM_REGISTRY_CONFIG env var) - https://helm.sh/docs/helm/helm/"
+  ]
+}

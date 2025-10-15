@@ -1,0 +1,9 @@
+Verification
+─────────────
+kubectl get pods --show-labels -n diner-lab
+terraform output
+
+┌───────────────────────────────┐
+│ canary_weight = 50            │
+│ diner_canary_revision = 2     │
+└───────────────────────────────┘

@@ -1,0 +1,7 @@
+CLI flags (--set)   <-- highest
+             |
+         values.yaml
+             |
+   chart default values  <-- lowest
+             |
+          final config

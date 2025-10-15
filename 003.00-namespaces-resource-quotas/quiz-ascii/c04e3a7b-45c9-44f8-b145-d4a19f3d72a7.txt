@@ -1,0 +1,16 @@
+Creating a Namespace
+--------------------
+Command:
+   kubectl create namespace sandbox
+
+Result:
+   +-----------------------------+
+   | Namespaces in Cluster       |
+   +-----------------------------+
+   | default                     |
+   | kube-system                 |
+   | kube-public                 |
+   | sandbox (new)               |
+   +-----------------------------+
+
+Your sandbox is now an isolated playground.

@@ -1,0 +1,12 @@
+What does `helm create diner-blue` do?
+-------------------------------------------
+$ helm create diner-blue
+
+📁 diner-blue/
+ ├─ Chart.yaml
+ ├─ values.yaml
+ └─ templates/
+     ├─ deployment.yaml
+     ├─ service.yaml
+     └─ ingress.yaml
+Blueprint for the Blue café — ready to customize.

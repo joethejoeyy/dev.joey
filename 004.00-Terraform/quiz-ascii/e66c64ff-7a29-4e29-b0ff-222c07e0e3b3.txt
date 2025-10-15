@@ -1,0 +1,11 @@
+What is a gateway and why do we need it?
+
+Diagram:
+Gateway Concept
+────────────────────────────
+[ Private Subnet ] -----> [ Gateway ] -----> [ Internet ]
+
+Coffee shop metaphor:
+- Private Subnet = your side street
+- Gateway = the highway exit that connects your street
+- Internet = the rest of the city/customers

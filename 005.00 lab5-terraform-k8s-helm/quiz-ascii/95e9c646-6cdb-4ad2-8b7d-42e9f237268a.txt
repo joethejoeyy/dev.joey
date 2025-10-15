@@ -1,0 +1,6 @@
+Helm CLI vs Terraform
++----------------+      +------------------------+
+| helm install   |      | terraform helm_release |
+| manual, single |      | tracked in state       |
+| cluster only   |      | reproducible + CI/CD   |
++----------------+      +------------------------+

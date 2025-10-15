@@ -1,0 +1,10 @@
+helm create mychart
+            |
+            v
+   [mychart folder generated]
+            |
+            v
+   helm install myapp ./mychart -f values.yaml
+            |
+            v
+     [app deployed to cluster]

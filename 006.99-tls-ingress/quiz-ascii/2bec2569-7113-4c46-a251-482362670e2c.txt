@@ -1,0 +1,8 @@
+[ TESTING TLS ]
+
+curl -vk https://diner.127.0.0.1.sslip.io
+
+Client ----HTTPS----> Ingress (TLS)
+                            |
+                            v
+                     Service/Pod (HTTP)

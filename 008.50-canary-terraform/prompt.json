@@ -1,0 +1,78 @@
+{
+  "lab": "Phase 8.5 — Terraform Canary Deployment (Revised)",
+  "abstract": {
+    "who": "This lab is for Joey and Joe as DevOps learners progressing from Helm-based canary releases to Terraform-managed Helm automation.",
+    "why": "Terraform enables version-controlled, repeatable infrastructure automation. In this phase, you learn how to orchestrate Helm charts for both stable and canary releases while dynamically controlling NGINX ingress weights through Terraform variables.",
+    "what": "You will create Terraform-managed Helm releases for stable and canary deployments, configure both ingresses correctly, pass a dynamic weight variable, and confirm that NGINX merges both routes to balance traffic safely.",
+    "where": "Useful for production pipelines where controlled, gradual rollouts and rollback automation are needed using Helm, Kubernetes, and Terraform together."
+  },
+  "tasks": [
+    {
+      "name": "Initialize Terraform Workspace",
+      "prompt": "Create `terraform-canary/` with `main.tf`, `variables.tf`, and `outputs.tf`. Run `terraform init` to install providers."
+    },
+    {
+      "name": "Configure Providers",
+      "prompt": "In `main.tf`, define Kubernetes and Helm providers pointing to `~/.kube/config`."
+    },
+    {
+      "name": "Create Stable Helm Release",
+      "prompt": "Declare `helm_release.diner_stable` with `chart = ../helm/diner-stable` and include a simple ingress (non-canary). This acts as the base ingress for NGINX."
+    },
+    {
+      "name": "Create Canary Helm Release",
+      "prompt": "Declare `helm_release.diner_canary` with `chart = ../helm/diner-canary` and use `templatefile('values-canary.tpl', { canary_weight = var.canary_weight })` to inject weight dynamically."
+    },
+    {
+      "name": "Align Template Variables",
+      "prompt": "Ensure both Helm charts use consistent naming: `canaryWeight` (CamelCase). Terraform passes `var.canary_weight` → Helm value `canaryWeight` → Ingress annotation `{{ .Values.canaryWeight }}`."
+    },
+    {
+      "name": "Define Variable",
+      "prompt": "In `variables.tf`: \n```hcl\nvariable \"canary_weight\" {\n  type        = number\n  default     = 10\n  description = \"Percentage of traffic routed to canary\"\n}\n```"
+    },
+    {
+      "name": "Create Helm Ingress Templates",
+      "prompt": "Add two ingress templates under each chart:\n- **Stable**: standard ingress (no `canary` annotations)\n- **Canary**: must include `nginx.ingress.kubernetes.io/canary: 'true'` and `nginx.ingress.kubernetes.io/canary-weight: '{{ .Values.canaryWeight }}'`.\nEnsure both use the same host and path."
+    },
+    {
+      "name": "Apply Terraform",
+      "prompt": "Run `terraform apply -var='canary_weight=10' -auto-approve`. Verify with `kubectl get ingress -n diner-lab` — you should see both `diner-stable` and `diner-canary`."
+    },
+    {
+      "name": "Update Canary Weight",
+      "prompt": "Gradually raise weight via:\n```bash\nterraform apply -var='canary_weight=25' -auto-approve\nterraform apply -var='canary_weight=50' -auto-approve\n```"
+    },
+    {
+      "name": "Verify and Debug",
+      "prompt": "Use `helm get manifest diner-canary -n diner-lab | Select-String canary-weight` to confirm Helm rendered the annotation. If empty, check variable name alignment (`canaryWeight` vs `canary_weight`)."
+    },
+    {
+      "name": "Rollback",
+      "prompt": "Set canary weight to 0 or destroy the canary release:\n```bash\nterraform apply -var='canary_weight=0' -auto-approve\nterraform destroy -target=helm_release.diner_canary -auto-approve\n```"
+    },
+    {
+      "name": "Cleanup",
+      "prompt": "Run `terraform destroy -auto-approve` and `kubectl delete ingress --all -n diner-lab` to wipe test resources."
+    }
+  ],
+  "commands": [
+    "terraform init",
+    "terraform plan",
+    "terraform apply -var='canary_weight=10' -auto-approve",
+    "terraform apply -var='canary_weight=50' -auto-approve",
+    "kubectl get ingress -n diner-lab",
+    "helm get manifest diner-canary -n diner-lab | Select-String canary-weight",
+    "kubectl describe ingress diner-canary -n diner-lab",
+    "terraform destroy -auto-approve"
+  ],
+  "lessons": [
+    "NGINX requires both a stable (base) and canary ingress with the same host/path for canary routing to work.",
+    "The canary ingress must always include both `canary: 'true'` and `canary-weight` annotations.",
+    "Helm variables must match exactly — `canaryWeight` in both `values-canary.tpl` and ingress template.",
+    "Terraform `templatefile()` correctly injects Helm values only when variable names match between Terraform and Helm.",
+    "Removing `create_namespace` doesn’t break canary behavior; it only controls namespace creation if missing.",
+    "A 404 error usually means the ingress exists but no backend matched; not a Terraform issue.",
+    "Helm caches templates; `terraform taint helm_release.diner_canary` forces re-rendering if variables appear unchanged."
+  ]
+}

@@ -1,0 +1,10 @@
+helm version
+        |
+        v
+   helm repo add bitnami
+        |
+        v
+   helm repo add ingress-nginx
+        |
+        v
+   helm repo update

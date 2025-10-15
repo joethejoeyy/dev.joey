@@ -1,0 +1,4 @@
+Prometheus Scrape Cycle
+[Pod Metrics Endpoint] ←── scrape ── [Prometheus]
+          ↑                              │
+          └──────── stores samples ──────┘

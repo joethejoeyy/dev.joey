@@ -1,0 +1,55 @@
+{
+  "title": "Phase 1 \u2014 Lab 3: Namespaces & Resource Quotas",
+  "topic": "Kubernetes Namespaces & Quotas",
+  "cards": [
+    {
+      "guid": "24bb84f4-5961-4953-9c8e-f7c25f4d3b3c",
+      "question": "What is a Kubernetes namespace?",
+      "answer_textbook": "A logical partition that isolates resources within a cluster.",
+      "answer_metaphor": "Different apartments in the same building \u2014 same roof, separate spaces.",
+      "answer_realworld": "Namespaces let teams share one cluster safely, keeping dev, test, and prod separate."
+    },
+    {
+      "guid": "c04e3a7b-45c9-44f8-b145-d4a19f3d72a7",
+      "question": "How do you create a new namespace?",
+      "answer_textbook": "Run `kubectl create namespace <name>`.",
+      "answer_metaphor": "Drawing a boundary line on the playground before the chaos begins.",
+      "answer_realworld": "Creates an isolated scope where Deployments, Services, and Quotas live independently."
+    },
+    {
+      "guid": "b2ae7031-2c35-4e15-b1a8-7e7819f73ad5",
+      "question": "What does changing your kubectl context namespace do?",
+      "answer_textbook": "Sets the default namespace for all kubectl commands in that context.",
+      "answer_metaphor": "Changing mailing address \u2014 all letters now go to the new office automatically.",
+      "answer_realworld": "Saves time; every kubectl command runs against the chosen namespace until switched back."
+    },
+    {
+      "guid": "8c84e7a7-6325-4ec4-b40f-8d52caa42e07",
+      "question": "What is a ResourceQuota?",
+      "answer_textbook": "A policy that restricts the total resource usage within a namespace.",
+      "answer_metaphor": "An electric meter that limits how much power your apartment can draw.",
+      "answer_realworld": "Defines hard CPU/memory/pod caps so one team can't exhaust cluster resources."
+    },
+    {
+      "guid": "f7ff09f3-e5b3-4a1a-8e12-0de38d19cc3b",
+      "question": "How do ResourceQuotas prevent resource starvation?",
+      "answer_textbook": "They limit how much CPU, memory, and object count each namespace can claim.",
+      "answer_metaphor": "Each team gets a fixed pizza slice \u2014 no grabbing the whole pie.",
+      "answer_realworld": "Prevents runaway workloads from consuming all cluster resources, keeping things fair."
+    },
+    {
+      "guid": "99299ce5-06d0-44c0-a6c7-63f0e510c263",
+      "question": "How can you view current quota usage?",
+      "answer_textbook": "Use `kubectl describe quota -n <namespace>`.",
+      "answer_metaphor": "Checking your utility bill to see how much of your budget you\u2019ve burned.",
+      "answer_realworld": "Shows used vs allowed CPU, memory, and object counts."
+    },
+    {
+      "guid": "e905ef22-ef31-4d9c-8c8d-b6c32af973f7",
+      "question": "What happens when a namespace is deleted?",
+      "answer_textbook": "All resources within it are deleted too.",
+      "answer_metaphor": "Bulldozing the apartment \u2014 everything inside goes with it.",
+      "answer_realworld": "Kubernetes deletes all Deployments, Services, and Configs under that namespace."
+    }
+  ]
+}

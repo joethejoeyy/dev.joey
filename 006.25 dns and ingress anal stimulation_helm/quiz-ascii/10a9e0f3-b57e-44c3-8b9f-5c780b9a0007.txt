@@ -1,0 +1,4 @@
+kubectl get ingress
+   |
+   v
+Shows ingress resource list in namespace

@@ -1,0 +1,11 @@
+What role do variables and outputs play?
+
+Diagram:
+────────────────────────────
+Variables = Inputs (CIDR, names)
+Outputs   = Results (Public IP)
+
+Coffee shop metaphor:
+- Variables = menu template
+- Outputs   = receipt with shop address
+────────────────────────────

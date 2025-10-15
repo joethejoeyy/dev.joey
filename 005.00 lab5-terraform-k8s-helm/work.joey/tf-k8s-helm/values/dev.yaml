@@ -1,0 +1,6 @@
+# used later to override Helm chart defaults
+replicaCount: 2
+service:
+  type: NodePort
+image:
+  tag: latest

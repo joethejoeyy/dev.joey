@@ -1,0 +1,10 @@
+Rollback Logic
+───────────────
+┌──────────────────────────┐
+│ terraform state snapshot │
+└───────────┬──────────────┘
+            │
+            ▼
+terraform apply -var='canary_weight=0'
+or
+terraform destroy -target=helm_release.diner_canary

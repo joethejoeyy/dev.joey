@@ -1,0 +1,8 @@
+kubectl describe svc web
+
+Service: web
++----------------------------+
+| Selector: app=web          |
+| Ports: 80 --> NodePort 30080|
+| Endpoints: Pod IPs         |
++----------------------------+

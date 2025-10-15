@@ -1,0 +1,55 @@
+{
+  "title": "Lab 2.5 — Scaling & Rollouts (Kubernetes Intermediate)",
+  "topic": "Kubernetes Rollouts",
+  "cards": [
+    {
+      "guid": "1b77c6af-b0f8-4de8-9937-6cdb64d32987",
+      "question": "What does 'kubectl scale deployment' do?",
+      "answer_textbook": "Adjusts the number of running pods for a given Deployment.",
+      "answer_metaphor": "Telling the hotel manager to add more workers for the night shift.",
+      "answer_realworld": "It increases or decreases the number of pod replicas managed by the Deployment."
+    },
+    {
+      "guid": "a931d0b2-4e3c-4b27-a3cc-29f5b0c403e5",
+      "question": "What is a rollout in Kubernetes?",
+      "answer_textbook": "The process of updating pods in a Deployment to a new version or configuration.",
+      "answer_metaphor": "Switching out the old crew for new hires one room at a time.",
+      "answer_realworld": "When you update an image or template, Kubernetes replaces old pods gradually to avoid downtime."
+    },
+    {
+      "guid": "5ff8cf5d-65d0-4bb7-9950-c2b14d817063",
+      "question": "How do you check rollout progress?",
+      "answer_textbook": "Use `kubectl rollout status deployment/<name>`.",
+      "answer_metaphor": "Watching the manager’s clipboard as each worker clocks in on the new schedule.",
+      "answer_realworld": "Shows live progress until the Deployment reports 'successfully rolled out'."
+    },
+    {
+      "guid": "b9b3cf45-19b3-4af7-86cb-109f1d47d22b",
+      "question": "What does 'kubectl rollout undo' do?",
+      "answer_textbook": "Reverts a Deployment to its previous version.",
+      "answer_metaphor": "Firing the new hires and rehiring the old ones because the customers complained.",
+      "answer_realworld": "Kubernetes restores the previous pod template and recreates old pods automatically."
+    },
+    {
+      "guid": "c4e6dd7b-93a1-44f8-b163-6f6677b5e5c4",
+      "question": "What is a ReplicaSet?",
+      "answer_textbook": "A lower-level Kubernetes object that ensures a specific number of pod replicas are running.",
+      "answer_metaphor": "The hotel floor supervisor making sure every room is occupied as planned.",
+      "answer_realworld": "Deployments use ReplicaSets under the hood to maintain pod counts and handle rollouts."
+    },
+    {
+      "guid": "d7c72baf-f801-4ee6-b0c4-47907d17bfb5",
+      "question": "How does Kubernetes achieve zero-downtime updates?",
+      "answer_textbook": "By gradually replacing old pods with new ones while keeping the desired number of running instances.",
+      "answer_metaphor": "Renovating one hotel room at a time without kicking out all guests.",
+      "answer_realworld": "During a rolling update, new pods start before old ones terminate, maintaining service availability."
+    },
+    {
+      "guid": "f244f4c5-7d9f-4c7f-9a64-d2d41e06ce39",
+      "question": "What are key commands for rollout management?",
+      "answer_textbook": "`kubectl rollout status`, `kubectl rollout undo`, and `kubectl rollout history`.",
+      "answer_metaphor": "The hotel manager’s logbook — progress, regret, and history all in one place.",
+      "answer_realworld": "These commands let you watch, revert, and audit Deployment updates safely."
+    }
+  ]
+}

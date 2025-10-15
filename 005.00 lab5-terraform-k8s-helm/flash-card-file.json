@@ -1,0 +1,82 @@
+{
+  "title": "Phase 5 — Terraform + Kubernetes + Helm",
+  "topic": "Terraform, Kubernetes, Helm",
+  "abstract": {
+    "who": "This flashcard set is for you and Joe, focusing on Terraform’s integration with Kubernetes and Helm.",
+    "why": "Modern infra isn’t just servers — it’s clusters and packaged apps. Terraform + Kubernetes + Helm brings these under one workflow, giving you reproducibility and consistency across environments.",
+    "what": "These cards cover Terraform’s Kubernetes and Helm providers, passing Helm values, reusable modules, workflow, drift detection, and environment separation. Metaphors tie it all back to running a chain of coffee shops where some branches are permanent, some are pop-ups, but all follow a shared playbook.",
+    "where": "Applies to any cluster — AWS EKS, Azure AKS, GCP GKE, or local (kind/minikube). The Terraform patterns stay the same."
+  },
+  "cards": [
+    {
+      "question": "What does the Kubernetes provider in Terraform do?",
+      "answer_textbook": "It lets Terraform manage Kubernetes resources (namespaces, deployments, services) directly.",
+      "answer_metaphor": "It’s like giving your coffee shop architect control to rearrange furniture and menus inside the shop.",
+      "answer_realworld": "You can codify Kubernetes YAML into Terraform so clusters stay consistent and version-controlled.",
+      "guid": "1e6abf31-0117-4491-b88a-59e5f1c80b11"
+    },
+    {
+      "question": "Why use the Helm provider in Terraform?",
+      "answer_textbook": "The Helm provider installs and manages Helm charts as part of infrastructure code.",
+      "answer_metaphor": "It’s like ordering pre-packaged coffee shop kits and letting Terraform set them up automatically.",
+      "answer_realworld": "Most apps ship as Helm charts; Terraform automates and tracks them in state for reproducibility.",
+      "guid": "e3b53f25-f878-44e6-85cd-517e43b56811"
+    },
+    {
+      "question": "How do you pass values to Helm charts from Terraform?",
+      "answer_textbook": "Use the `values` argument in `helm_release` to override chart defaults (replicas, service type, tags).",
+      "answer_metaphor": "Like choosing options for each coffee kit — one branch gets more tables, another a smaller menu.",
+      "answer_realworld": "Values let you customize charts for dev, stage, or prod while using the same Helm chart.",
+      "guid": "27b579c0-bc28-4e16-aaf8-442f12a59ef5"
+    },
+    {
+      "question": "What is the benefit of creating Terraform modules for K8s + Helm?",
+      "answer_textbook": "Modules encapsulate configs so they can be reused across environments with different inputs.",
+      "answer_metaphor": "A franchise blueprint: same coffee shop layout, but each branch paints walls or hires staff differently.",
+      "answer_realworld": "Modules prevent duplication and ensure all environments share consistent patterns.",
+      "guid": "d62ac78c-52b6-41a7-9f5f-2e39f1d62bb1"
+    },
+    {
+      "question": "What is the Terraform workflow when managing Kubernetes + Helm?",
+      "answer_textbook": "It’s still init → plan → apply → destroy, regardless of provider.",
+      "answer_metaphor": "Same routine: get permits, draw layout, open shop, close it when needed.",
+      "answer_realworld": "Terraform’s universal workflow applies even when deploying apps into Kubernetes.",
+      "guid": "afddfb47-15f7-4639-8a62-80225f93c5c1"
+    },
+    {
+      "question": "Why manage Helm releases with Terraform instead of Helm CLI?",
+      "answer_textbook": "Terraform tracks releases in state, supports drift detection, and integrates with other infra.",
+      "answer_metaphor": "Like keeping a master ledger of which branches got which coffee kits instead of random sticky notes.",
+      "answer_realworld": "With Terraform, Helm releases are version-controlled, idempotent, and auditable in CI/CD.",
+      "guid": "95e9c646-6cdb-4ad2-8b7d-42e9f237268a"
+    },
+    {
+      "question": "What’s the difference between managing raw YAML with Terraform vs Helm via Terraform?",
+      "answer_textbook": "Raw YAML means writing all Kubernetes resources yourself; Helm bundles them with templates and values.",
+      "answer_metaphor": "Raw YAML is like baking pastries from scratch; Helm is like buying a starter kit and tweaking toppings.",
+      "answer_realworld": "Helm reduces boilerplate and enforces standards, while Terraform lets you use both as needed.",
+      "guid": "7c14f87b-31f6-4631-928a-447ba6dcb4d1"
+    },
+    {
+      "question": "Why is environment separation (dev/stage/prod) important here?",
+      "answer_textbook": "Each environment has unique requirements but must follow the same blueprint to avoid drift.",
+      "answer_metaphor": "Different coffee shop locations serve different customers but all follow franchise standards.",
+      "answer_realworld": "Modules with environment inputs ensure safe scaling and consistency across all clusters.",
+      "guid": "c3d50863-4183-4c2f-bef2-8e23fc0650f4"
+    },
+    {
+      "question": "What is drift detection and why does it matter?",
+      "answer_textbook": "Drift detection identifies when live resources no longer match Terraform’s state.",
+      "answer_metaphor": "It’s like checking if a shop manager rearranged furniture against the official floor plan.",
+      "answer_realworld": "Terraform can detect and fix manual changes to Helm releases or Kubernetes resources.",
+      "guid": "9d12d2a5-86ff-43f6-8f56-272c3cbbfe86"
+    },
+    {
+      "question": "Why do we clean up with `terraform destroy`?",
+      "answer_textbook": "Destroy removes all resources created by Terraform, including Helm releases and namespaces.",
+      "answer_metaphor": "Like closing a pop-up coffee stand after an event so you don’t keep paying rent.",
+      "answer_realworld": "Destroy avoids stray resources and costs, and keeps clusters clean between labs.",
+      "guid": "c00f7928-3c73-4a25-91c8-3814d3b0f1f7"
+    }
+  ]
+}

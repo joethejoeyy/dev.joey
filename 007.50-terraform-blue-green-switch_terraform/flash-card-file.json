@@ -1,0 +1,76 @@
+{
+  "title": "Phase 7.5 \u2014 Terraform Blue-Green Switch",
+  "topic": "Terraform, Kubernetes, Blue-Green",
+  "cards": [
+    {
+      "question": "Why use Terraform for blue/green?",
+      "answer_textbook": "Terraform makes active version explicit in state.",
+      "answer_metaphor": "Like a traffic light switch controlling flow.",
+      "answer_realworld": "Teams flip active app using a variable.",
+      "guid": "059d50e7-d4e1-4eb7-91d7-a463cd81ca20"
+    },
+    {
+      "question": "What variable controls the switch?",
+      "answer_textbook": "`active_color` variable (blue or green).",
+      "answer_metaphor": "Like flipping a toggle between blue and green.",
+      "answer_realworld": "Terraform decides which release routes traffic.",
+      "guid": "0708900d-c764-46e9-9c54-21bf23664bb2"
+    },
+    {
+      "question": "What command activates blue?",
+      "answer_textbook": "`terraform apply -var='active_color=blue'`.",
+      "answer_metaphor": "Like turning on blue diner\u2019s lights.",
+      "answer_realworld": "Applies manifests for diner-a.",
+      "guid": "3841c27c-7974-4c14-bab3-cbd9ff98d1c0"
+    },
+    {
+      "question": "How do you verify pods?",
+      "answer_textbook": "`kubectl get pods --show-labels`.",
+      "answer_metaphor": "Like checking uniforms of staff in each diner.",
+      "answer_realworld": "Labels show diner-a vs diner-b active.",
+      "guid": "16f5d68c-f836-42fb-a702-c2288422a1a1"
+    },
+    {
+      "question": "How to switch to green?",
+      "answer_textbook": "`terraform apply -var='active_color=green'`.",
+      "answer_metaphor": "Like opening the green diner doors.",
+      "answer_realworld": "Pods labeled diner-b become active.",
+      "guid": "f671bb76-fafa-4eec-a2c8-ecf4ebeb487b"
+    },
+    {
+      "question": "How to inspect ingress routing?",
+      "answer_textbook": "`kubectl describe ingress diner-ingress`.",
+      "answer_metaphor": "Like looking at street signs directing to diners.",
+      "answer_realworld": "Ingress host points to green or blue service.",
+      "guid": "e41f740a-13d2-4eb6-9f37-f2068e64c9cb"
+    },
+    {
+      "question": "How do you rollback?",
+      "answer_textbook": "Apply with `active_color=blue` again.",
+      "answer_metaphor": "Like putting the blue sign back up.",
+      "answer_realworld": "Terraform reapplies diner-a routing.",
+      "guid": "20682d90-8e05-45f4-ad31-77c2d5864ccb"
+    },
+    {
+      "question": "How do you preview switch?",
+      "answer_textbook": "`terraform plan -var='active_color=green'`.",
+      "answer_metaphor": "Like seeing a rehearsal before opening night.",
+      "answer_realworld": "Plan shows resources to change.",
+      "guid": "31828d91-79b1-49ba-b834-806a6fa7a92b"
+    },
+    {
+      "question": "What is advantage of Terraform?",
+      "answer_textbook": "Unified infra and app deployment.",
+      "answer_metaphor": "Like one control panel for all kitchens.",
+      "answer_realworld": "Manages Helm, K8s, DNS consistently.",
+      "guid": "27c1c4cd-ca51-494b-a8d0-02d2dc581abc"
+    },
+    {
+      "question": "How to cleanup?",
+      "answer_textbook": "`terraform destroy`.",
+      "answer_metaphor": "Like shutting down both diners.",
+      "answer_realworld": "Removes pods, svc, ingress from cluster.",
+      "guid": "c63f22a9-6543-4ebf-88d2-f49d2dc54b57"
+    }
+  ]
+}

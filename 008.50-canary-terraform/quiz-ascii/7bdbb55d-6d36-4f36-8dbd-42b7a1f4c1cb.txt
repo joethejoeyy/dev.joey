@@ -1,0 +1,7 @@
+Gradual Exposure Timeline
+──────────────────────────
+time → →
+ ┌────────────┬────────────┬────────────┬────────────┐
+ │ 10% canary │ 25% canary │ 50% canary │ 100% canary│
+ └────────────┴────────────┴────────────┴────────────┘
+         ↑ terraform apply -var='canary_weight=X'

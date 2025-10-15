@@ -1,0 +1,104 @@
+{
+  "title": "Lab 2 — Kubernetes Basics (Docker Desktop)",
+  "topic": "Kubernetes",
+  "cards": [
+    {
+      "guid": "a1b2c3d4-1111-2222-3333-444455556666",
+      "question": "What is Kubernetes?",
+      "answer_textbook": "An open-source container orchestration system for automating deployment, scaling, and management of containerized applications.",
+      "answer_metaphor": "Like a pimp running a big hotel — making sure every hoe (container) is in the right room, on time, and serving clients smoothly.",
+      "answer_realworld": "Instead of starting and stopping containers manually, Kubernetes keeps your apps running, scales them when traffic spikes, and restarts them if they crash."
+    },
+    {
+      "guid": "b2c3d4e5-7777-8888-9999-0000aaaabbbb",
+      "question": "What is a Kubernetes cluster?",
+      "answer_textbook": "A set of nodes (machines) that run containerized applications managed by Kubernetes.",
+      "answer_metaphor": "A whole hotel run by a pimp — each room (node) has hoes doing their part, but together it’s one establishment (cluster).",
+      "answer_realworld": "Your laptop or cloud VMs form the cluster. One machine acts as control plane, others run your containers (pods)."
+    },
+    {
+      "guid": "c3d4e5f6-cccc-dddd-eeee-ffff11112222",
+      "question": "What is a Kubernetes pod?",
+      "answer_textbook": "The smallest deployable unit in Kubernetes, usually running one container (sometimes more).",
+      "answer_metaphor": "A single hotel room — it might hold one hoe (container) or a hoe plus her proxy (sidecar).",
+      "answer_realworld": "When you deploy nginx in Kubernetes, it’s actually wrapped in a pod. Pods add IPs, storage, and metadata around containers."
+    },
+    {
+      "guid": "d4e5f6g7-3333-4444-5555-666677778888",
+      "question": "What is a Deployment?",
+      "answer_textbook": "A higher-level Kubernetes object that manages pods, ensuring the desired number are running and updated.",
+      "answer_metaphor": "The hotel manager pimp — making sure the right number of hoes are in rooms, on shift, and replaced if one leaves.",
+      "answer_realworld": "You declare '3 replicas of nginx'; the Deployment keeps them alive. If one dies, a new one spins up automatically."
+    },
+    {
+      "guid": "e5f6g7h8-9999-aaaa-bbbb-ccccddddeeee",
+      "question": "What is a Service in Kubernetes?",
+      "answer_textbook": "An abstraction that defines a stable network endpoint to access pods, balancing traffic across them.",
+      "answer_metaphor": "The hotel front desk — clients don’t know which hoe they’ll get, but the desk sends them to whichever room is ready.",
+      "answer_realworld": "Pods come and go, but a Service gives them one fixed IP/DNS. For example, 'web-service' always routes to available nginx pods."
+    },
+    {
+      "guid": "f6g7h8i9-ffff-eeee-dddd-ccccbbbbaaaa",
+      "question": "What does 'kubectl get pods' do?",
+      "answer_textbook": "Lists the pods running in your cluster.",
+      "answer_metaphor": "The pimp doing a headcount — which hoes are actually in their hotel rooms tonight.",
+      "answer_realworld": "`kubectl get pods` tells you if your deployment worked. If pods are stuck in 'CrashLoopBackOff', something’s wrong with the image or config."
+    },
+    {
+      "guid": "g7h8i9j0-1212-3434-5656-78789a9a9a9a",
+      "question": "What does 'kubectl expose deployment' do?",
+      "answer_textbook": "Creates a Service that exposes a Deployment’s pods on a network port.",
+      "answer_metaphor": "Putting a neon sign outside the hotel — letting clients know where to come for hoes inside.",
+      "answer_realworld": "`kubectl expose deployment web --port=80 --type=NodePort` creates a Service with a NodePort bridge so you can reach your nginx pods externally."
+    },
+    {
+      "guid": "h8i9j0k1-abcd-efgh-ijkl-mnopqrstuvwx",
+      "question": "What does 'kubectl port-forward' do?",
+      "answer_textbook": "Forwards a local port to a port on a pod or service in the cluster.",
+      "answer_metaphor": "A secret tunnel straight into a hotel room — skipping the lobby and going direct to the hoe.",
+      "answer_realworld": "`kubectl port-forward svc/web 8080:80` lets you access the nginx service at http://localhost:8080 without needing a NodePort or LoadBalancer."
+    },
+    {
+      "guid": "4b6c1f2e-98c3-4a47-9d31-6e4b3c9e7a01",
+      "question": "How do you check Kubernetes cluster info?",
+      "answer_textbook": "Use 'kubectl cluster-info' to see the API server and core services.",
+      "answer_metaphor": "Asking the hotel pimp where the main office and control room are located.",
+      "answer_realworld": "Run 'kubectl cluster-info' — it shows the control plane endpoint and CoreDNS service address."
+    },
+    {
+      "guid": "c8f02a44-528f-4aa1-92a9-42a0b4e12f77",
+      "question": "How do you list all nodes and check their status?",
+      "answer_textbook": "Run 'kubectl get nodes' (optionally '-o wide' for more detail).",
+      "answer_metaphor": "Checking the hotel roster — which rooms (nodes) are ready for hoes, which ones are closed.",
+      "answer_realworld": "If STATUS is 'Ready', the node is healthy. If it's 'NotReady', the kubelet has an issue."
+    },
+    {
+      "guid": "e7d86b0c-3f9d-4b8d-b77f-4fffd3e4b46c",
+      "question": "How do you create a Deployment named 'web' using an nginx image?",
+      "answer_textbook": "Run 'kubectl create deployment web --image=nginx'.",
+      "answer_metaphor": "Telling the pimp: 'Set up a new wing called web, fill it with hoes serving nginx clients.'",
+      "answer_realworld": "This spins up a Deployment that manages pods running the nginx container."
+    },
+    {
+      "guid": "89a9c4a5-52c8-4a7e-b47d-14de9f2ad21b",
+      "question": "How do you list all Services to verify your 'web' Service was created?",
+      "answer_textbook": "Run 'kubectl get svc'.",
+      "answer_metaphor": "Looking at the hotel directory — which rooms and services are currently listed for clients.",
+      "answer_realworld": "You’ll see 'kubernetes' plus your 'web' Service, with type NodePort and the port mapping."
+    },
+    {
+      "guid": "a5821fb0-8c74-4c33-bccf-b22cc38792d4",
+      "question": "How do you get detailed info about a Service?",
+      "answer_textbook": "Use 'kubectl describe svc <service-name>'.",
+      "answer_metaphor": "Reading the fine print in the pimp’s book — which hoes are linked to this service, what room, and what clients they handle.",
+      "answer_realworld": "It shows labels, selectors, ports, and which pods the Service connects to."
+    },
+    {
+      "guid": "df72d909-7f31-44f0-9cbb-44a6a45c8140",
+      "question": "How do you remove everything you created in a namespace?",
+      "answer_textbook": "Run 'kubectl delete all --all'.",
+      "answer_metaphor": "Burning down the whole hotel — hoes, pimp, rooms, lobby, all gone at once.",
+      "answer_realworld": "It deletes deployments, pods, services, and replicasets in the namespace. Don’t run it in system namespaces."
+    }
+  ]
+}

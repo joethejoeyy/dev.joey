@@ -1,0 +1,76 @@
+{
+  "title": "Phase 8.5 — Terraform Canary Deployment",
+  "topic": "Terraform, Helm Provider, Kubernetes, Canary Control",
+  "cards": [
+    {
+      "question": "What is the purpose of Terraform in canary deployment?",
+      "answer_textbook": "To define, version, and automate the rollout process using Infrastructure as Code.",
+      "answer_metaphor": "Like writing down every step of a recipe so any chef can reproduce it exactly.",
+      "answer_realworld": "Terraform codifies Helm releases and canary weights in .tf files for reproducibility.",
+      "guid": "0d3dc274-32b0-4580-9449-d4fba073a187"
+    },
+    {
+      "question": "How does Terraform interact with Helm for canary control?",
+      "answer_textbook": "It uses the Helm provider to manage Helm releases as Terraform resources.",
+      "answer_metaphor": "Like having a head chef (Terraform) instruct sous chefs (Helm) to adjust recipes.",
+      "answer_realworld": "Terraform declares helm_release resources for diner-stable and diner-canary charts.",
+      "guid": "f63c03b2-9980-4d04-a85f-d26d40d7d7d8"
+    },
+    {
+      "question": "What variable controls traffic distribution?",
+      "answer_textbook": "A Terraform variable such as `canary_weight` defines what percent of traffic goes to canary.",
+      "answer_metaphor": "Like setting a dial that sends more or fewer customers to the test kitchen.",
+      "answer_realworld": "Teams adjust `-var='canary_weight=50'` to push half of requests to canary pods.",
+      "guid": "49ecb707-9f5c-4969-bb54-2e9b4c20778f"
+    },
+    {
+      "question": "How do you increase canary exposure safely?",
+      "answer_textbook": "Incrementally raise the variable and apply changes with Terraform.",
+      "answer_metaphor": "Like opening one more dining room each night as confidence grows.",
+      "answer_realworld": "Run successive `terraform apply` commands with higher `canary_weight` values.",
+      "guid": "7bdbb55d-6d36-4f36-8dbd-42b7a1f4c1cb"
+    },
+    {
+      "question": "What ensures rollback capability in Terraform?",
+      "answer_textbook": "State files preserve the last known working configuration for restoration.",
+      "answer_metaphor": "Like keeping yesterday’s restaurant seating chart to restore if chaos hits.",
+      "answer_realworld": "Reapply the previous plan or lower the variable to reduce canary traffic.",
+      "guid": "9f0a92e4-4d71-47b1-8c57-8cb71b3e4eaa"
+    },
+    {
+      "question": "Why use Terraform variables instead of manual helm upgrades?",
+      "answer_textbook": "They enable parameterized, version-controlled canary rollouts managed from code.",
+      "answer_metaphor": "Like controlling lighting from a central dimmer switch instead of turning bulbs individually.",
+      "answer_realworld": "You change one variable and let Terraform handle chart upgrades automatically.",
+      "guid": "e7bff23f-4ff7-4ad5-94ed-47f89e5b94b0"
+    },
+    {
+      "question": "How do you verify Terraform canary results?",
+      "answer_textbook": "By inspecting Kubernetes resources and Terraform output values.",
+      "answer_metaphor": "Like checking both the kitchen report and dining floor to confirm success.",
+      "answer_realworld": "Use `kubectl get pods --show-labels` and output blocks in Terraform for visibility.",
+      "guid": "580a3e6b-0c1b-47d2-a9a2-76a09d0f6eaa"
+    },
+    {
+      "question": "What happens when Terraform applies a new plan?",
+      "answer_textbook": "Terraform compares the desired state with current cluster state and applies differences.",
+      "answer_metaphor": "Like updating a building plan — only the changed rooms are rebuilt.",
+      "answer_realworld": "Terraform runs `plan` → `apply` to synchronize Helm releases and ingress weights.",
+      "guid": "4a3fd227-6cf9-46aa-bb0d-1093dfbb7a59"
+    },
+    {
+      "question": "How can teams integrate Terraform canaries into CI/CD?",
+      "answer_textbook": "By parameterizing variables per environment and applying from pipelines.",
+      "answer_metaphor": "Like using different dials for each restaurant branch to tune crowd flow.",
+      "answer_realworld": "CI/CD pipelines set canary weights via environment variables and run Terraform automatically.",
+      "guid": "a36c2a89-8f2e-4a46-b5da-32c3ac946cfa"
+    },
+    {
+      "question": "When should canary resources be destroyed?",
+      "answer_textbook": "After validation, to clean up temporary canary instances and free capacity.",
+      "answer_metaphor": "Like closing the pop-up test kitchen once the main menu is updated.",
+      "answer_realworld": "Run `terraform destroy -target=helm_release.diner_canary` when rollout completes.",
+      "guid": "e9f0c843-85cf-46b0-b9b9-62cde51dfc27"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+How do you switch to green?
+--------------------------------
+$ helm upgrade diner ./diner-green -f values.yaml
+
+Ingress Route:
+        ┌────────────┐
+Client →│   Ingress   │→ diner-green pods
+        └────────────┘
+Old diner-blue pods stay up until switch confirmed.

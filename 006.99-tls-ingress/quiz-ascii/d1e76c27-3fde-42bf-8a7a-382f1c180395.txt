@@ -1,0 +1,9 @@
+[ TLS TERMINATION ]
+
+Client (HTTPS)
+      |
+      v
+Ingress Controller --decryption--> HTTP
+      |
+      v
+Backend Pods

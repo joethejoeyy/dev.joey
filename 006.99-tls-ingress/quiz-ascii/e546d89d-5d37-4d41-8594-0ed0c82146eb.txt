@@ -1,0 +1,8 @@
+[ FORCE HTTPS REDIRECT ]
+
+http://diner.local  ---->  Ingress
+                               |
+                               |  Annotation:
+                               |  nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+                               v
+                         https://diner.local

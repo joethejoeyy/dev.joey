@@ -1,0 +1,26 @@
+HOW TO SWITCH TO GREEN
+
+Command:
+terraform apply -var='active_color=green'
+
+Before:
+Ingress → diner-blue Service → Pods A
+After:
+Ingress → diner-green Service → Pods B
+
+Diagram:
+           +-----------+
+           |  Ingress  |
+           +-----------+
+               |  (updates backend)
+               v
+     +------------------------+
+     | diner-green Service    |
+     +------------------------+
+               |
+               v
+       +------------------+
+       | diner-b Pods     |
+       +------------------+
+
+Like opening the doors to the green diner and closing blue’s.

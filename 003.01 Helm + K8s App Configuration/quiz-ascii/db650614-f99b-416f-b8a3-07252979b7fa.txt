@@ -1,0 +1,12 @@
+[Helm Chart]
+        |
+        v
+   helm lint
+        |
+   +----------+
+   |  OK ?    |
+   +----------+
+    /      \
+  yes       no
+  |          |
+ valid   errors shown

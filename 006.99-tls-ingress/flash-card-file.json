@@ -1,0 +1,82 @@
+{
+  "title": "006.99 — TLS with Ingress (Prompt-Driven Lab)",
+  "topic": "Kubernetes, Ingress, TLS, Certificates",
+  "abstract": {
+    "who": "For Parm and Joe, focusing on securing ingress traffic with TLS.",
+    "why": "TLS encrypts communication between clients and services, preventing eavesdropping and tampering.",
+    "what": "Covers generating TLS certs, applying secrets, configuring ingress with TLS, and verifying HTTPS with curl or browser.",
+    "where": "Works on local clusters (Docker Desktop, minikube, kind) and cloud clusters (EKS, AKS, GKE) that support ingress controllers."
+  },
+  "cards": [
+    {
+      "question": "Why enable TLS on ingress?",
+      "answer_textbook": "TLS ensures encrypted communication between clients and services.",
+      "answer_metaphor": "Like putting tinted windows and locked doors on every coffee shop so customers feel safe inside.",
+      "answer_realworld": "Ingress with TLS is required for production apps to meet compliance and security standards.",
+      "guid": "81ebe865-76fe-496f-bb95-072128851695"
+    },
+    {
+      "question": "How do you configure TLS in Kubernetes ingress?",
+      "answer_textbook": "You create a TLS secret containing the certificate and key, then reference it in the ingress manifest under spec.tls.",
+      "answer_metaphor": "Like giving the shop’s doorman both the official guest list (certificate) and the master key (private key) to open doors securely.",
+      "answer_realworld": "kubectl create secret tls diner-tls --cert=cert.crt --key=cert.key, then reference diner-tls in ingress.yaml.",
+      "guid": "d3f38e89-4007-458b-a4e2-b9a6ab8f8850"
+    },
+    {
+      "question": "What is cert-manager?",
+      "answer_textbook": "A Kubernetes add-on that automates the management and issuance of TLS certificates from various sources.",
+      "answer_metaphor": "Like hiring a coffee shop manager who automatically renews the shop’s licenses before they expire.",
+      "answer_realworld": "Cert-manager requests and renews Let's Encrypt certs for ingress resources automatically.",
+      "guid": "092f94e9-edf8-499b-afc0-af3aabec5190"
+    },
+    {
+      "question": "How can you test if TLS is working?",
+      "answer_textbook": "Access the application via HTTPS and verify the browser padlock or use curl with https://.",
+      "answer_metaphor": "Like checking if customers see the coffee shop’s security sign before entering.",
+      "answer_realworld": "curl -vk https://diner.127.0.0.1.sslip.io shows SSL handshake success and HTML response.",
+      "guid": "2bec2569-7113-4c46-a251-482362670e2c"
+    },
+    {
+      "question": "What happens if the TLS secret is missing?",
+      "answer_textbook": "Ingress will fail TLS termination, and clients will see handshake errors.",
+      "answer_metaphor": "Like a shop with no locks on the doors — customers can’t safely enter and will turn away.",
+      "answer_realworld": "curl will return 'SSL routines:tls_process_server_certificate:certificate verify failed'.",
+      "guid": "5de07b53-c7c1-49f6-bfc3-af08f0239873"
+    },
+    {
+      "question": "What is the difference between self-signed and CA-signed certificates?",
+      "answer_textbook": "Self-signed certs are created locally and not trusted by default, CA-signed certs are issued by trusted authorities.",
+      "answer_metaphor": "Like printing your own staff badge versus having an official franchise-issued badge that all coffee shops honor.",
+      "answer_realworld": "Browsers warn on self-signed certs; CA certs show as valid with padlock icon.",
+      "guid": "40f7a80d-091e-43f4-a9bc-25e6b82b3afc"
+    },
+    {
+      "question": "How do you verify a certificate's expiration date?",
+      "answer_textbook": "Use openssl x509 -in cert.crt -text -noout to view Not After date.",
+      "answer_metaphor": "Like checking the expiry sticker on milk before serving lattes in the shop.",
+      "answer_realworld": "Run kubectl describe secret diner-tls to see cert expiration managed by cert-manager.",
+      "guid": "bf0da692-6b04-47b5-9c36-b1dfecb4bb05"
+    },
+    {
+      "question": "Why use Let's Encrypt with cert-manager?",
+      "answer_textbook": "It provides free, automated, and trusted TLS certificates.",
+      "answer_metaphor": "Like getting free city permits every year so your coffee shop can keep serving without paying extra fees.",
+      "answer_realworld": "Cert-manager ACME Issuer provisions and renews Let's Encrypt certs without manual steps.",
+      "guid": "b5dfd7c5-9a79-4e83-bc70-f8d78af969e3"
+    },
+    {
+      "question": "What is TLS termination at ingress?",
+      "answer_textbook": "The ingress controller decrypts HTTPS traffic before forwarding plain HTTP to pods.",
+      "answer_metaphor": "Like the front counter staff opening sealed delivery boxes before sending supplies back into the kitchen.",
+      "answer_realworld": "NGINX ingress terminates TLS and sends HTTP traffic to diner-service pods.",
+      "guid": "d1e76c27-3fde-42bf-8a7a-382f1c180395"
+    },
+    {
+      "question": "How can you force redirect from HTTP to HTTPS?",
+      "answer_textbook": "Add an ingress annotation or configuration to rewrite HTTP requests to HTTPS.",
+      "answer_metaphor": "Like a barista pointing customers to the main secure front door instead of letting them sneak in through the side entrance.",
+      "answer_realworld": "Ingress nginx.ingress.kubernetes.io/force-ssl-redirect: \"true\" enforces HTTPS.",
+      "guid": "e546d89d-5d37-4d41-8594-0ed0c82146eb"
+    }
+  ]
+}

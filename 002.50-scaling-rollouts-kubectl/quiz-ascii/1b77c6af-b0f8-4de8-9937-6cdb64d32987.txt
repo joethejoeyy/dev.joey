@@ -1,0 +1,23 @@
+Kubernetes Scaling (kubectl scale deployment web --replicas=3)
+-------------------------------------------------------------
+Before Scaling:
+   +----------------------+
+   | Deployment: web      |
+   | Replicas: 1          |
+   +----------+-----------+
+              |
+              v
+           +------+
+           | PodA |
+           +------+
+
+After Scaling to 3 Replicas:
+   +----------------------+
+   | Deployment: web      |
+   | Replicas: 3          |
+   +----------+-----------+
+      |          |          |
+      v          v          v
+   +------+   +------+   +------+
+   | PodA |   | PodB |   | PodC |
+   +------+   +------+   +------+
