@@ -1,0 +1,33 @@
+                     +-------------------------+
+                     |    Your Project Files   |
+                     |   (HTML, JSON, etc.)    |
+                     +------------+------------+
+                                  |
+                                  v
+                  +---------------------------------+
+                  |    PowerShell Script            |
+                  |    `generate-index.ps1`         |
+                  |  ---------------------------    |
+                  |  ✅ Scans all files             |
+                  |  ✅ Builds `index.html`         |
+                  |  ✅ Adds links for browsing     |
+                  +---------------+-----------------+
+                                  |
+                                  v
+                       +------------------+
+                       |   GitHub Repo    |
+                       |   (all files +   |
+                       |   index.html)    |
+                       +--------+---------+
+                                |
+                                v
+                +-------------------------------+
+                |    Cloudflare Pages Build     |
+                |    ------------------------   |
+                |  ✅ Detects Git push          |
+                |  ✅ Deploys everything         |
+                |  ✅ Hosts it for free          |
+                +--------------+----------------+
+                               |
+                               v
+                 🌍  https://your-site.pages.dev
