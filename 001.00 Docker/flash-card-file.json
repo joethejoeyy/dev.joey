@@ -1,0 +1,62 @@
+{
+  "title": "Lab 1 — Docker Fundamentals",
+  "topic": "Docker",
+  "cards": [
+    {
+      "guid": "2f6d17b8-6a4b-4e2b-9a36-55e3f48db3df",
+      "question": "What is a Docker image?",
+      "answer_textbook": "A blueprint for containers — a read-only template with everything needed to run an app.",
+      "answer_metaphor": "A frozen pizza box — prepped and ready; bake as many pizzas (containers) as you want.",
+      "answer_realworld": "`docker build` locks the app version, libraries, and OS layer. Teams share images so dev/QA/prod run the exact same thing."
+    },
+    {
+      "guid": "0e9f6cd9-13c8-4a6f-8e5f-12a91fd2dbf7",
+      "question": "What is a Docker container?",
+      "answer_textbook": "A running instance of an image. Containers are isolated processes with their own filesystem, networking, and resources.",
+      "answer_metaphor": "The pizza once it’s baked and served — hot, running, and ready to eat.",
+      "answer_realworld": "Start a container, run the app, test something. If it breaks, trash it and start a fresh one in seconds."
+    },
+    {
+      "guid": "bc2ef8e7-9d29-46d8-88c9-46ce309f5df8",
+      "question": "What is the Docker daemon?",
+      "answer_textbook": "The background service (dockerd) that manages images, containers, networks, and volumes.",
+      "answer_metaphor": "Kitchen staff working behind the scenes to bake pizzas and clean up.",
+      "answer_realworld": "It’s the always-running service. If dockerd dies, containers die. In production it runs under systemd or an orchestrator."
+    },
+    {
+      "guid": "78c9a4a3-7ec4-41de-aec3-17eae8f80124",
+      "question": "What is the Docker client?",
+      "answer_textbook": "The CLI/API tool you use to send commands to the Docker daemon.",
+      "answer_metaphor": "The waiter taking your order to the kitchen.",
+      "answer_realworld": "You type `docker run nginx`; the client tells the daemon to pull and start it. You rarely talk to containers directly."
+    },
+    {
+      "guid": "f77d2c6e-8e08-40d1-b1c3-1e42324c78ac",
+      "question": "What is a Docker volume?",
+      "answer_textbook": "Persistent storage on the host that can be mounted into containers so data survives restarts/rebuilds.",
+      "answer_metaphor": "A fridge outside the oven — toppings stay safe no matter how many pizzas you burn.",
+      "answer_realworld": "Without volumes, your DB would vanish on restart. Map host paths or use managed drivers for durability and backup."
+    },
+    {
+      "guid": "b215b170-6e5a-4baf-87e0-d4235a3adf33",
+      "question": "What does 'docker run' do?",
+      "answer_textbook": "Creates and starts a new container from an image.",
+      "answer_metaphor": "‘Bake me a pizza from this box right now.’",
+      "answer_realworld": "`docker run -p 8080:80 nginx` spins up a web server at http://localhost:8080 in seconds."
+    },
+    {
+      "guid": "e73e1e39-4570-44f6-8907-7f02ddab8bda",
+      "question": "What does 'docker pull' do?",
+      "answer_textbook": "Downloads an image from a registry like Docker Hub.",
+      "answer_metaphor": "Going to the store to grab the frozen pizza before cooking.",
+      "answer_realworld": "In CI/CD, pulls happen constantly to get the exact base layers (e.g., `node:20`, `alpine`)."
+    },
+    {
+      "guid": "c38f4ec9-92dc-4ee0-a7e0-7a48a872a0db",
+      "question": "Why is Docker useful?",
+      "answer_textbook": "It lets developers package apps with all dependencies so they run the same anywhere.",
+      "answer_metaphor": "Frozen pizzas taste the same in any oven — consistency everywhere.",
+      "answer_realworld": "No more ‘works on my machine.’ You ship an image and it runs the same in staging, prod, or a teammate’s laptop."
+    }
+  ]
+}

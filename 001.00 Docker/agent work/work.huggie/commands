@@ -1,0 +1,7 @@
+# Static Site (no persistence)
+docker run -d -p 8080:80 nginx:alpine
+
+# Volume Mount (bind mount)
+mkdir data
+echo "<h1>Hello persistent world!</h1>" > data/index.html
+docker run -d -p 8081:80 -v $(pwd)/data:/usr/share/nginx/html nginx:alpine

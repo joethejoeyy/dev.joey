@@ -1,0 +1,15 @@
++-------------------+
+|   Docker Volume   |
++-------------------+
+          |
+          v
++-------------------+
+| Persistent Data   |
+| Lives on Host     |
++-------------------+
+          |
+   +------+------+
+   |             |
+   v             v
+Container A   Container B
+ (DB)          (App)

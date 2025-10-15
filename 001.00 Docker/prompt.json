@@ -1,0 +1,82 @@
+{
+  "lab": "Phase 1 — Docker Fundamentals",
+  "abstract": {
+    "who": "For Parm and Joe (and anyone starting Docker from zero).",
+    "why": "To understand containers, volumes, ports, networks, and persistence — by actually running and breaking real containers, not reading theory.",
+    "what": "You’ll install Docker, run containers, serve static sites, persist data with volumes, connect a PHP app to a MySQL DB, and verify everything works from both Linux and a phone (via Tailscale).",
+    "where": "Local Linux machine with Docker installed (Docker Desktop or native daemon)."
+  },
+  "prompt_style": "Explain What the Hell You’re Doing (No Dumb Robot Dumps)",
+  "rules": {
+    "1": "Explain what and why before every damn command.",
+    "2": "Never chain commands; one line, one step.",
+    "3": "Always describe expected output and how to verify it.",
+    "4": "If something breaks, show a clean undo or fix.",
+    "5": "No VS Code or GUI steps — terminal only.",
+    "6": "Cuss a little if it helps the memory stick.",
+    "7": "Wait for 'next' before jumping steps.",
+    "8": "No memory dumps — stay linear, clear, human."
+  },
+  "tasks": [
+    {
+      "name": "Verify Docker Installation",
+      "prompt": "Run `docker --version` to confirm Docker CLI is working."
+    },
+    {
+      "name": "Run NGINX Container (Basic)",
+      "prompt": "Run `docker run -d -p 8080:80 nginx:alpine` to start a web server. Then hit http://localhost:8080 to verify it's serving content."
+    },
+    {
+      "name": "Inspect Containers & Logs",
+      "prompt": "Use `docker ps` to see running containers and `docker logs <container>` to view output."
+    },
+    {
+      "name": "Serve Static HTML via Bind Mount",
+      "prompt": "Create `data/index.html` and run `docker run -d -p 8081:80 -v $(pwd)/data:/usr/share/nginx/html nginx:alpine` (use quotes: `-v \"$(pwd)/data:/usr/share/nginx/html\"`). This mounts your local folder into the container."
+    },
+    {
+      "name": "Create a Named Volume for Persistence",
+      "prompt": "Run `docker volume create mysql-data` — this makes a persistent volume Docker manages for you."
+    },
+    {
+      "name": "Run MySQL with Persistent Volume",
+      "prompt": "Run `docker run -d --name mysql-lab -e MYSQL_ROOT_PASSWORD=pass -v mysql-data:/var/lib/mysql mysql:8`. MySQL data now lives in `mysql-data`, not inside the container."
+    },
+    {
+      "name": "Prove Persistence",
+      "prompt": "1. `docker exec -it mysql-lab mysql -uroot -ppass` → enter MySQL. 2. Create DB: `CREATE DATABASE demo; USE demo; CREATE TABLE notes (id INT AUTO_INCREMENT PRIMARY KEY, message TEXT); INSERT INTO notes (message) VALUES ('Persistent test success!');`. 3. Exit, then `docker stop mysql-lab && docker rm mysql-lab`. 4. Re-run same MySQL container with same volume. 5. Log in again — data should still be there."
+    },
+    {
+      "name": "Create Network for Multi-Container App",
+      "prompt": "Run `docker network create lab-net`. Containers in this network can talk by name."
+    },
+    {
+      "name": "Recreate MySQL in Network",
+      "prompt": "Run `docker run -d --name mysql-lab --network lab-net -e MYSQL_ROOT_PASSWORD=pass -v mysql-data:/var/lib/mysql mysql:8`."
+    },
+    {
+      "name": "Build PHP + Apache Image with PDO Driver",
+      "prompt": "Create a `Dockerfile` in your `php/` folder: `FROM php:apache` then `RUN docker-php-ext-install pdo pdo_mysql`. Build it with `docker build -t php-with-mysql .`."
+    },
+    {
+      "name": "Run PHP Container Connected to MySQL",
+      "prompt": "Run `docker run -d --name php-lab --network lab-net -p 8082:80 -v \"$(pwd)\":/var/www/html php-with-mysql`. Hit http://localhost:8082 to confirm PHP connects to MySQL."
+    },
+    {
+      "name": "Create index.php (Final Working Version)",
+      "prompt": "Inside your php/ folder: \\n```bash\\necho \\\"<?php\\n\\$pdo = new PDO('mysql:host=mysql-lab;dbname=demo', 'root', 'pass');\\n\\$stmt = \\$pdo->query('SELECT id, message FROM notes ORDER BY id ASC LIMIT 1');\\n\\$row = \\$stmt->fetch(PDO::FETCH_ASSOC);\\nif (\\$row) {\\n  echo \\$row['id'] . ': ' . \\$row['message'];\\n} else {\\n  echo 'No data found.';\\n}\\n?>\\\" > index.php\\n```"
+    },
+    {
+      "name": "Verify Full Stack",
+      "prompt": "Visit http://localhost:8082 (or via your Tailscale IP). You should see your note from the MySQL container rendered by PHP."
+    }
+  ],
+  "lessons_learned": [
+    "Quote your damn volume paths: `-v \"$(pwd)/data:/usr/share/nginx/html\"`.",
+    "You don’t need a port exposed (`-p`) when connecting with `docker exec` or same-network containers.",
+    "Base images like php:apache don’t include DB drivers — use `docker-php-ext-install pdo pdo_mysql`.",
+    "Persistence comes from volumes, not containers. Kill the container, data stays alive.",
+    "Matching schema names matters: `message` ≠ `msg`.",
+    "If SQL throws syntax errors with NOW(), wrap it in CONCAT() or use PHP’s `date()` instead."
+  ]
+}

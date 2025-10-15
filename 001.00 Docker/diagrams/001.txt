@@ -1,0 +1,31 @@
+Prompt: "Make me an ASCII diagram with nested rectangles to show Docker hierarchy: host machine at the bottom, Docker daemon inside it, and images, containers, and volumes. Make sure it's clear volumes store data on the host."
+
++-------------------------------------------------------------+
+|                  Host Machine (Linux/Windows/Mac)           |
+|                                                             |
+|   +-----------------------------------------------------+   |
+|   |                  Docker Daemon (dockerd)            |   |
+|   |                                                     |   |
+|   |   +-------------------+   +---------------------+   |   |
+|   |   |      Images        |   |     Containers      |   |   |
+|   |   | (blueprints)       |   | (running apps)      |   |   |
+|   |   +-------------------+   +---------------------+   |   |
+|   |                                                     |   |
+|   |   +---------------------------------------------+   |   |
+|   |   |                  Volumes                    |   |   |
+|   |   | (link back to host for data storage)        |   |   |
+|   |   +---------------------------------------------+   |   |
+|   +-----------------------------------------------------+   |
+|            ^                                                |
+|            |                                                |
+|            +---- Data actually stored here on host ---------+
+|                                                             |
++-------------------------------------------------------------+
+
+*Note 1: "Daemon" means a background service/program. On Windows this is basically 
+called a "service". The Docker daemon is the engine that builds, runs, and manages containers.*
+
+*Note 2: Volumes are shown here because while they’re not critical for grasping 
+Docker’s basics, they’re super important in practice. Any production app that 
+stores data (databases, logs, uploads, configs) will depend on volumes to keep 
+that data safe on the host even if containers are deleted or rebuilt.*

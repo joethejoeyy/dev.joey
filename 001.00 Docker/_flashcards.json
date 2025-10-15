@@ -1,0 +1,18 @@
+{
+  "title": "Lab 1 — Docker Fundamentals",
+  "topic": "Docker",
+  "cards": [
+    {
+      "question": "What is a Docker image?",
+      "answer_textbook": "A blueprint for containers — a read-only template with everything needed to run an app.",
+      "answer_metaphor": "A frozen pizza box — prepped and ready; bake as many pizzas (containers) as you want.",
+      "answer_realworld": "`docker build` locks the app version, libraries, and OS layer. Teams share images so dev/QA/prod run the exact same thing."
+    },
+    {
+      "question": "What is a Docker container?",
+      "answer_textbook": "A running instance of an image...",
+      "answer_metaphor": "The pizza once it’s baked and served...",
+      "answer_realworld": "Start a container, run the app, test something..."
+    }
+  ]
+}

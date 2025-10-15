@@ -1,0 +1,147 @@
+
+PHASE 1 — DOCKER FUNDAMENTALS — ASCII DIAGRAMS
+==============================================
+
+1️⃣ BASIC CONTAINER (NGINX — NO VOLUME, NO PERSISTENCE)
+------------------------------------------------------
++-------------------------------+
+|   Host Machine (Linux)        |
+|                               |
+|   docker run -p 8080:80       |
+|   nginx:alpine                |
+|                               |
+|   [ Host Port 8080 ]          |
+|         │                     |
+|         ▼                     |
+|   +-----------------------+   |
+|   |  NGINX Container      |   |
+|   |  (ephemeral FS)       |   |
+|   |  /usr/share/nginx/html|   |
+|   +-----------------------+   |
+|                               |
++-------------------------------+
+
+Key Idea: Container runs a web server, serves built-in default page.
+When it dies, all data inside disappears.
+
+------------------------------------------------------
+
+2️⃣ STATIC SITE VIA BIND MOUNT
+------------------------------------------------------
++-----------------------------------------------+
+| Host Machine                                 |
+|                                               |
+| /home/parm/work/data/index.html               |
+|     │                                         |
+|     │ (bind mount)                            |
+|     ▼                                         |
+|  -v "$(pwd)/data:/usr/share/nginx/html"       |
+|                                               |
+| +-------------------------------+             |
+| |  NGINX Container              |             |
+| |  Reads host files directly    |             |
+| +-------------------------------+             |
+|                                               |
++-----------------------------------------------+
+
+Key Idea: Files on your host instantly appear inside the container.
+Change index.html locally → refresh browser → boom, live update.
+
+------------------------------------------------------
+
+3️⃣ NAMED VOLUME FOR MYSQL (PERSISTENCE)
+------------------------------------------------------
++---------------------------------------------------+
+| Host Machine                                      |
+|                                                   |
+| docker volume create mysql-data                   |
+|                                                   |
+| +---------------------------------------------+   |
+| | Volume: mysql-data                          |   |
+| |   /var/lib/docker/volumes/mysql-data/_data  |   |
+| +---------------------------------------------+   |
+|               ▲                                 |
+|               │ (attached to)                   |
+| docker run -v mysql-data:/var/lib/mysql mysql:8 |
+|               │                                 |
+|               ▼                                 |
+|       +--------------------+                    |
+|       | MySQL Container    |                    |
+|       |  /var/lib/mysql → volume                |
+|       +--------------------+                    |
+|                                                   |
++---------------------------------------------------+
+
+Key Idea: Container dies? Data stays.
+The volume lives independently under Docker’s management.
+
+------------------------------------------------------
+
+4️⃣ ADD NETWORK (lab-net)
+------------------------------------------------------
+[ Docker Network: lab-net ]
+          │
+ ┌────────┴────────┐
+ ▼                 ▼
++--------------------+    +------------------------+
+|  MySQL Container   |    |   PHP-Apache Container |
+|  --name mysql-lab  |    |   --name php-lab       |
+|  Port: 3306        |    |   Port: 80 → Host:8082 |
+|  Uses mysql-data    |   |   Mounts ./php code     |
++--------------------+    +------------------------+
+           ▲                     │
+           │  queries over network│
+           └──────────────────────┘
+
+Key Idea: Containers can talk using internal DNS (mysql-lab) —
+no ports exposed externally, all private within lab-net.
+
+------------------------------------------------------
+
+5️⃣ FULL STACK VIEW — PHP + MYSQL + PERSISTENT VOLUME
+------------------------------------------------------
+               ┌───────────────────────────────┐
+               │        Browser (Host)         │
+               │  http://localhost:8082        │
+               └─────────────┬─────────────────┘
+                             │
+                   Port mapping (-p 8082:80)
+                             │
++------------------------------------------------------------+
+|                    Host: Docker Engine                     |
+|                                                            |
+| [ Docker Network: lab-net ]                                |
+|    │                             │                         |
+|    ▼                             ▼                         |
+| +----------------------+   +----------------------------+  |
+| | MySQL Container      |   | PHP-Apache Container       |  |
+| |  --name mysql-lab    |   |  --name php-lab            |  |
+| |  Port 3306 (internal)|   |  Port 80 → Host 8082       |  |
+| |  Uses mysql-data vol |   |  Mounts ./php/index.php    |  |
+| +----------┬-----------+   +-------------┬--------------+  |
+|            │                           │                 |
+|            │ Persistent Data            │ PHP uses PDO to |
+|            ▼                           ▼   query MySQL    |
+|  +--------------------------------------------+            |
+|  | Docker Volume: mysql-data                  |            |
+|  | /var/lib/docker/volumes/mysql-data/_data   |            |
+|  +--------------------------------------------+            |
++------------------------------------------------------------+
+
+Key Idea:
+PHP talks to MySQL through the private Docker network.
+MySQL stores data persistently in the named volume.
+Browser hits PHP → PHP queries DB → DB reads from volume.
+You can kill both containers — recreate them — and still get your same data back.
+
+------------------------------------------------------
+
+SUMMARY (EVOLUTION)
+------------------------------------------------------
+[ NGINX only ]
+       ↓
+[ NGINX + Bind Mount ]
+       ↓
+[ MySQL + Named Volume ]
+       ↓
+[ PHP + MySQL + Network + Volume ]

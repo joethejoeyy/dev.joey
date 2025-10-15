@@ -1,0 +1,16 @@
++----------------------+
+|   Docker Container   |
++----------------------+
+          |
+          v
++----------------------+
+|  Instance of Image   |
+|  (Running Process)   |
++----------------------+
+   | Filesystem
+   | Networking
+   | Resources
+   v
++----------------------+
+|   Isolated Runtime   |
++----------------------+

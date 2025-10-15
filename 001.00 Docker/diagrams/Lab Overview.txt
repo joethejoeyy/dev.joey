@@ -1,0 +1,32 @@
+                ┌────────────────────────┐
+                │ Phase 1 — Docker Basics│
+                └─────────────┬──────────┘
+                              │
+   ┌──────────────────────────┴───────────────────────────┐
+   │                                                      │
+┌──▼───────────────────┐                          ┌───────▼─────────────────────┐
+│ Install Docker       │                          │ Run containers with port    │
+│ Desktop              │                          │ binding (nginx:alpine)      │
+│  - confirm working   │                          │  - host:8080 → container:80 │
+└─────────┬────────────┘                          └───────────┬─────────────────┘
+          │                                                 │
+          ▼                                                 ▼
+┌─────────▼────────────────┐                     ┌───────────▼──────────────────┐
+│ Inspect containers       │                     │ Use volumes & env vars       │
+│  - list, inspect, logs   │                     │  - mount host dir → container│
+└─────────┬────────────────┘                     │  - set startup ENV values    │
+          │                                      └───────────┬──────────────────┘
+          │                                                  │
+          ▼                                                  ▼
+┌─────────▼───────────────────┐                  ┌───────────▼─────────────────┐
+│ Docker Compose basics        │                  │ Create static site (HTML+CSS│
+│  - simple nginx service      │                  │ + image)                    │
+└─────────┬────────────────────┘                  └───────────┬─────────────────┘
+          │                                                  │
+          └─────────────────────────────┬────────────────────┘
+                                        ▼
+                           ┌────────────▼─────────────────┐
+                           │ Serve site with NGINX        │
+                           │  - custom HTML in container  │
+                           │  - access via localhost:8080 │
+                           └──────────────────────────────┘
