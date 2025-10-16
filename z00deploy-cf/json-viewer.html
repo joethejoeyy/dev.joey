@@ -28,12 +28,13 @@
     color: #e9e9ff;
   }
 </style>
+
 <main>
   <h1>JSON Viewer</h1>
   <button id="toggleView" style="margin-bottom:10px;">Switch to Raw JSON</button>
   <div class="row">
     <form id="f" class="row" onsubmit="return false;">
-      <input id="src" placeholder="Paste JSON URL (same-origin) …" style="flex:1;padding:8px 10px;border-radius:8px;border:1px solid #3e3f7a;background:#0f1020;color:#e9e9ff">
+      <input id="src" placeholder="Type JSON filename (no .json) …" style="flex:1;padding:8px 10px;border-radius:8px;border:1px solid #3e3f7a;background:#0f1020;color:#e9e9ff">
       <button id="loadBtn">Load</button>
     </form>
     <span class="muted">or</span>
@@ -42,11 +43,14 @@
   <div class="drop" id="drop">Drop a .json file here</div>
   <div id="out" style="margin-top:16px"></div>
 </main>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
 <script>
 const $=s=>document.querySelector(s), out=$("#out"), qp=new URLSearchParams(location.search);
-const DEFAULT_FILE = "001_Docker/flashcards.json"; // 👈 set your default here
+
+// Default JSON path
+const DEFAULT_FILE = "001.00-Docker"; // 👈 change this default if needed
 
 $("#loadBtn").addEventListener("click", ()=>{ 
   const u=$("#src").value.trim(); 
@@ -61,22 +65,25 @@ drop.addEventListener("dragover", e=>{e.preventDefault();});
 drop.addEventListener("drop", e=>{e.preventDefault(); if(e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);});
 
 let src = qp.get("src") || DEFAULT_FILE;
-let initialView = qp.get("view") || "table"; // 👈 added
+let initialView = qp.get("view") || "table";
 $("#src").value = src;
 loadUrl(src);
 
-async function loadUrl(url){
+async function loadUrl(filename){
   out.innerHTML="<p>Loading…</p>";
   try{
-    if (!/^https?:/.test(url)) url = "/" + url.replace(/^\/+/, ""); 
-    const res=await fetch(url);
-    if(!res.ok) throw new Error(res.status+" "+res.statusText);
-    const data=await res.json();
+    // Always fetch from /json/ directory
+    const cleanName = filename.replace(/^\/+|\.json$/g, "");
+    const url = `/json/${cleanName}.json`;
+    const res = await fetch(url, {cache:'no-store'});
+    if(!res.ok) throw new Error(`${res.status} ${res.statusText} (path: ${url})`);
+    const data = await res.json();
     render(data);
   }catch(e){
     out.innerHTML=`<p>Failed to load: <code>${esc(String(e))}</code></p>`;
   }
 }
+
 function loadFile(file){
   out.innerHTML="<p>Reading file…</p>";
   const reader = new FileReader();
@@ -98,7 +105,7 @@ function render(data){
     <pre id="rawJson">${esc(JSON.stringify(data, null, 2))}</pre>
   `;
   Prism.highlightAll();
-  applyInitialView(); // 👈 added
+  applyInitialView();
 }
 
 function applyInitialView(){
@@ -119,7 +126,6 @@ toggleBtn.addEventListener("click", ()=>{
   const tableView = document.getElementById("tableView");
   const rawJson = document.getElementById("rawJson");
   const showingJson = rawJson.style.display !== "none";
-
   if(showingJson){
     rawJson.style.display = "none";
     tableView.style.display = "block";
@@ -131,8 +137,6 @@ toggleBtn.addEventListener("click", ()=>{
     toggleBtn.textContent = "Switch to Table View";
     initialView = "json";
   }
-
-  // update URL so links are shareable
   const params = new URLSearchParams(location.search);
   params.set("view", initialView);
   history.replaceState(null, "", "?" + params.toString());
